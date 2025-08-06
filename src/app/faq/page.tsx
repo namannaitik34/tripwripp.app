@@ -1,0 +1,248 @@
+'use client';
+
+import { useState } from 'react';
+import { motion } from 'framer-motion';
+import { ChevronDown, ChevronUp, Search } from 'lucide-react';
+
+const FAQPage = () => {
+  const [searchTerm, setSearchTerm] = useState('');
+  const [openItems, setOpenItems] = useState<number[]>([]);
+
+  const faqs = [
+    {
+      category: 'Booking & Reservations',
+      questions: [
+        {
+          question: 'How far in advance should I book my trip?',
+          answer: 'We recommend booking at least 2-3 months in advance for domestic trips and 3-6 months for international destinations. This ensures better availability and pricing for flights and accommodations.'
+        },
+        {
+          question: 'Can I modify or cancel my booking?',
+          answer: 'Yes, you can modify or cancel your booking. Changes made more than 30 days before departure are free, while changes within 30 days may incur fees. Cancellation policies vary by package and will be clearly outlined in your booking confirmation.'
+        },
+        {
+          question: 'What payment methods do you accept?',
+          answer: 'We accept all major credit cards (Visa, MasterCard, American Express), PayPal, and bank transfers. A deposit is typically required at booking, with the balance due 60 days before departure.'
+        }
+      ]
+    },
+    {
+      category: 'Travel Packages',
+      questions: [
+        {
+          question: 'What\'s included in your travel packages?',
+          answer: 'Our packages typically include accommodation, meals as specified, guided tours, transportation during the trip, and entrance fees to attractions. International flights, travel insurance, and personal expenses are usually not included unless specifically mentioned.'
+        },
+        {
+          question: 'Can you create custom itineraries?',
+          answer: 'Absolutely! We specialize in creating personalized travel experiences. Our travel experts will work with you to design an itinerary that matches your interests, budget, and timeline.'
+        },
+        {
+          question: 'Do you offer group discounts?',
+          answer: 'Yes, we offer discounts for groups of 6 or more people. The discount varies depending on the destination and package. Contact us for a personalized group quote.'
+        }
+      ]
+    },
+    {
+      category: 'Travel Documents',
+      questions: [
+        {
+          question: 'What documents do I need for international travel?',
+          answer: 'You\'ll need a valid passport that doesn\'t expire within 6 months of your travel date. Some destinations also require visas, which we can help you obtain. We\'ll provide a complete document checklist after booking.'
+        },
+        {
+          question: 'Do you help with visa applications?',
+          answer: 'Yes, we provide visa assistance services. Our team can guide you through the application process and help ensure you have all required documents. Additional fees may apply for this service.'
+        }
+      ]
+    },
+    {
+      category: 'Health & Safety',
+      questions: [
+        {
+          question: 'Do I need travel insurance?',
+          answer: 'While not mandatory, we strongly recommend travel insurance. It can cover trip cancellations, medical emergencies, lost luggage, and other unforeseen circumstances. We can help you choose the right coverage.'
+        },
+        {
+          question: 'What health precautions should I take?',
+          answer: 'Health requirements vary by destination. We recommend consulting with a travel medicine specialist at least 4-6 weeks before departure. Some destinations may require vaccinations or preventive medications.'
+        },
+        {
+          question: 'How do you ensure traveler safety?',
+          answer: 'We work only with vetted local partners, provide 24/7 emergency support, conduct regular safety assessments of all destinations, and maintain comprehensive emergency protocols for all our trips.'
+        }
+      ]
+    },
+    {
+      category: 'During Your Trip',
+      questions: [
+        {
+          question: 'What if I have problems during my trip?',
+          answer: 'We provide 24/7 emergency support for all our travelers. You\'ll receive emergency contact numbers and can reach our support team anytime for assistance with any issues that may arise.'
+        },
+        {
+          question: 'Can I extend my trip or make changes while traveling?',
+          answer: 'Yes, trip extensions and modifications are possible but subject to availability and additional costs. Contact our support team as early as possible to discuss options.'
+        }
+      ]
+    }
+  ];
+
+  const toggleItem = (index: number) => {
+    setOpenItems(prev => 
+      prev.includes(index) 
+        ? prev.filter(item => item !== index)
+        : [...prev, index]
+    );
+  };
+
+  const filteredFAQs = faqs.map(category => ({
+    ...category,
+    questions: category.questions.filter(
+      faq => 
+        faq.question.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        faq.answer.toLowerCase().includes(searchTerm.toLowerCase())
+    )
+  })).filter(category => category.questions.length > 0);
+
+  return (
+    <div className="min-h-screen bg-gray-50">
+      {/* Header */}
+      <section className="bg-blue-600 text-white py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="text-center"
+          >
+            <h1 className="text-5xl font-bold mb-4">Frequently Asked Questions</h1>
+            <p className="text-xl opacity-90">Find answers to common questions about our travel services</p>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Search */}
+      <section className="py-8 bg-white border-b">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="relative"
+          >
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
+              <input
+                type="text"
+                placeholder="Search FAQ..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              />
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* FAQ Content */}
+      <section className="py-16">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          {filteredFAQs.map((category, categoryIndex) => (
+            <motion.div
+              key={categoryIndex}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: categoryIndex * 0.1 }}
+              className="mb-12"
+            >
+              <h2 className="text-2xl font-bold text-gray-800 mb-6 pb-2 border-b-2 border-blue-600">
+                {category.category}
+              </h2>
+              
+              <div className="space-y-4">
+                {category.questions.map((faq, questionIndex) => {
+                  const globalIndex = categoryIndex * 100 + questionIndex;
+                  const isOpen = openItems.includes(globalIndex);
+                  
+                  return (
+                    <div
+                      key={questionIndex}
+                      className="bg-white rounded-lg shadow-md overflow-hidden"
+                    >
+                      <button
+                        onClick={() => toggleItem(globalIndex)}
+                        className="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-gray-50 transition-colors"
+                      >
+                        <span className="font-semibold text-gray-800 pr-4">
+                          {faq.question}
+                        </span>
+                        {isOpen ? (
+                          <ChevronUp className="h-5 w-5 text-blue-600 flex-shrink-0" />
+                        ) : (
+                          <ChevronDown className="h-5 w-5 text-blue-600 flex-shrink-0" />
+                        )}
+                      </button>
+                      
+                      {isOpen && (
+                        <motion.div
+                          initial={{ opacity: 0, height: 0 }}
+                          animate={{ opacity: 1, height: 'auto' }}
+                          exit={{ opacity: 0, height: 0 }}
+                          transition={{ duration: 0.3 }}
+                          className="px-6 pb-4"
+                        >
+                          <p className="text-gray-600 leading-relaxed">
+                            {faq.answer}
+                          </p>
+                        </motion.div>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            </motion.div>
+          ))}
+          
+          {filteredFAQs.length === 0 && (
+            <div className="text-center py-12">
+              <p className="text-gray-600 text-lg">No FAQs found matching your search.</p>
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* Contact CTA */}
+      <section className="py-16 bg-blue-600 text-white">
+        <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <h2 className="text-3xl font-bold mb-4">Still Have Questions?</h2>
+            <p className="text-lg mb-6 opacity-90">
+              Our travel experts are here to help you plan the perfect trip. Get in touch with us today!
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <a
+                href="/contact"
+                className="bg-white text-blue-600 px-8 py-3 rounded-lg hover:bg-gray-100 transition-colors font-semibold"
+              >
+                Contact Us
+              </a>
+              <a
+                href="tel:+15551234567"
+                className="border-2 border-white text-white px-8 py-3 rounded-lg hover:bg-white hover:text-blue-600 transition-colors font-semibold"
+              >
+                Call Now: (555) 123-4567
+              </a>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+    </div>
+  );
+};
+
+export default FAQPage;
