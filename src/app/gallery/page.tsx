@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { X } from 'lucide-react';
 import { galleryImages, GalleryImage } from '@/data/travelData';
+import CTASection from '@/components/CTASection';
 
 const GalleryPage = () => {
   const [selectedImage, setSelectedImage] = useState<GalleryImage | null>(null);
@@ -26,9 +27,9 @@ const GalleryPage = () => {
 
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen" style={{ backgroundColor: '#ECEFF1' }}>
       {/* Header */}
-      <section className="bg-blue-600 text-white py-16">
+      <section className="text-white py-16" style={{ backgroundColor: '#0d1d30' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -52,9 +53,10 @@ const GalleryPage = () => {
                 onClick={() => setFilter(category)}
                 className={`px-4 py-2 rounded-full font-medium transition-colors ${
                   filter === category
-                    ? 'bg-blue-600 text-white'
+                    ? 'text-white'
                     : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
                 }`}
+                style={filter === category ? { backgroundColor: '#FF8F00' } : {}}
               >
                 {category === 'all' ? 'All Photos' : category.charAt(0).toUpperCase() + category.slice(1)}
               </button>
@@ -66,26 +68,43 @@ const GalleryPage = () => {
       {/* Gallery Grid */}
       <section className="py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {filteredImages.map((image, index) => (
               <motion.div
                 key={image.id}
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
+                whileHover={{ y: -8, scale: 1.05 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="relative group cursor-pointer overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-shadow"
+                className="relative group cursor-pointer overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300"
                 onClick={() => openLightbox(image)}
               >
-                <div 
-                  className="aspect-square bg-cover bg-center"
-                  style={{
-                    backgroundImage: `url('${image.src}')`
-                  }}
-                ></div>
-                <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 transition-all duration-300 flex items-end">
-                  <div className="p-4 text-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-                    <h3 className="font-semibold">{image.alt}</h3>
-                    <p className="text-sm opacity-90">{image.destination}</p>
+                <div className="relative overflow-hidden">
+                  <div 
+                    className="aspect-square bg-cover bg-center transform group-hover:scale-110 transition-transform duration-500"
+                    style={{
+                      backgroundImage: `url('${image.src}')`
+                    }}
+                  ></div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  <div className="absolute top-3 right-3">
+                    <div className="bg-white/90 backdrop-blur-sm rounded-full p-2">
+                      <span className="text-xl">📸</span>
+                    </div>
+                  </div>
+                </div>
+                <div className="absolute inset-0 flex items-end">
+                  <div className="p-4 text-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-300 w-full">
+                    <h3 className="font-semibold text-lg mb-1">{image.alt}</h3>
+                    <div className="flex items-center">
+                      <span className="text-sm opacity-90 mr-2">📍</span>
+                      <p className="text-sm opacity-90">{image.destination}</p>
+                    </div>
+                    <div className="mt-2 flex space-x-1">
+                      <div className="w-1 h-1 rounded-full" style={{ backgroundColor: '#FF8F00' }}></div>
+                      <div className="w-1 h-1 rounded-full" style={{ backgroundColor: '#00B8D4' }}></div>
+                      <div className="w-1 h-1 rounded-full" style={{ backgroundColor: '#0d1d30' }}></div>
+                    </div>
                   </div>
                 </div>
               </motion.div>
@@ -118,7 +137,7 @@ const GalleryPage = () => {
       )}
 
       {/* CTA Section */}
-      <section className="py-16 bg-blue-600 text-white">
+      <section className="py-16 text-white" style={{ backgroundColor: '#0d1d30' }}>
         <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -130,16 +149,19 @@ const GalleryPage = () => {
               Tag us @tripwripp on social media to feature your travel photos in our gallery!
             </p>
             <div className="flex justify-center space-x-4">
-              <button className="bg-white text-blue-600 px-6 py-2 rounded-lg hover:bg-gray-100 transition-colors font-semibold">
+              <button className="text-white px-6 py-2 rounded-lg transition-colors font-semibold hover:opacity-90" style={{ backgroundColor: '#FF8F00' }}>
                 #TripWripp
               </button>
-              <button className="bg-white text-blue-600 px-6 py-2 rounded-lg hover:bg-gray-100 transition-colors font-semibold">
+              <button className="text-white px-6 py-2 rounded-lg transition-colors font-semibold hover:opacity-90" style={{ backgroundColor: '#FF8F00' }}>
                 #TravelMemories
               </button>
             </div>
           </motion.div>
         </div>
       </section>
+
+      {/* CTA Section */}
+      <CTASection />
     </div>
   );
 };

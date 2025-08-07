@@ -23,13 +23,13 @@ const Navigation = () => {
   const toggleMenu = () => setIsOpen(!isOpen);
 
   return (
-    <nav className="bg-white shadow-lg sticky top-0 z-50">
+    <nav className="shadow-lg sticky top-0 z-50" style={{ backgroundColor: '#0d1d30' }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-2">
-            <MapPin className="h-8 w-8 text-blue-600" />
-            <span className="text-2xl font-bold text-gray-800">TripWripp</span>
+            <MapPin className="h-8 w-8" style={{ color: '#FF8F00' }} />
+            <span className="text-2xl font-bold text-white">TripWripp</span>
           </Link>
 
           {/* Desktop Navigation */}
@@ -40,9 +40,10 @@ const Navigation = () => {
                 href={item.href}
                 className={`px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
                   pathname === item.href
-                    ? 'text-blue-600 bg-blue-50'
-                    : 'text-gray-700 hover:text-blue-600 hover:bg-blue-50'
+                    ? 'text-white'
+                    : 'text-gray-300 hover:text-white'
                 }`}
+                style={pathname === item.href ? { backgroundColor: '#FF8F00' } : {}}
               >
                 {item.label}
               </Link>
@@ -53,7 +54,7 @@ const Navigation = () => {
           <div className="md:hidden">
             <button
               onClick={toggleMenu}
-              className="p-2 rounded-md text-gray-700 hover:text-blue-600 hover:bg-blue-50"
+              className="p-2 rounded-md text-gray-300 hover:text-white"
             >
               {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </button>
@@ -68,7 +69,8 @@ const Navigation = () => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-white border-t border-gray-200"
+            className="md:hidden border-t"
+            style={{ backgroundColor: '#0d1d30', borderColor: '#FF8F00' }}
           >
             <div className="px-2 pt-2 pb-3 space-y-1">
               {navItems.map((item) => (
@@ -78,9 +80,10 @@ const Navigation = () => {
                   onClick={() => setIsOpen(false)}
                   className={`block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200 ${
                     pathname === item.href
-                      ? 'text-blue-600 bg-blue-50'
-                      : 'text-gray-700 hover:text-blue-600 hover:bg-blue-50'
+                      ? 'text-white'
+                      : 'text-gray-300 hover:text-white'
                   }`}
+                  style={pathname === item.href ? { backgroundColor: '#FF8F00' } : {}}
                 >
                   {item.label}
                 </Link>

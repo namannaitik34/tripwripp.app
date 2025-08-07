@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { Users, Award, Globe, Heart } from 'lucide-react';
+import CTASection from '@/components/CTASection';
 
 const AboutPage = () => {
   const teamMembers = [
@@ -49,9 +50,9 @@ const AboutPage = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen" style={{ backgroundColor: '#ECEFF1' }}>
       {/* Hero Section */}
-      <section className="relative py-20 bg-blue-600 text-white">
+      <section className="relative py-20 text-white" style={{ backgroundColor: '#0d1d30' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -77,7 +78,7 @@ const AboutPage = () => {
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6 }}
             >
-              <h2 className="text-4xl font-bold text-gray-800 mb-6">Our Story</h2>
+              <h2 className="text-4xl font-bold mb-6" style={{ color: '#0d1d30' }}>Our Story</h2>
               <p className="text-gray-600 mb-4">
                 TripWripp was born from a simple belief: that travel has the power to transform lives. 
                 Our founder, Sarah Johnson, experienced this firsthand during a life-changing backpacking 
@@ -110,7 +111,7 @@ const AboutPage = () => {
       </section>
 
       {/* Our Values */}
-      <section className="py-16 bg-gray-50">
+      <section className="py-16" style={{ backgroundColor: '#F5F5DC' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -118,7 +119,7 @@ const AboutPage = () => {
             transition={{ duration: 0.6 }}
             className="text-center mb-12"
           >
-            <h2 className="text-4xl font-bold text-gray-800 mb-4">Our Values</h2>
+            <h2 className="text-4xl font-bold mb-4" style={{ color: '#0d1d30' }}>Our Values</h2>
             <p className="text-xl text-gray-600">The principles that guide everything we do</p>
           </motion.div>
 
@@ -128,14 +129,20 @@ const AboutPage = () => {
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
+                whileHover={{ y: -8, scale: 1.05 }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="bg-white p-6 rounded-lg shadow-lg text-center"
+                className="bg-white p-6 rounded-xl shadow-lg text-center hover:shadow-2xl transition-all duration-300 group border border-gray-100"
               >
-                <div className="text-blue-600 mb-4 flex justify-center">
+                <div className="mb-4 flex justify-center group-hover:scale-110 transition-transform duration-300" style={{ color: '#FF8F00' }}>
                   {value.icon}
                 </div>
-                <h3 className="text-xl font-semibold text-gray-800 mb-2">{value.title}</h3>
-                <p className="text-gray-600">{value.description}</p>
+                <h3 className="text-xl font-semibold text-gray-800 mb-3" style={{ color: '#0d1d30' }}>{value.title}</h3>
+                <p className="text-gray-600 leading-relaxed">{value.description}</p>
+                <div className="mt-4 flex justify-center space-x-1">
+                  <div className="w-1 h-1 rounded-full" style={{ backgroundColor: '#FF8F00' }}></div>
+                  <div className="w-1 h-1 rounded-full" style={{ backgroundColor: '#00B8D4' }}></div>
+                  <div className="w-1 h-1 rounded-full" style={{ backgroundColor: '#0d1d30' }}></div>
+                </div>
               </motion.div>
             ))}
           </div>
@@ -151,7 +158,7 @@ const AboutPage = () => {
             transition={{ duration: 0.6 }}
             className="text-center mb-12"
           >
-            <h2 className="text-4xl font-bold text-gray-800 mb-4">Meet Our Team</h2>
+            <h2 className="text-4xl font-bold mb-4" style={{ color: '#0d1d30' }}>Meet Our Team</h2>
             <p className="text-xl text-gray-600">The passionate people behind TripWripp</p>
           </motion.div>
 
@@ -161,18 +168,27 @@ const AboutPage = () => {
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
+                whileHover={{ y: -10, scale: 1.03 }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="bg-white rounded-lg shadow-lg overflow-hidden"
+                className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 group"
               >
-                <img
-                  src={member.image}
-                  alt={member.name}
-                  className="w-full h-64 object-cover"
-                />
+                <div className="relative overflow-hidden">
+                  <img
+                    src={member.image}
+                    alt={member.name}
+                    className="w-full h-64 object-cover transform group-hover:scale-110 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                </div>
                 <div className="p-6">
-                  <h3 className="text-xl font-semibold text-gray-800 mb-1">{member.name}</h3>
-                  <p className="text-blue-600 font-medium mb-3">{member.role}</p>
-                  <p className="text-gray-600">{member.bio}</p>
+                  <h3 className="text-xl font-semibold mb-1" style={{ color: '#0d1d30' }}>{member.name}</h3>
+                  <p className="font-medium mb-3" style={{ color: '#FF8F00' }}>{member.role}</p>
+                  <p className="text-gray-600 leading-relaxed">{member.bio}</p>
+                  <div className="mt-4 flex space-x-2">
+                    <div className="w-2 h-2 rounded-full" style={{ backgroundColor: '#FF8F00' }}></div>
+                    <div className="w-2 h-2 rounded-full" style={{ backgroundColor: '#00B8D4' }}></div>
+                    <div className="w-2 h-2 rounded-full" style={{ backgroundColor: '#0d1d30' }}></div>
+                  </div>
                 </div>
               </motion.div>
             ))}
@@ -181,7 +197,7 @@ const AboutPage = () => {
       </section>
 
       {/* Statistics */}
-      <section className="py-16 bg-blue-600 text-white">
+      <section className="py-16 text-white" style={{ backgroundColor: '#00B8D4' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             <motion.div
@@ -219,6 +235,9 @@ const AboutPage = () => {
           </div>
         </div>
       </section>
+
+      {/* CTA Section */}
+      <CTASection />
     </div>
   );
 };

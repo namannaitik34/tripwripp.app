@@ -3,6 +3,8 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { ChevronDown, ChevronUp, Search } from 'lucide-react';
+import LiveNow from '@/components/LiveNow';
+import CTASection from '@/components/CTASection';
 
 const FAQPage = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -106,9 +108,12 @@ const FAQPage = () => {
   })).filter(category => category.questions.length > 0);
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen" style={{ backgroundColor: '#ECEFF1' }}>
+      {/* Live Now Section */}
+      <LiveNow />
+
       {/* Header */}
-      <section className="bg-blue-600 text-white py-16">
+      <section className="text-white py-16" style={{ backgroundColor: '#0d1d30' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -116,8 +121,8 @@ const FAQPage = () => {
             transition={{ duration: 0.6 }}
             className="text-center"
           >
-            <h1 className="text-5xl font-bold mb-4">Frequently Asked Questions</h1>
-            <p className="text-xl opacity-90">Find answers to common questions about our travel services</p>
+            <h1 className="text-5xl font-bold mb-4">❓ Frequently Asked Questions</h1>
+            <p className="text-xl opacity-90">Find answers to common questions about our travel services 🌟</p>
           </motion.div>
         </div>
       </section>
@@ -135,10 +140,10 @@ const FAQPage = () => {
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
               <input
                 type="text"
-                placeholder="Search FAQ..."
+                placeholder="Search FAQ... 🔍"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full pl-10 pr-4 py-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-300 hover:shadow-md"
               />
             </div>
           </motion.div>
@@ -156,8 +161,8 @@ const FAQPage = () => {
               transition={{ duration: 0.6, delay: categoryIndex * 0.1 }}
               className="mb-12"
             >
-              <h2 className="text-2xl font-bold text-gray-800 mb-6 pb-2 border-b-2 border-blue-600">
-                {category.category}
+              <h2 className="text-2xl font-bold mb-6 pb-2 border-b-2" style={{ color: '#0d1d30', borderColor: '#FF8F00' }}>
+                📋 {category.category}
               </h2>
               
               <div className="space-y-4">
@@ -168,21 +173,23 @@ const FAQPage = () => {
                   return (
                     <div
                       key={questionIndex}
-                      className="bg-white rounded-lg shadow-md overflow-hidden"
+                      className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300"
                     >
-                      <button
+                      <motion.button
                         onClick={() => toggleItem(globalIndex)}
-                        className="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-gray-50 transition-colors"
+                        className="w-full px-6 py-5 text-left flex items-center justify-between hover:bg-orange-50 transition-colors group"
+                        whileHover={{ x: 5 }}
+                        transition={{ duration: 0.2 }}
                       >
-                        <span className="font-semibold text-gray-800 pr-4">
+                        <span className="font-semibold pr-4 group-hover:text-orange-600 transition-colors" style={{ color: '#0d1d30' }}>
                           {faq.question}
                         </span>
                         {isOpen ? (
-                          <ChevronUp className="h-5 w-5 text-blue-600 flex-shrink-0" />
+                          <ChevronUp className="h-5 w-5 flex-shrink-0 group-hover:scale-110 transition-transform" style={{ color: '#FF8F00' }} />
                         ) : (
-                          <ChevronDown className="h-5 w-5 text-blue-600 flex-shrink-0" />
+                          <ChevronDown className="h-5 w-5 flex-shrink-0 group-hover:scale-110 transition-transform" style={{ color: '#FF8F00' }} />
                         )}
-                      </button>
+                      </motion.button>
                       
                       {isOpen && (
                         <motion.div
@@ -213,7 +220,7 @@ const FAQPage = () => {
       </section>
 
       {/* Contact CTA */}
-      <section className="py-16 bg-blue-600 text-white">
+      <section className="py-16 text-white" style={{ backgroundColor: '#0d1d30' }}>
         <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -227,13 +234,17 @@ const FAQPage = () => {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
                 href="/contact"
-                className="bg-white text-blue-600 px-8 py-3 rounded-lg hover:bg-gray-100 transition-colors font-semibold"
+                className="text-white px-8 py-3 rounded-lg transition-colors font-semibold hover:opacity-90"
+                style={{ backgroundColor: '#FF8F00' }}
               >
                 Contact Us
               </a>
               <a
                 href="tel:+15551234567"
-                className="border-2 border-white text-white px-8 py-3 rounded-lg hover:bg-white hover:text-blue-600 transition-colors font-semibold"
+                className="border-2 border-white text-white px-8 py-3 rounded-lg hover:bg-white transition-colors font-semibold"
+                style={{ '--hover-color': '#0d1d30' } as React.CSSProperties}
+                onMouseEnter={(e) => e.currentTarget.style.color = '#0d1d30'}
+                onMouseLeave={(e) => e.currentTarget.style.color = 'white'}
               >
                 Call Now: (555) 123-4567
               </a>
@@ -241,6 +252,9 @@ const FAQPage = () => {
           </motion.div>
         </div>
       </section>
+
+      {/* CTA Section */}
+      <CTASection />
     </div>
   );
 };

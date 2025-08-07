@@ -5,6 +5,8 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { Filter, Star, MapPin } from 'lucide-react';
 import { destinations } from '@/data/travelData';
+import LiveNow from '@/components/LiveNow';
+import CTASection from '@/components/CTASection';
 
 const DestinationsPage = () => {
   const [filter, setFilter] = useState('all');
@@ -20,9 +22,12 @@ const DestinationsPage = () => {
   const regions = ['all', ...Array.from(new Set(destinations.map(d => d.region)))];
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen" style={{ backgroundColor: '#ECEFF1' }}>
+      {/* Live Now Section */}
+      <LiveNow />
+
       {/* Header */}
-      <section className="bg-blue-600 text-white py-16">
+      <section className="text-white py-16" style={{ backgroundColor: '#0d1d30' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -89,46 +94,52 @@ const DestinationsPage = () => {
                 key={destination.id}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow"
+                whileHover={{ 
+                  y: -12, 
+                  scale: 1.03,
+                  transition: { duration: 0.2, ease: "easeOut" }
+                }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-200 ease-out group border border-gray-100"
               >
-                <div 
-                  className="h-48 bg-cover bg-center relative"
-                  style={{
-                    backgroundImage: `url('https://images.unsplash.com/photo-1537953773345-d172ccf13cf1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80')`
-                  }}
-                >
+                <div className="relative overflow-hidden">
+                  <div 
+                    className="h-48 bg-cover bg-center transform group-hover:scale-110 transition-transform duration-300 ease-out"
+                    style={{
+                      backgroundImage: `url('https://images.unsplash.com/photo-1537953773345-d172ccf13cf1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80')`
+                    }}
+                  ></div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-200"></div>
+                  <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm rounded-full px-3 py-1 flex items-center">
+                    <Star className="h-4 w-4 text-yellow-400 fill-current" />
+                    <span className="ml-1 text-sm font-medium text-gray-800">{destination.rating}</span>
+                  </div>
                   <div className="absolute top-4 left-4">
-                    <span className="bg-blue-600 text-white px-2 py-1 rounded text-sm font-medium">
+                    <span className="text-white px-3 py-1 rounded-full text-xs font-medium backdrop-blur-sm" style={{ backgroundColor: 'rgba(255, 143, 0, 0.9)' }}>
                       {destination.type}
                     </span>
-                  </div>
-                  <div className="absolute top-4 right-4">
-                    <div className="flex items-center bg-white bg-opacity-90 rounded px-2 py-1">
-                      <Star className="h-4 w-4 text-yellow-400 fill-current" />
-                      <span className="ml-1 text-sm font-medium">{destination.rating}</span>
-                    </div>
                   </div>
                 </div>
                 
                 <div className="p-6">
                   <div className="mb-2">
-                    <h3 className="text-xl font-semibold text-gray-800">{destination.name}</h3>
+                    <h3 className="text-xl font-semibold" style={{ color: '#0d1d30' }}>{destination.name}</h3>
                     <div className="flex items-center text-gray-600 mt-1">
-                      <MapPin className="h-4 w-4 mr-1" />
+                      <MapPin className="h-4 w-4 mr-1" style={{ color: '#FF8F00' }} />
                       <span className="text-sm">{destination.country}, {destination.region}</span>
                     </div>
                   </div>
                   
-                  <p className="text-gray-600 text-sm mb-4">{destination.description}</p>
+                  <p className="text-gray-600 text-sm mb-4 line-clamp-2">{destination.description}</p>
                   
                   <div className="mb-4">
-                    <h4 className="font-medium text-gray-800 mb-2">Highlights:</h4>
+                    <h4 className="font-medium mb-2" style={{ color: '#0d1d30' }}>Highlights:</h4>
                     <div className="flex flex-wrap gap-1">
                       {destination.highlights.slice(0, 3).map((highlight, idx) => (
                         <span 
                           key={idx}
-                          className="bg-gray-100 text-gray-700 px-2 py-1 rounded text-xs"
+                          className="text-white px-2 py-1 rounded-full text-xs"
+                          style={{ backgroundColor: '#F5F5DC', color: '#0d1d30' }}
                         >
                           {highlight}
                         </span>
@@ -138,14 +149,18 @@ const DestinationsPage = () => {
                   
                   <div className="flex items-center justify-between">
                     <div>
-                      <span className="text-2xl font-bold text-blue-600">${destination.price}</span>
-                      <span className="text-gray-500 text-sm"> / {destination.duration}</span>
+                      <span className="text-sm text-gray-500">Starting from</span>
+                      <div className="flex items-baseline">
+                        <span className="text-2xl font-bold" style={{ color: '#FF8F00' }}>${destination.price}</span>
+                        <span className="text-gray-500 text-sm ml-1"> / {destination.duration}</span>
+                      </div>
                     </div>
                     <Link 
                       href={`/destinations/${destination.id}`}
-                      className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+                      className="text-white px-4 py-2 rounded-lg transition-all duration-200 ease-out hover:opacity-90 hover:shadow-lg hover:-translate-y-1 hover:scale-105 active:scale-95"
+                      style={{ backgroundColor: '#0d1d30' }}
                     >
-                      View Details
+                      Explore
                     </Link>
                   </div>
                 </div>
@@ -160,6 +175,10 @@ const DestinationsPage = () => {
           )}
         </div>
       </section>
+
+      {/* CTA Section */}
+      <CTASection />
+    
     </div>
   );
 };

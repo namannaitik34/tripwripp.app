@@ -41,6 +41,28 @@ export interface GalleryImage {
   category: 'landscape' | 'culture' | 'adventure' | 'food' | 'people';
 }
 
+export interface LiveDestination {
+  id: string;
+  name: string;
+  country: string;
+  region: string;
+  type: 'beach' | 'mountain' | 'city' | 'cultural' | 'adventure' | 'wildlife';
+  description: string;
+  image: string;
+  rating: number;
+  price: number;
+  duration: string;
+  highlights: string[];
+  altitude?: string;
+  difficulty?: string;
+  bestTime: string;
+  availableSlots: number;
+  totalSlots: number;
+  startDate: string;
+  endDate: string;
+  isLive: boolean;
+}
+
 export const destinations: Destination[] = [
   {
     id: '1',
@@ -250,5 +272,36 @@ export const galleryImages: GalleryImage[] = [
     alt: 'Santorini architecture',
     destination: 'Santorini',
     category: 'culture'
+  }
+];
+
+export const liveDestinations: LiveDestination[] = [
+  {
+    id: 'live-1',
+    name: 'Khumai Danda',
+    country: 'Nepal',
+    region: 'South Asia',
+    type: 'mountain',
+    description: 'Experience breathtaking sunrise views from Khumai Danda, a hidden gem in Nepal offering panoramic views of the Himalayas including Mount Everest, Lhotse, and Makalu.',
+    image: 'https://images.unsplash.com/photo-1544735716-392fe2489ffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
+    rating: 4.8,
+    price: 299,
+    duration: '3 Days 2 Nights',
+    highlights: [
+      'Sunrise over Himalayas',
+      'Mount Everest views',
+      'Traditional Sherpa culture',
+      'Rhododendron forests',
+      'Photography paradise',
+      'Less crowded trails'
+    ],
+    altitude: '3,245m (10,646ft)',
+    difficulty: 'Moderate',
+    bestTime: 'March-May, September-November',
+    availableSlots: 8,
+    totalSlots: 15,
+    startDate: '2025-03-15',
+    endDate: '2025-03-17',
+    isLive: true
   }
 ];

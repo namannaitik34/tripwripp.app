@@ -35,9 +35,9 @@ const ContactPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen" style={{ backgroundColor: '#ECEFF1' }}>
       {/* Header */}
-      <section className="bg-blue-600 text-white py-16">
+            <section className="relative py-20 text-white" style={{ backgroundColor: '#0d1d30' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -60,13 +60,13 @@ const ContactPage = () => {
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6 }}
-              className="bg-white p-8 rounded-lg shadow-lg"
+              className="bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300"
             >
-              <h2 className="text-2xl font-bold text-gray-800 mb-6">Send Us a Message</h2>
+              <h2 className="text-2xl font-bold mb-6" style={{ color: '#0d1d30' }}>✉️ Send Us a Message</h2>
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
+                    <label htmlFor="name" className="block text-sm font-medium mb-2" style={{ color: '#0d1d30' }}>
                       Full Name *
                     </label>
                     <input
@@ -76,12 +76,12 @@ const ContactPage = () => {
                       value={formData.name}
                       onChange={handleChange}
                       required
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-300 hover:shadow-md"
                       placeholder="Your full name"
                     />
                   </div>
                   <div>
-                    <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+                    <label htmlFor="email" className="block text-sm font-medium mb-2" style={{ color: '#0d1d30' }}>
                       Email Address *
                     </label>
                     <input
@@ -91,7 +91,7 @@ const ContactPage = () => {
                       value={formData.email}
                       onChange={handleChange}
                       required
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-300 hover:shadow-md"
                       placeholder="your.email@example.com"
                     />
                   </div>
@@ -99,7 +99,7 @@ const ContactPage = () => {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
+                    <label htmlFor="phone" className="block text-sm font-medium mb-2" style={{ color: '#0d1d30' }}>
                       Phone Number
                     </label>
                     <input
@@ -108,12 +108,12 @@ const ContactPage = () => {
                       name="phone"
                       value={formData.phone}
                       onChange={handleChange}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-300 hover:shadow-md"
                       placeholder="+1 (555) 123-4567"
                     />
                   </div>
                   <div>
-                    <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-2">
+                    <label htmlFor="subject" className="block text-sm font-medium mb-2" style={{ color: '#0d1d30' }}>
                       Subject
                     </label>
                     <select
@@ -121,7 +121,7 @@ const ContactPage = () => {
                       name="subject"
                       value={formData.subject}
                       onChange={handleChange}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-300 hover:shadow-md"
                     >
                       <option value="">Select a subject</option>
                       <option value="general">General Inquiry</option>
@@ -134,7 +134,7 @@ const ContactPage = () => {
                 </div>
 
                 <div>
-                  <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
+                  <label htmlFor="message" className="block text-sm font-medium mb-2" style={{ color: '#0d1d30' }}>
                     Message *
                   </label>
                   <textarea
@@ -144,18 +144,21 @@ const ContactPage = () => {
                     onChange={handleChange}
                     required
                     rows={6}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-300 hover:shadow-md resize-none"
                     placeholder="Tell us about your travel plans or ask any questions..."
                   ></textarea>
                 </div>
 
-                <button
+                <motion.button
                   type="submit"
-                  className="w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors font-semibold flex items-center justify-center"
+                  className="w-full text-white py-4 px-6 rounded-xl transition-all duration-300 font-semibold flex items-center justify-center shadow-lg hover:shadow-2xl"
+                  style={{ backgroundColor: '#FF8F00' }}
+                  whileHover={{ scale: 1.02, y: -2 }}
+                  whileTap={{ scale: 0.98 }}
                 >
                   <Send className="h-5 w-5 mr-2" />
-                  Send Message
-                </button>
+                  Send Message ✈️
+                </motion.button>
               </form>
             </motion.div>
 
@@ -165,76 +168,122 @@ const ContactPage = () => {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              <div className="bg-white p-8 rounded-lg shadow-lg mb-8">
-                <h2 className="text-2xl font-bold text-gray-800 mb-6">Get in Touch</h2>
+              <div className="bg-white p-8 rounded-xl shadow-lg mb-8 hover:shadow-2xl transition-all duration-300">
+                <h2 className="text-2xl font-bold mb-6" style={{ color: '#0d1d30' }}>📞 Get in Touch</h2>
                 <div className="space-y-6">
-                  <div className="flex items-start">
-                    <div className="bg-blue-100 p-3 rounded-lg mr-4">
-                      <Phone className="h-6 w-6 text-blue-600" />
+                  <motion.div 
+                    className="flex items-start group"
+                    whileHover={{ x: 5 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <div className="p-3 rounded-xl mr-4 group-hover:scale-110 transition-transform duration-300" style={{ backgroundColor: 'rgba(255, 143, 0, 0.1)' }}>
+                      <Phone className="h-6 w-6" style={{ color: '#FF8F00' }} />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-gray-800">Phone</h3>
+                      <h3 className="font-semibold" style={{ color: '#0d1d30' }}>Phone</h3>
                       <p className="text-gray-600">+1 (555) 123-4567</p>
                       <p className="text-gray-600">+1 (555) 987-6543</p>
                     </div>
-                  </div>
+                  </motion.div>
 
-                  <div className="flex items-start">
-                    <div className="bg-blue-100 p-3 rounded-lg mr-4">
-                      <Mail className="h-6 w-6 text-blue-600" />
+                  <motion.div 
+                    className="flex items-start group"
+                    whileHover={{ x: 5 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <div className="p-3 rounded-xl mr-4 group-hover:scale-110 transition-transform duration-300" style={{ backgroundColor: 'rgba(255, 143, 0, 0.1)' }}>
+                      <Mail className="h-6 w-6" style={{ color: '#FF8F00' }} />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-gray-800">Email</h3>
+                      <h3 className="font-semibold" style={{ color: '#0d1d30' }}>Email</h3>
                       <p className="text-gray-600">info@tripwripp.com</p>
                       <p className="text-gray-600">support@tripwripp.com</p>
                     </div>
-                  </div>
+                  </motion.div>
 
-                  <div className="flex items-start">
-                    <div className="bg-blue-100 p-3 rounded-lg mr-4">
-                      <MapPin className="h-6 w-6 text-blue-600" />
+                  <motion.div 
+                    className="flex items-start group"
+                    whileHover={{ x: 5 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <div className="p-3 rounded-xl mr-4 group-hover:scale-110 transition-transform duration-300" style={{ backgroundColor: 'rgba(255, 143, 0, 0.1)' }}>
+                      <MapPin className="h-6 w-6" style={{ color: '#FF8F00' }} />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-gray-800">Address</h3>
+                      <h3 className="font-semibold" style={{ color: '#0d1d30' }}>Address</h3>
                       <p className="text-gray-600">123 Travel Street</p>
                       <p className="text-gray-600">Adventure City, AC 12345</p>
                       <p className="text-gray-600">United States</p>
                     </div>
-                  </div>
+                  </motion.div>
 
-                  <div className="flex items-start">
-                    <div className="bg-blue-100 p-3 rounded-lg mr-4">
-                      <Clock className="h-6 w-6 text-blue-600" />
+                  <motion.div 
+                    className="flex items-start group"
+                    whileHover={{ x: 5 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <div className="p-3 rounded-xl mr-4 group-hover:scale-110 transition-transform duration-300" style={{ backgroundColor: 'rgba(255, 143, 0, 0.1)' }}>
+                      <Clock className="h-6 w-6" style={{ color: '#FF8F00' }} />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-gray-800">Business Hours</h3>
+                      <h3 className="font-semibold" style={{ color: '#0d1d30' }}>Business Hours</h3>
                       <p className="text-gray-600">Monday - Friday: 9:00 AM - 6:00 PM</p>
                       <p className="text-gray-600">Saturday: 10:00 AM - 4:00 PM</p>
                       <p className="text-gray-600">Sunday: Closed</p>
                     </div>
-                  </div>
+                  </motion.div>
                 </div>
               </div>
 
               {/* Quick Links */}
-              <div className="bg-blue-50 p-6 rounded-lg">
-                <h3 className="text-lg font-semibold text-gray-800 mb-4">Quick Links</h3>
-                <div className="space-y-2">
-                  <a href="/faq" className="block text-blue-600 hover:text-blue-800 transition-colors">
-                    Frequently Asked Questions
-                  </a>
-                  <a href="/packages" className="block text-blue-600 hover:text-blue-800 transition-colors">
-                    Browse Travel Packages
-                  </a>
-                  <a href="/destinations" className="block text-blue-600 hover:text-blue-800 transition-colors">
-                    Explore Destinations
-                  </a>
-                  <a href="#" className="block text-blue-600 hover:text-blue-800 transition-colors">
-                    Travel Insurance
-                  </a>
-                  <a href="#" className="block text-blue-600 hover:text-blue-800 transition-colors">
-                    Terms & Conditions
-                  </a>
+              <div className="rounded-xl shadow-lg p-6 hover:shadow-2xl transition-all duration-300" style={{ background: 'linear-gradient(135deg, rgba(13, 29, 48, 0.05) 0%, rgba(0, 184, 212, 0.05) 100%)' }}>
+                <h3 className="text-lg font-semibold mb-4" style={{ color: '#0d1d30' }}>🔗 Quick Links</h3>
+                <div className="space-y-3">
+                  <motion.a 
+                    href="/faq" 
+                    className="block p-3 rounded-lg transition-all duration-300 hover:shadow-md"
+                    style={{ backgroundColor: 'rgba(255, 143, 0, 0.1)', color: '#0d1d30' }}
+                    whileHover={{ x: 5, scale: 1.02 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    ❓ Frequently Asked Questions
+                  </motion.a>
+                  <motion.a 
+                    href="/packages" 
+                    className="block p-3 rounded-lg transition-all duration-300 hover:shadow-md"
+                    style={{ backgroundColor: 'rgba(255, 143, 0, 0.1)', color: '#0d1d30' }}
+                    whileHover={{ x: 5, scale: 1.02 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    📦 Browse Travel Packages
+                  </motion.a>
+                  <motion.a 
+                    href="/destinations" 
+                    className="block p-3 rounded-lg transition-all duration-300 hover:shadow-md"
+                    style={{ backgroundColor: 'rgba(255, 143, 0, 0.1)', color: '#0d1d30' }}
+                    whileHover={{ x: 5, scale: 1.02 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    🌍 Explore Destinations
+                  </motion.a>
+                  <motion.a 
+                    href="#" 
+                    className="block p-3 rounded-lg transition-all duration-300 hover:shadow-md"
+                    style={{ backgroundColor: 'rgba(255, 143, 0, 0.1)', color: '#0d1d30' }}
+                    whileHover={{ x: 5, scale: 1.02 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    🛡️ Travel Insurance
+                  </motion.a>
+                  <motion.a 
+                    href="#" 
+                    className="block p-3 rounded-lg transition-all duration-300 hover:shadow-md"
+                    style={{ backgroundColor: 'rgba(255, 143, 0, 0.1)', color: '#0d1d30' }}
+                    whileHover={{ x: 5, scale: 1.02 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    📋 Terms & Conditions
+                  </motion.a>
                 </div>
               </div>
             </motion.div>

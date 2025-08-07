@@ -5,6 +5,8 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { Filter, Star, MapPin, Clock, Check } from 'lucide-react';
 import { packages } from '@/data/travelData';
+import LiveNow from '@/components/LiveNow';
+import CTASection from '@/components/CTASection';
 
 const PackagesPage = () => {
   const [filter, setFilter] = useState('all');
@@ -24,9 +26,12 @@ const PackagesPage = () => {
   const types = ['all', ...Array.from(new Set(packages.map(p => p.type)))];
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen" style={{ backgroundColor: '#ECEFF1' }}>
+      {/* Live Now Section */}
+      <LiveNow />
+
       {/* Header */}
-      <section className="bg-blue-600 text-white py-16">
+      <section className="text-white py-16" style={{ backgroundColor: '#0d1d30' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -89,22 +94,29 @@ const PackagesPage = () => {
                 key={pkg.id}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow"
+                whileHover={{ 
+                  y: -10, 
+                  scale: 1.02,
+                  transition: { duration: 0.2, ease: "easeOut" }
+                }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-200 ease-out group border border-gray-100"
               >
-                <div 
-                  className="h-64 bg-cover bg-center relative"
-                  style={{
-                    backgroundImage: `url('https://images.unsplash.com/photo-1488646953014-85cb44e25828?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80')`
-                  }}
-                >
+                <div className="relative overflow-hidden">
+                  <div 
+                    className="h-64 bg-cover bg-center transform group-hover:scale-110 transition-transform duration-300 ease-out"
+                    style={{
+                      backgroundImage: `url('https://images.unsplash.com/photo-1488646953014-85cb44e25828?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80')`
+                    }}
+                  ></div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-200"></div>
                   <div className="absolute top-4 left-4">
-                    <span className="bg-blue-600 text-white px-3 py-1 rounded-full text-sm font-medium">
+                    <span className="text-white px-3 py-1 rounded-full text-sm font-medium backdrop-blur-sm" style={{ backgroundColor: 'rgba(255, 143, 0, 0.9)' }}>
                       {pkg.type}
                     </span>
                   </div>
                   <div className="absolute top-4 right-4">
-                    <div className="flex items-center bg-white bg-opacity-90 rounded-full px-3 py-1">
+                    <div className="flex items-center bg-white/90 backdrop-blur-sm rounded-full px-3 py-1">
                       <Star className="h-4 w-4 text-yellow-400 fill-current" />
                       <span className="ml-1 text-sm font-medium">{pkg.rating}</span>
                       <span className="ml-1 text-xs text-gray-500">({pkg.reviews})</span>
@@ -114,9 +126,9 @@ const PackagesPage = () => {
                 
                 <div className="p-6">
                   <div className="mb-4">
-                    <h3 className="text-2xl font-semibold text-gray-800 mb-2">{pkg.title}</h3>
+                    <h3 className="text-2xl font-semibold mb-2" style={{ color: '#0d1d30' }}>{pkg.title}</h3>
                     <div className="flex items-center text-gray-600 mb-2">
-                      <MapPin className="h-4 w-4 mr-1" />
+                      <MapPin className="h-4 w-4 mr-1" style={{ color: '#FF8F00' }} />
                       <span className="text-sm mr-4">{pkg.destination}</span>
                       <Clock className="h-4 w-4 mr-1" />
                       <span className="text-sm">{pkg.duration}</span>
@@ -159,7 +171,8 @@ const PackagesPage = () => {
                     </div>
                     <Link 
                       href={`/packages/${pkg.id}`}
-                      className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors font-semibold"
+                      className="text-white px-6 py-2 rounded-lg transition-all duration-200 ease-out font-semibold hover:opacity-90 hover:shadow-lg hover:-translate-y-1 hover:scale-105 active:scale-95"
+                      style={{ backgroundColor: '#0d1d30' }}
                     >
                       View Details
                     </Link>
@@ -172,7 +185,7 @@ const PackagesPage = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 bg-blue-600 text-white">
+      <section className="py-16 text-white" style={{ backgroundColor: '#0d1d30' }}>
         <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -185,13 +198,17 @@ const PackagesPage = () => {
             </p>
             <Link 
               href="/contact"
-              className="bg-white text-blue-600 px-8 py-3 rounded-lg hover:bg-gray-100 transition-colors font-semibold"
+              className="text-white px-8 py-3 rounded-lg transition-colors font-semibold hover:opacity-90"
+              style={{ backgroundColor: '#FF8F00' }}
             >
               Contact Us for Custom Package
             </Link>
           </motion.div>
         </div>
       </section>
+
+      {/* CTA Section */}
+      <CTASection />
     </div>
   );
 };
