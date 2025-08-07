@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { Users, Award, Globe, Heart } from 'lucide-react';
+import Image from 'next/image';
 import CTASection from '@/components/CTASection';
 
 const AboutPage = () => {
@@ -100,9 +101,11 @@ const AboutPage = () => {
               transition={{ duration: 0.6 }}
               className="relative"
             >
-              <img
+              <Image
                 src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
                 alt="Travel landscape"
+                width={800}
+                height={600}
                 className="rounded-lg shadow-xl"
               />
             </motion.div>
@@ -173,9 +176,11 @@ const AboutPage = () => {
                 className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 group"
               >
                 <div className="relative overflow-hidden">
-                  <img
+                  <Image
                     src={member.image}
                     alt={member.name}
+                    width={400}
+                    height={256}
                     className="w-full h-64 object-cover transform group-hover:scale-110 transition-transform duration-500"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>

@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 import { X } from 'lucide-react';
 import { galleryImages, GalleryImage } from '@/data/travelData';
 import CTASection from '@/components/CTASection';
@@ -123,9 +124,11 @@ const GalleryPage = () => {
             >
               <X className="h-8 w-8" />
             </button>
-            <img
+            <Image
               src={selectedImage.src}
               alt={selectedImage.alt}
+              width={800}
+              height={600}
               className="max-w-full max-h-[80vh] object-contain rounded-lg"
             />
             <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white p-4 rounded-b-lg">

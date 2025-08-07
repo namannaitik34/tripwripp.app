@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MapPin, Clock, Users, Mountain, Star, X, Calendar, Phone, Mail, User } from 'lucide-react';
-import { liveDestinations } from '@/data/travelData';
+import { liveDestinations, LiveDestination } from '@/data/travelData';
 
 interface BookingFormData {
   name: string;
@@ -15,7 +15,7 @@ interface BookingFormData {
 
 const LiveNow: React.FC = () => {
   const [showBookingModal, setShowBookingModal] = useState(false);
-  const [selectedDestination, setSelectedDestination] = useState<any>(null);
+  const [selectedDestination, setSelectedDestination] = useState<LiveDestination | null>(null);
   const [isClient, setIsClient] = useState(false);
   const [formData, setFormData] = useState<BookingFormData>({
     name: '',
@@ -31,7 +31,7 @@ const LiveNow: React.FC = () => {
 
   const currentLiveDestinations = liveDestinations.filter(dest => dest.isLive);
 
-  const handleBookNow = (destination: any) => {
+  const handleBookNow = (destination: LiveDestination) => {
     setSelectedDestination(destination);
     setShowBookingModal(true);
   };
