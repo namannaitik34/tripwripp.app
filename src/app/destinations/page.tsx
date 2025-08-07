@@ -106,7 +106,7 @@ const DestinationsPage = () => {
                   <div 
                     className="h-48 bg-cover bg-center transform group-hover:scale-110 transition-transform duration-300 ease-out"
                     style={{
-                      backgroundImage: `url('https://images.unsplash.com/photo-1537953773345-d172ccf13cf1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80')`
+                      backgroundImage: `url('${destination.image}')`
                     }}
                   ></div>
                   <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-200"></div>
@@ -157,8 +157,12 @@ const DestinationsPage = () => {
                     </div>
                     <Link 
                       href={`/destinations/${destination.id}`}
-                      className="text-white px-4 py-2 rounded-lg transition-all duration-200 ease-out hover:opacity-90 hover:shadow-lg hover:-translate-y-1 hover:scale-105 active:scale-95"
+                      className="text-white px-4 py-2 rounded-lg transition-all duration-200 ease-out hover:opacity-90 hover:shadow-lg hover:-translate-y-1 hover:scale-105 active:scale-95 cursor-pointer font-medium"
                       style={{ backgroundColor: '#0d1d30' }}
+                      onClick={(e) => {
+                        console.log('Navigating to:', `/destinations/${destination.id}`);
+                        console.log('Destination:', destination);
+                      }}
                     >
                       Explore
                     </Link>

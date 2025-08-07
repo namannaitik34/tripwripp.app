@@ -61,6 +61,20 @@ export interface LiveDestination {
   startDate: string;
   endDate: string;
   isLive: boolean;
+  detailedDescription?: string;
+  gallery?: string[];
+  itinerary?: {
+    day: number;
+    title: string;
+    description: string;
+    activities: string[];
+    accommodation?: string;
+    meals?: string[];
+  }[];
+  included?: string[];
+  excluded?: string[];
+  meetingPoint?: string;
+  requirements?: string[];
 }
 
 export const destinations: Destination[] = [
@@ -71,7 +85,7 @@ export const destinations: Destination[] = [
     region: 'Southeast Asia',
     type: 'beach',
     description: 'Tropical paradise with stunning beaches, ancient temples, and vibrant culture.',
-    image: '/images/bali.jpg',
+    image: 'https://images.unsplash.com/photo-1537953773345-d172ccf13cf1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
     rating: 4.8,
     price: 1200,
     duration: '7 days',
@@ -85,7 +99,7 @@ export const destinations: Destination[] = [
     region: 'Europe',
     type: 'mountain',
     description: 'Breathtaking mountain landscapes perfect for adventure and relaxation.',
-    image: '/images/swiss-alps.jpg',
+    image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
     rating: 4.9,
     price: 2500,
     duration: '10 days',
@@ -99,7 +113,7 @@ export const destinations: Destination[] = [
     region: 'East Asia',
     type: 'city',
     description: 'Modern metropolis blending tradition with cutting-edge technology.',
-    image: '/images/tokyo.jpg',
+    image: 'https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
     rating: 4.7,
     price: 1800,
     duration: '6 days',
@@ -113,7 +127,7 @@ export const destinations: Destination[] = [
     region: 'South America',
     type: 'cultural',
     description: 'Ancient Incan citadel offering mystical experiences and stunning views.',
-    image: '/images/machu-picchu.jpg',
+    image: 'https://images.unsplash.com/photo-1587595431973-160d0d94add1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
     rating: 4.9,
     price: 1600,
     duration: '8 days',
@@ -127,7 +141,7 @@ export const destinations: Destination[] = [
     region: 'East Africa',
     type: 'wildlife',
     description: 'World-famous safari destination with incredible wildlife migration.',
-    image: '/images/serengeti.jpg',
+    image: 'https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
     rating: 4.8,
     price: 3200,
     duration: '9 days',
@@ -141,7 +155,7 @@ export const destinations: Destination[] = [
     region: 'Europe',
     type: 'beach',
     description: 'Iconic Greek island with white-washed buildings and stunning sunsets.',
-    image: '/images/santorini.jpg',
+    image: 'https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
     rating: 4.6,
     price: 1400,
     duration: '5 days',
@@ -157,7 +171,7 @@ export const packages: Package[] = [
     destination: 'Bali, Indonesia',
     duration: '7 days / 6 nights',
     price: 1299,
-    image: '/images/bali-package.jpg',
+    image: 'https://images.unsplash.com/photo-1537953773345-d172ccf13cf1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
     description: 'Experience the magic of Bali with pristine beaches, cultural temples, and luxury accommodations.',
     itinerary: [
       {
@@ -283,7 +297,18 @@ export const liveDestinations: LiveDestination[] = [
     region: 'South Asia',
     type: 'mountain',
     description: 'Experience breathtaking sunrise views from Khumai Danda, a hidden gem in Nepal offering panoramic views of the Himalayas including Mount Everest, Lhotse, and Makalu.',
-    image: 'https://images.unsplash.com/photo-1544735716-392fe2489ffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
+    detailedDescription: 'Khumai Danda, situated at an altitude of 3,245 meters, is one of Nepal\'s best-kept secrets for mountain enthusiasts. This spectacular viewpoint offers unobstructed views of eight of the world\'s highest peaks, including Mount Everest, Lhotse, Makalu, and Cho Oyu. The trek combines moderate hiking through pristine rhododendron forests with authentic cultural experiences in traditional Sherpa villages. Unlike the crowded trails to Everest Base Camp, Khumai Danda offers solitude and tranquility while providing equally stunning mountain vistas.',
+    image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
+    gallery: [
+      'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1464822759844-d150baec3e5e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1519904981063-b0cf448d479e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1570121629347-59c9dcbcc0a7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1544966503-7cc5ac882d5f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1486022145909-52ba2b3b4d40?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1454391304352-2bf4678b1a7a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1551632811-561732d1e306?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
+    ],
     rating: 4.8,
     price: 299,
     duration: '3 Days 2 Nights',
@@ -302,6 +327,78 @@ export const liveDestinations: LiveDestination[] = [
     totalSlots: 15,
     startDate: '2025-03-15',
     endDate: '2025-03-17',
-    isLive: true
+    isLive: true,
+    itinerary: [
+      {
+        day: 1,
+        title: 'Kathmandu to Salleri Drive & Trek to Khumai Danda Base',
+        description: 'Early morning drive from Kathmandu to Salleri, followed by a scenic trek through rhododendron forests to reach Khumai Danda base camp.',
+        activities: [
+          'Scenic drive through countryside',
+          'Meet local Sherpa guides',
+          'Trek through rhododendron forests',
+          'Set up base camp',
+          'Evening cultural program'
+        ],
+        accommodation: 'Mountain Lodge',
+        meals: ['Lunch', 'Dinner']
+      },
+      {
+        day: 2,
+        title: 'Summit Day - Sunrise at Khumai Danda',
+        description: 'Pre-dawn hike to the summit for spectacular sunrise views over the Himalayan range, including Mount Everest.',
+        activities: [
+          'Pre-dawn summit hike (4:30 AM)',
+          'Sunrise photography session',
+          'Himalayan peak identification',
+          'Traditional breakfast at summit',
+          'Explore surrounding viewpoints',
+          'Return to base camp'
+        ],
+        accommodation: 'Mountain Lodge',
+        meals: ['Breakfast', 'Lunch', 'Dinner']
+      },
+      {
+        day: 3,
+        title: 'Trek to Salleri & Return to Kathmandu',
+        description: 'Morning trek back to Salleri with stops at local villages, followed by drive back to Kathmandu.',
+        activities: [
+          'Morning village exploration',
+          'Trek to Salleri',
+          'Visit local monastery',
+          'Drive back to Kathmandu',
+          'Trip conclusion ceremony'
+        ],
+        accommodation: 'N/A',
+        meals: ['Breakfast', 'Lunch']
+      }
+    ],
+    included: [
+      'Professional mountain guide',
+      'All accommodation as per itinerary',
+      'All meals during trek',
+      'Transportation (Kathmandu-Salleri-Kathmandu)',
+      'Trekking permits and fees',
+      'First aid kit and safety equipment',
+      'Group trekking equipment'
+    ],
+    excluded: [
+      'International flights',
+      'Nepal entry visa',
+      'Personal trekking equipment',
+      'Travel insurance',
+      'Tips for guides and porters',
+      'Personal expenses and drinks',
+      'Emergency evacuation costs'
+    ],
+    meetingPoint: 'TripWripp Office, Thamel, Kathmandu at 6:00 AM',
+    requirements: [
+      'Moderate fitness level required',
+      'Previous trekking experience preferred',
+      'Comfortable with 4-6 hours of walking daily',
+      'Good quality trekking boots',
+      'Warm clothing for cold mornings',
+      'Valid travel insurance covering trekking activities'
+    ]
   }
 ];

@@ -2,7 +2,8 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MapPin, Clock, Users, Mountain, Star, X, Calendar, Phone, Mail, User } from 'lucide-react';
+import Link from 'next/link';
+import { MapPin, Clock, Users, Mountain, Star, X, Calendar, Phone, Mail, User, Eye } from 'lucide-react';
 import { liveDestinations, LiveDestination } from '@/data/travelData';
 
 interface BookingFormData {
@@ -127,37 +128,76 @@ const LiveNow: React.FC = () => {
                 className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-200 ease-out group border border-gray-100 relative before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/20 before:to-transparent before:translate-x-[-100%] hover:before:translate-x-[100%] before:transition-transform before:duration-700"
               >
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-0">
-                  {/* Image Section */}
+                  {/* Modern Image Section with Glassmorphism */}
                   <div className="relative overflow-hidden h-64 lg:h-auto group-hover:before:opacity-100 before:absolute before:inset-0 before:bg-gradient-to-t before:from-black/60 before:via-transparent before:to-transparent before:opacity-0 before:transition-opacity before:duration-200">
+                    {/* Background Image with Modern Overlay */}
                     <div 
-                      className="absolute inset-0 bg-cover bg-center transform group-hover:scale-110 transition-transform duration-300 ease-out"
-                      style={{ backgroundImage: `url(${destination.image})` }}
+                      className="absolute inset-0 bg-cover bg-center transform group-hover:scale-110 transition-transform duration-500 ease-out filter"
+                      style={{ 
+                        backgroundImage: `url(${destination.image})`,
+                        filter: 'brightness(0.9) contrast(1.1)'
+                      }}
                     ></div>
-                    <div className="absolute inset-0 bg-gradient-to-r from-black/30 via-transparent to-transparent"></div>
                     
-                    {/* Live Badge */}
+                    {/* Modern Gradient Overlays */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+                    <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-black/30"></div>
+                    
+                    {/* Glassmorphism Elements */}
+                    <div className="absolute inset-0">
+                      {/* Floating Glass Particles */}
+                      {[...Array(3)].map((_, i) => (
+                        <motion.div
+                          key={i}
+                          className="absolute w-2 h-2 bg-white/30 rounded-full backdrop-blur-sm"
+                          animate={{
+                            y: [-10, -30, -10],
+                            x: [0, Math.random() * 20 - 10, 0],
+                            opacity: [0.3, 0.7, 0.3],
+                          }}
+                          transition={{
+                            duration: 3 + Math.random() * 2,
+                            repeat: Infinity,
+                            delay: i * 0.7,
+                            ease: "easeInOut"
+                          }}
+                          style={{
+                            left: `${20 + Math.random() * 60}%`,
+                            top: `${20 + Math.random() * 60}%`,
+                          }}
+                        />
+                      ))}
+                    </div>
+                    
+                    {/* Live Badge with Modern Design */}
                     <div className="absolute top-4 left-4">
-                      <div className="flex items-center bg-red-500 text-white rounded-full px-3 py-1 text-sm font-semibold">
+                      <motion.div 
+                        whileHover={{ scale: 1.05 }}
+                        className="flex items-center bg-red-500/90 backdrop-blur-md border border-red-400/30 text-white rounded-full px-4 py-2 text-sm font-semibold shadow-lg"
+                      >
                         <div className="w-2 h-2 bg-white rounded-full animate-pulse mr-2"></div>
                         LIVE
-                      </div>
+                      </motion.div>
                     </div>
 
-                    {/* Availability */}
-                    <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm rounded-lg px-3 py-2">
+                    {/* Availability with Glassmorphism */}
+                    <div className="absolute top-4 right-4 bg-white/10 backdrop-blur-md border border-white/20 rounded-xl px-4 py-2 shadow-lg">
                       <div className="flex items-center text-sm">
-                        <Users className="h-4 w-4 mr-1" style={{ color: '#FF8F00' }} />
-                        <span className="font-semibold" style={{ color: '#0d1d30' }}>
+                        <Users className="h-4 w-4 mr-2 text-orange-400" />
+                        <span className="font-semibold text-white">
                           {destination.availableSlots}/{destination.totalSlots} slots
                         </span>
                       </div>
                     </div>
 
-                    {/* Rating */}
-                    <div className="absolute bottom-4 left-4 bg-white/90 backdrop-blur-sm rounded-full px-3 py-1 flex items-center">
+                    {/* Rating with Modern Style */}
+                    <div className="absolute bottom-4 left-4 bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-4 py-2 flex items-center shadow-lg">
                       <Star className="h-4 w-4 text-yellow-400 fill-current" />
-                      <span className="ml-1 text-sm font-medium text-gray-800">{destination.rating}</span>
+                      <span className="ml-2 text-sm font-medium text-white">{destination.rating}</span>
                     </div>
+
+                    {/* Modern Image Overlay Effect */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                   </div>
 
                   {/* Content Section */}
@@ -221,7 +261,7 @@ const LiveNow: React.FC = () => {
                       </div>
                     </div>
 
-                    {/* Price and Book Button */}
+                    {/* Price and Action Buttons */}
                     <div className="flex items-center justify-between">
                       <div>
                         <span className="text-sm text-gray-500">Starting from</span>
@@ -232,13 +272,25 @@ const LiveNow: React.FC = () => {
                           <span className="text-gray-500 text-sm ml-1"> per person</span>
                         </div>
                       </div>
-                      <button
-                        onClick={() => handleBookNow(destination)}
-                        className="text-white px-6 py-3 rounded-xl font-semibold transition-all duration-200 ease-out hover:opacity-90 hover:shadow-lg hover:-translate-y-1 hover:scale-105 active:scale-95"
-                        style={{ backgroundColor: '#0d1d30' }}
-                      >
-                        Book Now
-                      </button>
+                      <div className="flex gap-4">
+                        <Link
+                          href={`/live/${destination.id}`}
+                          className="group relative overflow-hidden text-white px-6 py-3 rounded-xl font-semibold transition-all duration-300 ease-out hover:shadow-2xl hover:-translate-y-1 active:scale-95 flex items-center"
+                          style={{ backgroundColor: '#FF8F00' }}
+                        >
+                          <div className="absolute inset-0 bg-gradient-to-r from-orange-600 to-orange-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                          <Eye className="w-4 h-4 mr-2 relative z-10" />
+                          <span className="relative z-10">Explore</span>
+                        </Link>
+                        <button
+                          onClick={() => handleBookNow(destination)}
+                          className="group relative overflow-hidden text-white px-8 py-3 rounded-xl font-semibold transition-all duration-300 ease-out hover:shadow-2xl hover:-translate-y-1 active:scale-95"
+                          style={{ backgroundColor: '#0d1d30' }}
+                        >
+                          <div className="absolute inset-0 bg-gradient-to-r from-gray-800 to-gray-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                          <span className="relative z-10">Book Now</span>
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
