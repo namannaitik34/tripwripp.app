@@ -5,9 +5,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import { useParams } from 'next/navigation';
 import { 
-  MapPin, Clock, Users, Mountain, Star, Calendar, 
-  Check, X, Phone, Mail, User, ChevronLeft, ChevronRight,
-  Sunrise, Camera, TreePine, Shield, Utensils, Bed, ArrowLeft
+  MapPin, Clock, Star, Calendar, 
+  Check, X, Phone, Mail, User, ChevronLeft, ChevronRight, ArrowLeft
 } from 'lucide-react';
 import { destinations, Destination } from '@/data/travelData';
 import Link from 'next/link';
@@ -50,59 +49,10 @@ const DestinationDetailPage = () => {
     }
   }, [params.id]);
 
-  // Add keyboard navigation
-  useEffect(() => {
-    const handleKeyPress = (e: KeyboardEvent) => {
-      if (e.key === 'ArrowLeft') {
-        e.preventDefault();
-        prevImage();
-      } else if (e.key === 'ArrowRight') {
-        e.preventDefault();
-        nextImage();
-      } else if (e.key === ' ') {
-        e.preventDefault();
-        setIsAutoScrollPaused(prev => !prev);
-      }
-    };
-
-    window.addEventListener('keydown', handleKeyPress);
-    return () => window.removeEventListener('keydown', handleKeyPress);
-  }, []); // Remove dependency to prevent stale closure
-
-  // Auto-scroll functionality
-  useEffect(() => {
-    if (isAutoScrollPaused) return;
-    
-    const autoScrollInterval = setInterval(() => {
-      setCurrentImageIndex((prevIndex) => {
-        const newIndex = (prevIndex + 1) % sampleImages.length;
-        console.log('Auto-scroll to:', newIndex);
-        return newIndex;
-      });
-    }, 4000); // Change image every 4 seconds
-
-    return () => clearInterval(autoScrollInterval);
-  }, [sampleImages.length, isAutoScrollPaused]);
-
   // Pause auto-scroll on user interaction
   const pauseAutoScroll = () => {
     setIsAutoScrollPaused(true);
     setTimeout(() => setIsAutoScrollPaused(false), 10000); // Resume after 10 seconds
-  };
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log('Booking submitted:', formData, destination);
-    alert('Booking request submitted successfully! We will contact you soon.');
-    setShowBookingModal(false);
-    setFormData({ name: '', email: '', phone: '', gender: '', ageRange: '' });
   };
 
   const nextImage = () => {
@@ -129,12 +79,61 @@ const DestinationDetailPage = () => {
     setCurrentImageIndex(index);
   };
 
+  // Add keyboard navigation
+  useEffect(() => {
+    const handleKeyPress = (e: KeyboardEvent) => {
+      if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        prevImage();
+      } else if (e.key === 'ArrowRight') {
+        e.preventDefault();
+        nextImage();
+      } else if (e.key === ' ') {
+        e.preventDefault();
+        setIsAutoScrollPaused(prev => !prev);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyPress);
+    return () => window.removeEventListener('keydown', handleKeyPress);
+  }, [nextImage, prevImage]); // Add dependencies
+
+  // Auto-scroll functionality
+  useEffect(() => {
+    if (isAutoScrollPaused) return;
+    
+    const autoScrollInterval = setInterval(() => {
+      setCurrentImageIndex((prevIndex) => {
+        const newIndex = (prevIndex + 1) % sampleImages.length;
+        console.log('Auto-scroll to:', newIndex);
+        return newIndex;
+      });
+    }, 4000); // Change image every 4 seconds
+
+    return () => clearInterval(autoScrollInterval);
+  }, [sampleImages.length, isAutoScrollPaused]);
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log('Booking submitted:', formData, destination);
+    alert('Booking request submitted successfully! We will contact you soon.');
+    setShowBookingModal(false);
+    setFormData({ name: '', email: '', phone: '', gender: '', ageRange: '' });
+  };
+
   if (!destination) {
     return (
       <div className="min-h-screen flex items-center justify-center" style={{ backgroundColor: '#ECEFF1' }}>
         <div className="text-center">
           <h1 className="text-2xl font-bold text-gray-800 mb-4">Destination not found</h1>
-          <p className="text-gray-600 mb-6">The destination you're looking for doesn't exist.</p>
+          <p className="text-gray-600 mb-6">The destination you&apos;re looking for doesn&apos;t exist.</p>
           <Link 
             href="/destinations"
             className="text-white px-6 py-3 rounded-lg font-semibold transition-all duration-300 hover:opacity-90"
@@ -390,7 +389,7 @@ const DestinationDetailPage = () => {
                       </p>
                       <p className="text-gray-600 leading-relaxed">
                         This {destination.type} destination offers an unforgettable experience with stunning landscapes, 
-                        rich cultural heritage, and incredible adventure opportunities. Whether you're seeking relaxation 
+                        rich cultural heritage, and incredible adventure opportunities. Whether you&apos;re seeking relaxation 
                         or adventure, {destination.name} has something special to offer every traveler.
                       </p>
                     </motion.div>

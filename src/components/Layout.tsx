@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+import Link from 'next/link';
 
 interface LayoutProps {
   children: ReactNode;
@@ -23,7 +24,7 @@ const Layout = ({ children }: LayoutProps) => {
             <div>
               <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
               <ul className="space-y-2">
-                <li><a href="/destinations" className="text-gray-300 hover:text-blue-400 transition-colors">Destinations</a></li>
+                <li><Link href="/destinations" className="text-gray-300 hover:text-blue-400 transition-colors">Destinations</Link></li>
                 <li><a href="/packages" className="text-gray-300 hover:text-blue-400 transition-colors">Packages</a></li>
                 <li><a href="/gallery" className="text-gray-300 hover:text-blue-400 transition-colors">Gallery</a></li>
                 <li><a href="/about" className="text-gray-300 hover:text-blue-400 transition-colors">About Us</a></li>

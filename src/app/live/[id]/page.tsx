@@ -5,9 +5,9 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import { useParams } from 'next/navigation';
 import { 
-  MapPin, Clock, Users, Mountain, Star, Calendar, 
+  MapPin, Clock, Users, Mountain, Star, 
   Check, X, Phone, Mail, User, ChevronLeft, ChevronRight,
-  Sunrise, Camera, TreePine, Shield, Utensils, Bed
+  Camera, Shield, Utensils, Bed
 } from 'lucide-react';
 import { liveDestinations, LiveDestination } from '@/data/travelData';
 
@@ -41,59 +41,10 @@ const LiveDestinationPage = () => {
     }
   }, [params.id]);
 
-  // Add keyboard navigation
-  useEffect(() => {
-    const handleKeyPress = (e: KeyboardEvent) => {
-      if (e.key === 'ArrowLeft') {
-        e.preventDefault();
-        prevImage();
-      } else if (e.key === 'ArrowRight') {
-        e.preventDefault();
-        nextImage();
-      } else if (e.key === ' ') {
-        e.preventDefault();
-        setIsAutoScrollPaused(prev => !prev);
-      }
-    };
-
-    window.addEventListener('keydown', handleKeyPress);
-    return () => window.removeEventListener('keydown', handleKeyPress);
-  }, []);
-
-  // Auto-scroll functionality
-  useEffect(() => {
-    if (isAutoScrollPaused || !destination?.gallery) return;
-    
-    const autoScrollInterval = setInterval(() => {
-      setCurrentImageIndex((prevIndex) => {
-        const newIndex = (prevIndex + 1) % destination.gallery!.length;
-        console.log('Auto-scroll to:', newIndex);
-        return newIndex;
-      });
-    }, 4000); // Change image every 4 seconds
-
-    return () => clearInterval(autoScrollInterval);
-  }, [destination?.gallery?.length, isAutoScrollPaused]);
-
   // Pause auto-scroll on user interaction
   const pauseAutoScroll = () => {
     setIsAutoScrollPaused(true);
     setTimeout(() => setIsAutoScrollPaused(false), 10000); // Resume after 10 seconds
-  };
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log('Booking submitted:', formData, destination);
-    alert('Booking request submitted successfully! We will contact you soon.');
-    setShowBookingModal(false);
-    setFormData({ name: '', email: '', phone: '', gender: '', ageRange: '' });
   };
 
   const nextImage = () => {
@@ -124,12 +75,61 @@ const LiveDestinationPage = () => {
     setCurrentImageIndex(index);
   };
 
+  // Add keyboard navigation
+  useEffect(() => {
+    const handleKeyPress = (e: KeyboardEvent) => {
+      if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        prevImage();
+      } else if (e.key === 'ArrowRight') {
+        e.preventDefault();
+        nextImage();
+      } else if (e.key === ' ') {
+        e.preventDefault();
+        setIsAutoScrollPaused(prev => !prev);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyPress);
+    return () => window.removeEventListener('keydown', handleKeyPress);
+  }, [nextImage, prevImage]); // Add dependencies
+
+  // Auto-scroll functionality
+  useEffect(() => {
+    if (isAutoScrollPaused || !destination?.gallery) return;
+    
+    const autoScrollInterval = setInterval(() => {
+      setCurrentImageIndex((prevIndex) => {
+        const newIndex = (prevIndex + 1) % destination.gallery!.length;
+        console.log('Auto-scroll to:', newIndex);
+        return newIndex;
+      });
+    }, 4000); // Change image every 4 seconds
+
+    return () => clearInterval(autoScrollInterval);
+  }, [destination, isAutoScrollPaused]);
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log('Booking submitted:', formData, destination);
+    alert('Booking request submitted successfully! We will contact you soon.');
+    setShowBookingModal(false);
+    setFormData({ name: '', email: '', phone: '', gender: '', ageRange: '' });
+  };
+
   if (!destination) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
           <h1 className="text-2xl font-bold text-gray-800 mb-4">Destination not found</h1>
-          <p className="text-gray-600">The live destination you're looking for doesn't exist.</p>
+          <p className="text-gray-600">The live destination you&apos;re looking for doesn&apos;t exist.</p>
         </div>
       </div>
     );
@@ -257,7 +257,7 @@ const LiveDestinationPage = () => {
                   <Camera className="w-12 h-12 text-white/70" />
                 </div>
                 <h3 className="text-2xl font-semibold">Gallery Coming Soon</h3>
-                <p className="text-white/70 max-w-md">We're preparing stunning visuals of this destination for you.</p>
+                <p className="text-white/70 max-w-md">We&apos;re preparing stunning visuals of this destination for you.</p>
               </div>
             </div>
           )}
@@ -464,7 +464,7 @@ const LiveDestinationPage = () => {
                     >
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                         <div>
-                          <h3 className="text-xl font-bold mb-4 text-green-600">What's Included</h3>
+                          <h3 className="text-xl font-bold mb-4 text-green-600">What&apos;s Included</h3>
                           <div className="space-y-3">
                             {destination.included?.map((item, index) => (
                               <div key={index} className="flex items-start">
@@ -475,7 +475,7 @@ const LiveDestinationPage = () => {
                           </div>
                         </div>
                         <div>
-                          <h3 className="text-xl font-bold mb-4 text-red-600">What's Not Included</h3>
+                          <h3 className="text-xl font-bold mb-4 text-red-600">What&apos;s Not Included</h3>
                           <div className="space-y-3">
                             {destination.excluded?.map((item, index) => (
                               <div key={index} className="flex items-start">
@@ -723,7 +723,7 @@ const LiveDestinationPage = () => {
               </form>
 
               <p className="text-xs text-gray-500 text-center mt-4">
-                By submitting this form, you agree to our terms and conditions. We'll contact you within 24 hours to confirm your booking.
+                By submitting this form, you agree to our terms and conditions. We&apos;ll contact you within 24 hours to confirm your booking.
               </p>
             </motion.div>
           </motion.div>

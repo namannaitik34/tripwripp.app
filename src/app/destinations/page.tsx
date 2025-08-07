@@ -159,7 +159,7 @@ const DestinationsPage = () => {
                       href={`/destinations/${destination.id}`}
                       className="text-white px-4 py-2 rounded-lg transition-all duration-200 ease-out hover:opacity-90 hover:shadow-lg hover:-translate-y-1 hover:scale-105 active:scale-95 cursor-pointer font-medium"
                       style={{ backgroundColor: '#0d1d30' }}
-                      onClick={(e) => {
+                      onClick={() => {
                         console.log('Navigating to:', `/destinations/${destination.id}`);
                         console.log('Destination:', destination);
                       }}
