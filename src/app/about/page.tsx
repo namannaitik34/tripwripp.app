@@ -13,7 +13,7 @@ const AboutPage = () => {
       bio: 'With over 3 years in the travel industry, Abhishek founded TripWripp to make extraordinary travel accessible to everyone.'
     },
     {
-      name: 'Shrishti Chaudhary',
+      name: 'Shristi Choudhary',
       role: 'Head of Operations',
       image: 'images/shristi.png',
       bio: 'Shrishti ensures every trip runs smoothly with her attention to detail and passion for customer satisfaction.'
