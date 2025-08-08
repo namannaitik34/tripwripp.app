@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import { useParams } from 'next/navigation';
@@ -55,23 +55,23 @@ const DestinationDetailPage = () => {
     setTimeout(() => setIsAutoScrollPaused(false), 10000); // Resume after 10 seconds
   };
 
-  const nextImage = () => {
+  const nextImage = useCallback(() => {
     pauseAutoScroll();
     setCurrentImageIndex((prevIndex) => {
       const newIndex = (prevIndex + 1) % sampleImages.length;
       console.log('Next image:', newIndex, 'Total images:', sampleImages.length);
       return newIndex;
     });
-  };
+  }, [sampleImages.length]);
 
-  const prevImage = () => {
+  const prevImage = useCallback(() => {
     pauseAutoScroll();
     setCurrentImageIndex((prevIndex) => {
       const newIndex = (prevIndex - 1 + sampleImages.length) % sampleImages.length;
       console.log('Previous image:', newIndex, 'Total images:', sampleImages.length);
       return newIndex;
     });
-  };
+  }, [sampleImages.length]);
 
   const goToImage = (index: number) => {
     pauseAutoScroll();

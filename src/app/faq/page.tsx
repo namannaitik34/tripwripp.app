@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown, ChevronUp, Search, X } from 'lucide-react';
-import LiveNow from '@/components/LiveNow';
+import Link from 'next/link';
 import CTASection from '@/components/CTASection';
 
 const FAQPage = () => {
@@ -325,14 +325,14 @@ const FAQPage = () => {
                 </div>
 
                 <div className="space-y-3">
-                  <a
+                  <Link
                     href="/live/live-1"
                     onClick={() => setShowLiveNowPopup(false)}
                     className="block w-full text-white py-3 px-6 rounded-lg font-semibold transition-all duration-200 hover:opacity-90 hover:transform hover:scale-105"
                     style={{ backgroundColor: '#FF8F00' }}
                   >
                     Book Khumai Danda Trip
-                  </a>
+                  </Link>
                   <a
                     href="/packages"
                     onClick={() => setShowLiveNowPopup(false)}

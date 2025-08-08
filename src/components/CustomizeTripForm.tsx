@@ -135,7 +135,7 @@ const CustomizeTripForm: React.FC = () => {
             Customize Your Perfect Trip
           </h2>
           <p className="text-xl text-gray-700 max-w-3xl mx-auto">
-            Can't find exactly what you're looking for? Let our travel experts create a personalized 
+            Can&apos;t find exactly what you&apos;re looking for? Let our travel experts create a personalized 
             itinerary tailored to your dreams, preferences, and budget.
           </p>
         </motion.div>
@@ -434,15 +434,15 @@ const CustomizeTripForm: React.FC = () => {
                     </li>
                     <li className="flex items-start">
                       <span className="text-blue-600 mr-2">•</span>
-                      We'll create a personalized itinerary within 24 hours
+                      We&apos;ll create a personalized itinerary within 24 hours
                     </li>
                     <li className="flex items-start">
                       <span className="text-blue-600 mr-2">•</span>
-                      You'll receive a detailed proposal with pricing
+                      You&apos;ll receive a detailed proposal with pricing
                     </li>
                     <li className="flex items-start">
                       <span className="text-blue-600 mr-2">•</span>
-                      We'll refine the plan based on your feedback
+                      We&apos;ll refine the plan based on your feedback
                     </li>
                   </ul>
                 </div>

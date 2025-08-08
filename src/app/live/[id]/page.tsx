@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import { useParams } from 'next/navigation';
@@ -47,7 +47,7 @@ const LiveDestinationPage = () => {
     setTimeout(() => setIsAutoScrollPaused(false), 10000); // Resume after 10 seconds
   };
 
-  const nextImage = () => {
+  const nextImage = useCallback(() => {
     if (destination?.gallery) {
       pauseAutoScroll();
       setCurrentImageIndex((prevIndex) => {
@@ -56,9 +56,9 @@ const LiveDestinationPage = () => {
         return newIndex;
       });
     }
-  };
+  }, [destination?.gallery]);
 
-  const prevImage = () => {
+  const prevImage = useCallback(() => {
     if (destination?.gallery) {
       pauseAutoScroll();
       setCurrentImageIndex((prevIndex) => {
@@ -67,7 +67,7 @@ const LiveDestinationPage = () => {
         return newIndex;
       });
     }
-  };
+  }, [destination?.gallery]);
 
   const goToImage = (index: number) => {
     pauseAutoScroll();

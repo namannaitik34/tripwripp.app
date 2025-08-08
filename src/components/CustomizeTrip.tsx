@@ -57,7 +57,7 @@ const CustomizeTrip: React.FC = () => {
               Customize Your Perfect Trip
             </h2>
             <p className="text-xl text-gray-700 max-w-3xl mx-auto">
-              Can't find exactly what you're looking for? Let our travel experts create a personalized 
+              Can&apos;t find exactly what you&apos;re looking for? Let our travel experts create a personalized 
               itinerary tailored to your dreams, preferences, and budget.
             </p>
           </motion.div>
@@ -83,7 +83,7 @@ const CustomizeTrip: React.FC = () => {
                   Choose Your Destination
                 </h3>
                 <p className="text-gray-600">
-                  Tell us where you want to go, and we'll craft the perfect itinerary for your chosen destination.
+                  Tell us where you want to go, and we&apos;ll craft the perfect itinerary for your chosen destination.
                 </p>
               </div>
             </motion.div>
@@ -107,7 +107,7 @@ const CustomizeTrip: React.FC = () => {
                   Select Your Interests
                 </h3>
                 <p className="text-gray-600">
-                  From adventure sports to cultural experiences, we'll include activities that match your passions.
+                  From adventure sports to cultural experiences, we&apos;ll include activities that match your passions.
                 </p>
               </div>
             </motion.div>
@@ -131,7 +131,7 @@ const CustomizeTrip: React.FC = () => {
                   Set Your Budget
                 </h3>
                 <p className="text-gray-600">
-                  We'll create amazing experiences within your budget range, ensuring great value for money.
+                  We&apos;ll create amazing experiences within your budget range, ensuring great value for money.
                 </p>
               </div>
             </motion.div>

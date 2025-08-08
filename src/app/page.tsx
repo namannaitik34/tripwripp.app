@@ -19,7 +19,7 @@ const HomePage = () => {
     // Check if this is a reload by checking if the page was accessed via back/forward or refresh
     const wasReloaded = window.performance && 
                        window.performance.getEntriesByType('navigation').length > 0 &&
-                       (window.performance.getEntriesByType('navigation')[0] as any).type === 'reload';
+                       (window.performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming).type === 'reload';
     
     // Check if preloader has been shown in this session for first visit
     const hasShownPreloader = sessionStorage.getItem('tripwripp-preloader-shown');
