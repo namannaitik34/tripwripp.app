@@ -163,15 +163,15 @@ const CTASection: React.FC = () => {
           <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row justify-center items-center space-y-3 sm:space-y-0 sm:space-x-8 text-gray-600">
             <div className="flex items-center">
               <span className="text-xl sm:text-2xl mr-2">🌍</span>
-              <span className="text-xs sm:text-sm">150+ Destinations</span>
+              <span className="text-xs sm:text-sm">10+ Destinations</span>
             </div>
             <div className="flex items-center">
               <span className="text-xl sm:text-2xl mr-2">⭐</span>
-              <span className="text-xs sm:text-sm">4.9/5 Rating</span>
+              <span className="text-xs sm:text-sm">4.8/5 Rating</span>
             </div>
             <div className="flex items-center">
               <span className="text-xl sm:text-2xl mr-2">👥</span>
-              <span className="text-xs sm:text-sm">50K+ Happy Travelers</span>
+              <span className="text-xs sm:text-sm">100+ Happy Travelers</span>
             </div>
           </div>
         </motion.div>
