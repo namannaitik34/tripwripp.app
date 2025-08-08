@@ -267,7 +267,7 @@ const LiveNow: React.FC = () => {
                         <span className="text-sm text-gray-500">Starting from</span>
                         <div className="flex items-baseline">
                           <span className="text-3xl font-bold group-hover:scale-110 transition-transform duration-200 ease-out" style={{ color: '#FF8F00' }}>
-                            ${destination.price}
+                            ₹{destination.price}
                           </span>
                           <span className="text-gray-500 text-sm ml-1"> per person</span>
                         </div>
@@ -341,7 +341,7 @@ const LiveNow: React.FC = () => {
                   <div className="flex items-center justify-between text-sm mt-1">
                     <span>Price:</span>
                     <span className="font-semibold" style={{ color: '#FF8F00' }}>
-                      ${selectedDestination?.price} per person
+                      ₹{selectedDestination?.price} per person
                     </span>
                   </div>
                 </div>
@@ -359,7 +359,7 @@ const LiveNow: React.FC = () => {
                         value={formData.name}
                         onChange={handleInputChange}
                         required
-                        className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-800"
                         placeholder="Enter your full name"
                       />
                     </div>
@@ -377,7 +377,7 @@ const LiveNow: React.FC = () => {
                         value={formData.email}
                         onChange={handleInputChange}
                         required
-                        className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-800"
                         placeholder="Enter your email"
                       />
                     </div>
@@ -394,7 +394,7 @@ const LiveNow: React.FC = () => {
                         name="phone"
                         value={formData.phone}
                         onChange={handleInputChange}
-                        className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-800"
                         placeholder="Enter your phone number"
                       />
                     </div>
@@ -409,7 +409,7 @@ const LiveNow: React.FC = () => {
                       value={formData.gender}
                       onChange={handleInputChange}
                       required
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-800"
                     >
                       <option value="">Select Gender</option>
                       <option value="male">Male</option>
@@ -428,7 +428,7 @@ const LiveNow: React.FC = () => {
                       value={formData.ageRange}
                       onChange={handleInputChange}
                       required
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-800"
                     >
                       <option value="">Select Age Range</option>
                       <option value="18-25">18-25 years</option>

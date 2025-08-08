@@ -56,7 +56,7 @@ const DestinationsPage = () => {
                 <select
                   value={filter}
                   onChange={(e) => setFilter(e.target.value)}
-                  className="border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-800"
                 >
                   {types.map((type) => (
                     <option key={type} value={type}>
@@ -71,7 +71,7 @@ const DestinationsPage = () => {
                 <select
                   value={regionFilter}
                   onChange={(e) => setRegionFilter(e.target.value)}
-                  className="border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-800"
                 >
                   {regions.map((region) => (
                     <option key={region} value={region}>
@@ -151,7 +151,7 @@ const DestinationsPage = () => {
                     <div>
                       <span className="text-sm text-gray-500">Starting from</span>
                       <div className="flex items-baseline">
-                        <span className="text-2xl font-bold" style={{ color: '#FF8F00' }}>${destination.price}</span>
+                        <span className="text-2xl font-bold" style={{ color: '#FF8F00' }}>₹{destination.price}</span>
                         <span className="text-gray-500 text-sm ml-1"> / {destination.duration}</span>
                       </div>
                     </div>

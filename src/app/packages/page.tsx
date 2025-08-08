@@ -7,6 +7,7 @@ import { Filter, Star, MapPin, Clock, Check } from 'lucide-react';
 import { packages } from '@/data/travelData';
 import LiveNow from '@/components/LiveNow';
 import CTASection from '@/components/CTASection';
+import CustomizeTripForm from '@/components/CustomizeTripForm';
 
 const PackagesPage = () => {
   const [filter, setFilter] = useState('all');
@@ -59,7 +60,7 @@ const PackagesPage = () => {
                 <select
                   value={filter}
                   onChange={(e) => setFilter(e.target.value)}
-                  className="border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-800"
                 >
                   {types.map((type) => (
                     <option key={type} value={type}>
@@ -73,7 +74,7 @@ const PackagesPage = () => {
                 <select
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value)}
-                  className="border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-800"
                 >
                   <option value="price">Sort by Price</option>
                   <option value="rating">Sort by Rating</option>
@@ -183,6 +184,9 @@ const PackagesPage = () => {
           </div>
         </div>
       </section>
+
+      {/* Customize Your Trip Section */}
+      <CustomizeTripForm />
 
       {/* CTA Section */}
       <section className="py-16 text-white" style={{ backgroundColor: '#0d1d30' }}>

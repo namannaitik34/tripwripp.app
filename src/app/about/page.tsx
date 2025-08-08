@@ -10,19 +10,25 @@ const AboutPage = () => {
     {
       name: 'Abhishek Kumar Suman',
       role: 'Founder & CEO',
-      image: 'images/Abhishek.png',
+      image: '/images/Abhishek.png',
       bio: 'With over 3 years in the travel industry, Abhishek founded TripWripp to make extraordinary travel accessible to everyone.'
     },
     {
       name: 'Shristi Choudhary',
+      role: 'Content Head',
+      image: '/images/shristi.png',
+      bio: 'Oversees content strategy, creation, and distribution to ensure brand consistency, engagement, and business growth.'
+    },
+    {
+      name: 'Abhishek Kumar',
       role: 'Head of Operations',
-      image: 'images/shristi.png',
-      bio: 'Shrishti ensures every trip runs smoothly with her attention to detail and passion for customer satisfaction.'
+      image: '/images/abhi.png',
+      bio: 'Abhishek ensures every trip runs smoothly with her attention to detail and passion for customer satisfaction.'
     },
     {
       name: 'Krishna Shrivastava',
       role: 'PR & Marketing Manager',
-      image: 'images/krishna.jpg',
+      image: '/images/krishna.jpeg',
       bio: 'Krishna crafts unique itineraries that blend adventure, culture, and comfort for unforgettable experiences.'
     }
   ];
@@ -48,6 +54,7 @@ const AboutPage = () => {
       title: 'Community',
       description: 'We build lasting relationships with our travelers and support local communities worldwide.'
     }
+    
   ];
 
   return (
@@ -132,11 +139,15 @@ const AboutPage = () => {
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                whileHover={{ y: -8, scale: 1.05 }}
+                whileHover={{ 
+                  y: -8, 
+                  scale: 1.03,
+                  transition: { duration: 0.2, ease: "easeOut" }
+                }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="bg-white p-6 rounded-xl shadow-lg text-center hover:shadow-2xl transition-all duration-300 group border border-gray-100"
+                className="bg-white p-6 rounded-xl shadow-lg text-center hover:shadow-2xl transition-shadow duration-200 group border border-gray-100"
               >
-                <div className="mb-4 flex justify-center group-hover:scale-110 transition-transform duration-300" style={{ color: '#FF8F00' }}>
+                <div className="mb-4 flex justify-center group-hover:scale-110 transition-transform duration-200" style={{ color: '#FF8F00' }}>
                   {value.icon}
                 </div>
                 <h3 className="text-xl font-semibold text-gray-800 mb-3" style={{ color: '#0d1d30' }}>{value.title}</h3>
@@ -171,9 +182,13 @@ const AboutPage = () => {
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                whileHover={{ y: -10, scale: 1.03 }}
+                whileHover={{ 
+                  y: -8, 
+                  scale: 1.02,
+                  transition: { duration: 0.2, ease: "easeOut" }
+                }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 group"
+                className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-200 group"
               >
                 <div className="relative overflow-hidden">
                   <Image

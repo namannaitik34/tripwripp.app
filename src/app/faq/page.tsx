@@ -1,14 +1,24 @@
 'use client';
 
-import { useState } from 'react';
-import { motion } from 'framer-motion';
-import { ChevronDown, ChevronUp, Search } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ChevronDown, ChevronUp, Search, X } from 'lucide-react';
 import LiveNow from '@/components/LiveNow';
 import CTASection from '@/components/CTASection';
 
 const FAQPage = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [openItems, setOpenItems] = useState<number[]>([]);
+  const [showLiveNowPopup, setShowLiveNowPopup] = useState(false);
+
+  // Show popup when page loads
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowLiveNowPopup(true);
+    }, 1000); // Show popup after 1 second
+
+    return () => clearTimeout(timer);
+  }, []);
 
   const faqs = [
     {
@@ -109,9 +119,6 @@ const FAQPage = () => {
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: '#ECEFF1' }}>
-      {/* Live Now Section */}
-      <LiveNow />
-
       {/* Header */}
       <section className="text-white py-16" style={{ backgroundColor: '#0d1d30' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -143,7 +150,7 @@ const FAQPage = () => {
                 placeholder="Search FAQ... 🔍"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-300 hover:shadow-md"
+                className="w-full pl-10 pr-4 py-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-300 hover:shadow-md text-gray-800"
               />
             </div>
           </motion.div>
@@ -255,6 +262,94 @@ const FAQPage = () => {
 
       {/* CTA Section */}
       <CTASection />
+
+      {/* LiveNow Popup Modal */}
+      <AnimatePresence>
+        {showLiveNowPopup && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4"
+            onClick={() => setShowLiveNowPopup(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.8, opacity: 0 }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
+              className="bg-white rounded-2xl max-w-md w-full relative shadow-2xl overflow-hidden"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Close Button */}
+              <button
+                onClick={() => setShowLiveNowPopup(false)}
+                className="absolute top-4 right-4 z-10 bg-white rounded-full p-2 shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-110 group"
+                style={{ backgroundColor: 'rgba(255, 255, 255, 0.95)' }}
+              >
+                <X 
+                  className="h-6 w-6 text-gray-600 group-hover:text-red-500 transition-colors duration-200" 
+                />
+              </button>
+
+              {/* Compact Live Now Content */}
+              <div className="p-8 text-center">
+                <div className="mb-6">
+                  <h2 className="text-2xl font-bold mb-2" style={{ color: '#0d1d30' }}>
+                    🌟 Live Travel Deal
+                  </h2>
+                  <p className="text-gray-600">
+                    Special live trip available now - Book today!
+                  </p>
+                </div>
+
+                <div className="space-y-4 mb-6">
+                  <div className="bg-orange-50 rounded-lg p-6 border-l-4" style={{ borderColor: '#FF8F00' }}>
+                    <div className="text-center">
+                      <h3 className="text-xl font-bold text-gray-800 mb-2">Khumai Danda</h3>
+                      <p className="text-sm text-gray-600 mb-3">Trekking Adventure • Nepal</p>
+                      <div className="mb-4">
+                        <span className="text-2xl font-bold" style={{ color: '#FF8F00' }}>Live Now!</span>
+                        <p className="text-xs text-gray-500 mt-1">Limited spots available</p>
+                      </div>
+                      <div className="bg-white rounded-lg p-3 mb-3">
+                        <p className="text-sm text-gray-700">
+                          🏔️ Beautiful mountain views<br/>
+                          🚶‍♂️ Guided trekking experience<br/>
+                          🏕️ Adventure camping
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="space-y-3">
+                  <a
+                    href="/live/live-1"
+                    onClick={() => setShowLiveNowPopup(false)}
+                    className="block w-full text-white py-3 px-6 rounded-lg font-semibold transition-all duration-200 hover:opacity-90 hover:transform hover:scale-105"
+                    style={{ backgroundColor: '#FF8F00' }}
+                  >
+                    Book Khumai Danda Trip
+                  </a>
+                  <a
+                    href="/packages"
+                    onClick={() => setShowLiveNowPopup(false)}
+                    className="block w-full text-gray-700 py-3 px-6 rounded-lg border-2 border-gray-300 font-semibold transition-all duration-200 hover:border-gray-400"
+                  >
+                    View All Packages
+                  </a>
+                </div>
+
+                <div className="mt-4 text-xs text-gray-500">
+                  📍 Nepal • 🕒 Limited Time Offer
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

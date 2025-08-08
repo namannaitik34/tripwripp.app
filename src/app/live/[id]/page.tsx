@@ -525,7 +525,7 @@ const LiveDestinationPage = () => {
                 <div className="text-center mb-6">
                   <div className="flex items-baseline justify-center mb-2">
                     <span className="text-4xl font-bold" style={{ color: '#FF8F00' }}>
-                      ${destination.price}
+                      ₹{destination.price}
                     </span>
                     <span className="text-gray-500 text-lg ml-2">per person</span>
                   </div>
@@ -615,7 +615,7 @@ const LiveDestinationPage = () => {
 
               <div className="mb-6 p-4 rounded-lg" style={{ backgroundColor: '#F5F5DC' }}>
                 <h3 className="font-semibold" style={{ color: '#0d1d30' }}>{destination.name}</h3>
-                <p className="text-sm text-gray-600">{destination.duration} • ${destination.price} per person</p>
+                <p className="text-sm text-gray-600">{destination.duration} • ₹{destination.price} per person</p>
                 <p className="text-sm text-gray-600">
                   {new Date(destination.startDate).toLocaleDateString('en-US', {
                     month: 'long',
@@ -641,7 +641,7 @@ const LiveDestinationPage = () => {
                     value={formData.name}
                     onChange={handleInputChange}
                     required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-colors"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-colors text-gray-800"
                     placeholder="Enter your full name"
                   />
                 </div>
@@ -657,7 +657,7 @@ const LiveDestinationPage = () => {
                     value={formData.email}
                     onChange={handleInputChange}
                     required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-colors"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-colors text-gray-800"
                     placeholder="Enter your email"
                   />
                 </div>
@@ -672,7 +672,7 @@ const LiveDestinationPage = () => {
                     name="phone"
                     value={formData.phone}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-colors"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-colors text-gray-800"
                     placeholder="Enter your phone number"
                   />
                 </div>
@@ -684,7 +684,7 @@ const LiveDestinationPage = () => {
                     value={formData.gender}
                     onChange={handleInputChange}
                     required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-colors"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-colors text-gray-800"
                   >
                     <option value="">Select Gender</option>
                     <option value="male">Male</option>
@@ -701,7 +701,7 @@ const LiveDestinationPage = () => {
                     value={formData.ageRange}
                     onChange={handleInputChange}
                     required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-colors"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-colors text-gray-800"
                   >
                     <option value="">Select Age Range</option>
                     <option value="18-25">18-25 years</option>
