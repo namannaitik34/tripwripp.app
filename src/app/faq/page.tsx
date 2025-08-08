@@ -239,13 +239,13 @@ const FAQPage = () => {
               Our travel experts are here to help you plan the perfect trip. Get in touch with us today!
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a
+              <Link
                 href="/contact"
                 className="text-white px-8 py-3 rounded-lg transition-colors font-semibold hover:opacity-90"
                 style={{ backgroundColor: '#FF8F00' }}
               >
                 Contact Us
-              </a>
+              </Link>
               <a
                 href="tel:+15551234567"
                 className="border-2 border-white text-white px-8 py-3 rounded-lg hover:bg-white transition-colors font-semibold"
@@ -333,13 +333,13 @@ const FAQPage = () => {
                   >
                     Book Khumai Danda Trip
                   </Link>
-                  <a
+                  <Link
                     href="/packages"
                     onClick={() => setShowLiveNowPopup(false)}
                     className="block w-full text-gray-700 py-3 px-6 rounded-lg border-2 border-gray-300 font-semibold transition-all duration-200 hover:border-gray-400"
                   >
                     View All Packages
-                  </a>
+                  </Link>
                 </div>
 
                 <div className="mt-4 text-xs text-gray-500">
