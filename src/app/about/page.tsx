@@ -22,7 +22,7 @@ const AboutPage = () => {
     {
       name: 'Abhishek Kumar',
       role: 'Head of Operations',
-      image: '/images/abhi.png',
+      image: '/images/Abhi.png',
       bio: 'Abhishek ensures every trip runs smoothly with his attention to detail and passion for customer satisfaction.'
     },
     {

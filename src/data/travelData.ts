@@ -222,7 +222,7 @@ export const packages: Package[] = [
     destination: 'Switzerland',
     duration: '10 days / 9 nights',
     price: 2899,
-    image: '/images/swiss-package.jpg',
+    image: 'https://images.unsplash.com/photo-1491555103944-7c647fd857e6?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
     description: 'Breathtaking Alpine adventure with scenic trains, mountain hikes, and luxury stays.',
     itinerary: [
       {
@@ -247,42 +247,42 @@ export const packages: Package[] = [
 export const galleryImages: GalleryImage[] = [
   {
     id: '1',
-    src: '/images/gallery-1.jpg',
+    src: 'https://images.unsplash.com/photo-1537953773345-d172ccf13cf1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
     alt: 'Bali sunset beach',
     destination: 'Bali',
     category: 'landscape'
   },
   {
     id: '2',
-    src: '/images/gallery-2.jpg',
+    src: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
     alt: 'Swiss mountain peak',
     destination: 'Swiss Alps',
     category: 'landscape'
   },
   {
     id: '3',
-    src: '/images/gallery-3.jpg',
+    src: 'https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
     alt: 'Tokyo street food',
     destination: 'Tokyo',
     category: 'food'
   },
   {
     id: '4',
-    src: '/images/gallery-4.jpg',
+    src: 'https://images.unsplash.com/photo-1587595431973-160d0d94add1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
     alt: 'Machu Picchu ruins',
     destination: 'Machu Picchu',
     category: 'culture'
   },
   {
     id: '5',
-    src: '/images/gallery-5.jpg',
+    src: 'https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
     alt: 'Serengeti wildlife',
     destination: 'Serengeti',
     category: 'adventure'
   },
   {
     id: '6',
-    src: '/images/gallery-6.jpg',
+    src: 'https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
     alt: 'Santorini architecture',
     destination: 'Santorini',
     category: 'culture'
@@ -300,14 +300,14 @@ export const liveDestinations: LiveDestination[] = [
     detailedDescription: 'Khumai Danda, situated at an altitude of 3,245 meters, is one of Nepal\'s best-kept secrets for mountain enthusiasts. This spectacular viewpoint offers unobstructed views of eight of the world\'s highest peaks, including Mount Everest, Lhotse, Makalu, and Cho Oyu. The trek combines moderate hiking through pristine rhododendron forests with authentic cultural experiences in traditional Sherpa villages. Unlike the crowded trails to Everest Base Camp, Khumai Danda offers solitude and tranquility while providing equally stunning mountain vistas.',
     image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
     gallery: [
-      '/images/khumai/khumai_1.svg',
-      '/images/khumai/khumai_2.svg',
-      '/images/khumai/khumai_3.svg',
-      '/images/khumai/khumai_4.svg',
-      '/images/khumai/khumai_5.svg',
-      '/images/khumai/khumai_6.svg',
-      '/images/khumai/khumai_7.svg',
-      '/images/khumai/khumai_8.svg'
+      '/images/khumai/Khumai_1.svg',
+      '/images/khumai/Khumai_2.svg',
+      '/images/khumai/Khumai_3.svg',
+      '/images/khumai/Khumai_4.svg',
+      '/images/khumai/Khumai_5.svg',
+      '/images/khumai/Khumai_6.svg',
+      '/images/khumai/Khumai_7.svg',
+      '/images/khumai/Khumai_8.svg'
     ],
     rating: 4.8,
     price: 299,
