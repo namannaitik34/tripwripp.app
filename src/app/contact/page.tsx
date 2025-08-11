@@ -29,7 +29,7 @@ export default function ContactPage() {
       await new Promise(res => setTimeout(res, 1200));
       setStatus('success');
       setForm({ name: '', email: '', subject: '', message: '' });
-    } catch (err) {
+  } catch {
       setStatus('error');
     } finally {
       setSubmitting(false);
@@ -42,7 +42,7 @@ export default function ContactPage() {
       <section className="text-white py-20" style={{ backgroundColor: '#0d1d30' }}>
         <div className="max-w-5xl mx-auto px-4 text-center">
           <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }} className="text-5xl font-bold mb-4">Contact Us</motion.h1>
-          <motion.p initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.1 }} className="text-xl opacity-90 max-w-3xl mx-auto">Questions about a trek, custom itinerary request, partnership or press? We're here for you.</motion.p>
+          <motion.p initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.1 }} className="text-xl opacity-90 max-w-3xl mx-auto">Questions about a trek, custom itinerary request, partnership or press? We&apos;re here for you.</motion.p>
         </div>
       </section>
 
@@ -128,7 +128,7 @@ export default function ContactPage() {
                 {submitting ? <Loader2 className="h-5 w-5 animate-spin" /> : <Send className="h-5 w-5" />} {submitting ? 'Sending...' : 'Send Message'}
               </button>
               {status === 'success' && (
-                <span className="flex items-center text-green-600 text-sm font-medium"><CheckCircle2 className="h-5 w-5 mr-1" /> Sent! We'll reply soon.</span>
+                <span className="flex items-center text-green-600 text-sm font-medium"><CheckCircle2 className="h-5 w-5 mr-1" /> Sent! We&apos;ll reply soon.</span>
               )}
               {status === 'error' && (
                 <span className="flex items-center text-red-600 text-sm font-medium"><AlertCircle className="h-5 w-5 mr-1" /> Something went wrong.</span>
