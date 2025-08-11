@@ -120,12 +120,22 @@ const DestinationDetailPage = () => {
     });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Booking submitted:', formData, destination);
-    alert('Booking request submitted successfully! We will contact you soon.');
-    setShowBookingModal(false);
-    setFormData({ name: '', email: '', phone: '', gender: '', ageRange: '' });
+    if (!destination) return;
+    try {
+      const res = await fetch('/api/bookings', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ destinationId: destination.id, ...formData })
+      });
+      if (!res.ok) throw new Error('Failed');
+      alert('Booking request submitted successfully!');
+      setShowBookingModal(false);
+      setFormData({ name: '', email: '', phone: '', gender: '', ageRange: '' });
+    } catch {
+      alert('Submission failed. Please retry.');
+    }
   };
 
   if (!destination) {
@@ -531,6 +541,10 @@ const DestinationDetailPage = () => {
                   <div className="flex items-center justify-between text-sm mt-1">
                     <span>Duration:</span>
                     <span className="font-semibold">{destination.duration}</span>
+                  </div>
+                  <div className="text-xs text-gray-500 mt-3 flex items-center justify-between">
+                    <span>Admin: export all bookings?</span>
+                    <a href="/api/bookings?format=csv" className="underline hover:text-orange-600" title="Requires admin token if set">CSV</a>
                   </div>
                 </div>
 

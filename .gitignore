@@ -19,6 +19,8 @@
 
 # production
 /build
+.data/
+# Do not commit runtime data exports or JSON persistence files
 
 # misc
 .DS_Store

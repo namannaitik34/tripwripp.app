@@ -25,8 +25,12 @@ export default function ContactPage() {
     e.preventDefault();
     setSubmitting(true); setStatus('idle');
     try {
-      // Placeholder: integrate EmailJS or backend API here.
-      await new Promise(res => setTimeout(res, 1200));
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form)
+      });
+      if (!res.ok) throw new Error('Failed');
       setStatus('success');
       setForm({ name: '', email: '', subject: '', message: '' });
   } catch {
@@ -104,29 +108,30 @@ export default function ContactPage() {
             </motion.div>
 
           {/* Form */}
-          <motion.form onSubmit={handleSubmit} initial={{ opacity: 0, x: 40 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="lg:col-span-2 bg-white/95 backdrop-blur rounded-2xl shadow-xl p-8 space-y-6 border border-gray-200">
+          <motion.form onSubmit={handleSubmit} initial={{ opacity: 0, x: 40 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="lg:col-span-2 bg-white rounded-2xl shadow-xl p-8 space-y-6 border border-gray-300">
             <div className="grid md:grid-cols-2 gap-6">
               <div>
                 <label className="block text-sm font-medium mb-2 text-gray-700" htmlFor="name">Full Name</label>
-                <input id="name" name="name" required value={form.name} onChange={handleChange} className="w-full rounded-xl border border-gray-300 bg-gray-50 hover:bg-gray-100 px-4 py-3 focus:ring-2 focus:ring-orange-500 focus:border-orange-400 outline-none transition shadow-sm text-gray-800 placeholder-gray-400" placeholder="Your name" />
+                <input id="name" name="name" required value={form.name} onChange={handleChange} className="w-full rounded-xl border border-gray-400 bg-white px-4 py-3 focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none transition shadow-sm text-gray-800 placeholder-gray-500" placeholder="Your name" />
               </div>
               <div>
                 <label className="block text-sm font-medium mb-2 text-gray-700" htmlFor="email">Email</label>
-                <input id="email" name="email" type="email" required value={form.email} onChange={handleChange} className="w-full rounded-xl border border-gray-300 bg-gray-50 hover:bg-gray-100 px-4 py-3 focus:ring-2 focus:ring-orange-500 focus:border-orange-400 outline-none transition shadow-sm text-gray-800 placeholder-gray-400" placeholder="you@example.com" />
+                <input id="email" name="email" type="email" required value={form.email} onChange={handleChange} className="w-full rounded-xl border border-gray-400 bg-white px-4 py-3 focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none transition shadow-sm text-gray-800 placeholder-gray-500" placeholder="you@example.com" />
               </div>
             </div>
             <div>
               <label className="block text-sm font-medium mb-2 text-gray-700" htmlFor="subject">Subject</label>
-              <input id="subject" name="subject" required value={form.subject} onChange={handleChange} className="w-full rounded-xl border border-gray-300 bg-gray-50 hover:bg-gray-100 px-4 py-3 focus:ring-2 focus:ring-orange-500 focus:border-orange-400 outline-none transition shadow-sm text-gray-800 placeholder-gray-400" placeholder="Trip inquiry, custom plan, etc." />
+              <input id="subject" name="subject" required value={form.subject} onChange={handleChange} className="w-full rounded-xl border border-gray-400 bg-white px-4 py-3 focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none transition shadow-sm text-gray-800 placeholder-gray-500" placeholder="Trip inquiry, custom plan, etc." />
             </div>
             <div>
               <label className="block text-sm font-medium mb-2 text-gray-700" htmlFor="message">Message</label>
-              <textarea id="message" name="message" rows={6} required value={form.message} onChange={handleChange} className="w-full rounded-xl border border-gray-300 bg-gray-50 hover:bg-gray-100 px-4 py-3 focus:ring-2 focus:ring-orange-500 focus:border-orange-400 outline-none transition shadow-sm resize-none text-gray-800 placeholder-gray-400" placeholder="Tell us about your ideal journey, dates, group size..." />
+              <textarea id="message" name="message" rows={6} required value={form.message} onChange={handleChange} className="w-full rounded-xl border border-gray-400 bg-white px-4 py-3 focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none transition shadow-sm resize-none text-gray-800 placeholder-gray-500" placeholder="Tell us about your ideal journey, dates, group size..." />
             </div>
             <div className="pt-2 flex items-center gap-4 flex-wrap">
               <button disabled={submitting} type="submit" className="flex items-center gap-2 bg-orange-500 hover:bg-orange-600 disabled:opacity-60 text-white font-semibold px-8 py-4 rounded-xl shadow-lg transition hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-orange-300/40">
                 {submitting ? <Loader2 className="h-5 w-5 animate-spin" /> : <Send className="h-5 w-5" />} {submitting ? 'Sending...' : 'Send Message'}
               </button>
+              {/* Admin link intentionally removed to keep admin area undiscoverable to end users */}
               {status === 'success' && (
                 <span className="flex items-center text-green-600 text-sm font-medium"><CheckCircle2 className="h-5 w-5 mr-1" /> Sent! We&apos;ll reply soon.</span>
               )}

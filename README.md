@@ -137,12 +137,64 @@ Modify Tailwind classes throughout the components or update `tailwind.config.js`
 Create new page components in the `src/app/` directory following Next.js App Router conventions.
 
 ## Deployment
+### Recommended Platform: Vercel
+1. Push the repository to GitHub.
+2. Create a new Vercel project and import the repo.
+3. Add environment variables (Settings > Environment Variables):
+   - CONTACT_ADMIN_TOKEN (required, strong random string)
+4. Build & deploy (Vercel auto-detects Next.js).
 
-The application is ready for deployment on platforms like:
-- Vercel (recommended for Next.js)
-- Netlify
-- AWS Amplify
-- Other static site hosts
+### Other Platforms
+- Netlify: Use `next build` then `netlify-plugin-nextjs` (or deploy via Next Runtime). Start command: `next start`.
+- Docker: Build a production image (example below) and run behind reverse proxy with HTTPS.
+
+### Production Build Locally
+```bash
+cp .env.example .env.local
+# edit CONTACT_ADMIN_TOKEN
+npm install
+npm run build
+npm start
+```
+
+### Security & Hardening
+- Admin dashboard: `/admin/submissions` – secured by CONTACT_ADMIN_TOKEN (never expose publicly).
+- CSV/data exports require the token (Authorization: Bearer header preferred; query param fallback kept only temporarily) – keep it out of screenshots/logs.
+- Security headers (HSTS, CSP, Permissions-Policy, etc.) configured in `next.config.ts`.
+- Rate limiting on POST /api/contact and /api/bookings endpoints (basic in-memory). For multi-instance scaling, move to Redis.
+- Data persistence currently JSON files in `.data/` (ephemeral on some hosts). For production durability migrate to a database (Postgres, MySQL, or a serverless KV/DB).
+- Global error boundary (`src/app/error.tsx`) and not-found page (`src/app/not-found.tsx`) provide user-friendly fallbacks.
+- Health check endpoint: `GET /api/health` returns `{ status: "ok" }` for uptime monitoring.
+
+### Suggested Next Improvements
+- Replace JSON storage with a database layer (Prisma + Postgres or PlanetScale/MySQL or Neon).
+- Remove remaining token query auth usage (fully header-based) and introduce an HTTP-only cookie session for admin.
+- Add monitoring (e.g., Vercel Analytics, Logtail, Sentry) and structured logging.
+- Implement daily backups/rotation for exported CSV.
+ - Add audit logging for archive/unarchive actions.
+
+### Minimal Dockerfile (Optional)
+```Dockerfile
+FROM node:20-alpine AS deps
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci --only=production
+
+FROM node:20-alpine AS build
+WORKDIR /app
+COPY . .
+RUN npm ci && npm run build
+
+FROM node:20-alpine AS runner
+WORKDIR /app
+ENV NODE_ENV=production
+COPY --from=build /app/.next ./.next
+COPY --from=build /app/public ./public
+COPY --from=build /app/package*.json ./
+RUN npm ci --only=production
+EXPOSE 3000
+CMD ["npm","start"]
+```
 
 ## Browser Support
 
