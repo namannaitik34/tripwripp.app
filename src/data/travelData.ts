@@ -310,8 +310,8 @@ export const liveDestinations: LiveDestination[] = [
       '/images/khumai/Khumai_8.svg'
     ],
     rating: 4.8,
-    price: 299,
-    duration: '3 Days 2 Nights',
+    price: 10500,
+  duration: '6 Days 5 Nights',
     highlights: [
       'Sunrise over Himalayas',
       'Mount Everest views',
@@ -325,80 +325,119 @@ export const liveDestinations: LiveDestination[] = [
     bestTime: 'March-May, September-November',
     availableSlots: 8,
     totalSlots: 15,
-    startDate: '2025-03-15',
-    endDate: '2025-03-17',
+  startDate: '2025-10-06',
+  endDate: '2025-10-11',
     isLive: true,
     itinerary: [
       {
         day: 1,
-        title: 'Kathmandu to Salleri Drive & Trek to Khumai Danda Base',
-        description: 'Early morning drive from Kathmandu to Salleri, followed by a scenic trek through rhododendron forests to reach Khumai Danda base camp.',
+        title: '6th October – Journey Begins',
+        description: 'Evening assembly at Raxaul, cross into Nepal and begin the overnight road journey toward Pokhara.',
         activities: [
-          'Scenic drive through countryside',
-          'Meet local Sherpa guides',
-          'Trek through rhododendron forests',
-          'Set up base camp',
-          'Evening cultural program'
+          'Evening meet-up at Raxaul (briefing & introductions)',
+          'Cross border & transfer: Raxaul → Birgunj (≈1 hr)',
+          'Board private vehicle / bus: Birgunj → Pokhara (≈8 hrs, overnight travel)',
+          'Rest stops & light snacks en route'
         ],
-        accommodation: 'Mountain Lodge',
-        meals: ['Lunch', 'Dinner']
+        accommodation: 'Overnight Tourist Bus (Reclining Seats)',
+        meals: ['Snacks']
       },
       {
         day: 2,
-        title: 'Summit Day - Sunrise at Khumai Danda',
-        description: 'Pre-dawn hike to the summit for spectacular sunrise views over the Himalayan range, including Mount Everest.',
+        title: '7th October – Arrival & First Trek',
+        description: 'Arrive in Pokhara at dawn, transfer toward the trailhead and begin the acclimatising approach toward Saripakha.',
         activities: [
-          'Pre-dawn summit hike (4:30 AM)',
-          'Sunrise photography session',
-          'Himalayan peak identification',
-          'Traditional breakfast at summit',
-          'Explore surrounding viewpoints',
-          'Return to base camp'
+          'Early arrival in Pokhara (stretch & freshen up)',
+          'Half‑hour drive to Harichowk trailhead',
+          'Harichowk → Ghachuk Village approach (start ~10:00 AM)',
+          'Freshen up & hearty breakfast',
+          'Trek permit formalities',
+          '1‑hour introductory trek to Saripakha',
+          'Evening rest & light acclimatization walk',
+          'Night stay in Saripakha'
         ],
-        accommodation: 'Mountain Lodge',
+        accommodation: 'Local Teahouse – Saripakha',
         meals: ['Breakfast', 'Lunch', 'Dinner']
       },
       {
         day: 3,
-        title: 'Trek to Salleri & Return to Kathmandu',
-        description: 'Morning trek back to Salleri with stops at local villages, followed by drive back to Kathmandu.',
+        title: '8th October – Trek to Chichimle',
+        description: 'Gradual ascent through forested sections toward the midway settlement of Chichimle with active recovery and group bonding.',
         activities: [
-          'Morning village exploration',
-          'Trek to Salleri',
-          'Visit local monastery',
-          'Drive back to Kathmandu',
-          'Trip conclusion ceremony'
+          'Morning warm‑up exercise & breakfast',
+          'Begin trek ~9:00 AM – paced ascent',
+          'Reach Chichimle (halfway) around 2:00 PM',
+          'Check‑in, hot lunch & rest',
+          'Evening fun activities / games',
+          'Dinner & overnight stay'
+        ],
+        accommodation: 'Teahouse – Chichimle',
+        meals: ['Breakfast', 'Lunch', 'Dinner']
+      },
+      {
+        day: 4,
+        title: '9th October – Himalayan Views',
+        description: 'Final push to Khumai for sweeping Annapurna Range panoramas and a golden sunset over the high peaks.',
+        activities: [
+          'Early morning Annapurna range viewpoint session',
+          'Trek Chichimle → Khumai (start 10:00 AM, arrive ~2:00 PM)',
+          'Hot lunch & recovery rest',
+          'Sunset Himalayan photoshoot (golden hour)',
+          'Bonfire & evening social',
+          'Night stay in Khumai'
+        ],
+        accommodation: 'Camp / Teahouse – Khumai',
+        meals: ['Breakfast', 'Lunch', 'Dinner']
+      },
+      {
+        day: 5,
+        title: '10th October – Return Journey',
+        description: 'Dawn summit ambiance, long downhill descent, evening departure toward Birgunj for the overnight transfer.',
+        activities: [
+          '5:30 AM prime sunrise & peak panorama (most important view)',
+          'Breakfast at Khumai',
+          'Downhill trek (start 9:00 AM) → Saripakha (arrive ~3:00 PM)',
+          'Rest & gear re‑pack',
+          'Saripakha → Pokhara transfer (depart ~7:00 PM)',
+          'Board overnight vehicle to Birgunj (drive through night)'
+        ],
+        accommodation: 'Overnight Bus (Pokhara → Birgunj)',
+        meals: ['Breakfast', 'Lunch', 'Snacks']
+      },
+      {
+        day: 6,
+        title: '11th October – Trip Ends',
+        description: 'Border return and farewell after a rewarding Khumai Danda immersion.',
+        activities: [
+          'Early arrival Birgunj (~5:00 AM)',
+          'Birgunj → Raxaul (depart ~7:00 AM, ≈30 mins)',
+          'Border crossing formalities',
+          'Farewell & dispersal'
         ],
         accommodation: 'N/A',
-        meals: ['Breakfast', 'Lunch']
+        meals: ['Breakfast (self / en route)']
       }
     ],
     included: [
       'Professional mountain guide',
       'All accommodation as per itinerary',
       'All meals during trek',
-      'Transportation (Kathmandu-Salleri-Kathmandu)',
+      'Transportation (Raxaul-Pokhara-Raxaul)',
       'Trekking permits and fees',
       'First aid kit and safety equipment',
       'Group trekking equipment'
     ],
-    excluded: [
-      'International flights',
-      'Nepal entry visa',
+    excluded: [ 
       'Personal trekking equipment',
-      'Travel insurance',
       'Tips for guides and porters',
       'Personal expenses and drinks',
-      'Emergency evacuation costs'
     ],
-    meetingPoint: 'TripWripp Office, Thamel, Kathmandu at 6:00 AM',
+    meetingPoint: 'coffee shop, Raxual-Nepal Border, b/w 2 PM - 4 PM',
     requirements: [
       'Moderate fitness level required',
-      'Previous trekking experience preferred',
       'Comfortable with 4-6 hours of walking daily',
-      'Good quality trekking boots',
+      'Casual/Sports Shoes',
       'Warm clothing for cold mornings',
-      'Valid travel insurance covering trekking activities'
     ]
   }
 ];

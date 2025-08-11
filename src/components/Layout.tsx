@@ -44,8 +44,8 @@ const Layout = ({ children }: LayoutProps) => {
             <div>
               <h4 className="text-lg font-semibold mb-4">Contact Info</h4>
               <div className="space-y-2 text-gray-300">
-                <p>📧 info@tripwripp.com</p>
-                <p>📞 +1 (555) 123-4567</p>
+                <p>📧 tripwripteam@gmail.com</p>
+                <p>📞 +91 79706 19555</p>
                 <p>📍 123 Travel Street, Adventure City</p>
               </div>
             </div>

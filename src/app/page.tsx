@@ -348,6 +348,7 @@ const HomePage = () => {
       {/* CTA Section */}
       <CTASection />
       </motion.div>
+      
     </>
   );
 };
