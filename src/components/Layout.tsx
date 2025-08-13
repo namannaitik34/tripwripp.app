@@ -2,15 +2,20 @@
 
 import { ReactNode } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
+import Image, { ImageProps } from 'next/image';
 import { useState } from 'react';
 
 interface LayoutProps {
   children: ReactNode;
 }
 
-// Simplified fallback image component to replace OptimizedImage
-const SafeImage = ({ src, alt, ...props }: { src: string; alt: string; [key: string]: any }) => {
+// Properly typed SafeImage component
+interface SafeImageProps extends Omit<ImageProps, 'src' | 'alt'> {
+  src: string;
+  alt: string;
+}
+
+const SafeImage = ({ src, alt, ...props }: SafeImageProps) => {
   const [error, setError] = useState(false);
   const fallbackSrc = "/images/logo-fallback.png";
   

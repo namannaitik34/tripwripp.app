@@ -2,8 +2,9 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import { Menu, X } from 'lucide-react';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import { Menu, X, MapPin } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const Navigation = () => {
@@ -27,7 +28,13 @@ const Navigation = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <img src="/images/logo-white.svg" alt="TripWripp Logo" className="h-40"  />
+          <Image 
+            src="/images/logo-white.svg" 
+            alt="TripWripp Logo" 
+            width={100} 
+            height={32} 
+            className="h-8 w-auto" 
+          />
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex space-x-8">
