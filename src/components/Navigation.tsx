@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Menu, X } from 'lucide-react';
 import Image from 'next/image';
@@ -9,7 +9,13 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const pathname = usePathname();
+
+  // Handle client-side only rendering to avoid hydration issues
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const navItems = [
     { href: '/', label: 'Home' },
@@ -23,18 +29,45 @@ const Navigation = () => {
 
   const toggleMenu = () => setIsOpen(!isOpen);
 
+  // Prevent hydration errors by rendering only on client
+  if (!mounted) {
+    return (
+      <nav className="shadow-lg sticky top-0 z-50" style={{ backgroundColor: '#0d1d30' }}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-16">
+            {/* Logo placeholder */}
+            <div className="h-40 w-100" />
+            {/* Menu placeholder */}
+            <div className="hidden md:block" />
+            {/* Mobile button placeholder */}
+            <div className="md:hidden">
+              <div className="p-2 rounded-md text-gray-300" />
+            </div>
+          </div>
+        </div>
+      </nav>
+    );
+  }
+
   return (
     <nav className="shadow-lg sticky top-0 z-50" style={{ backgroundColor: '#0d1d30' }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <Image 
-            src="/images/logo-white.svg" 
-            alt="TripWripp Logo" 
-            width={100} 
-            height={32} 
-            className="h-40 w-auto" 
-          />
+          <div className="relative h-10 w-40">
+            <Image 
+              src="/images/logo-white.svg" 
+              alt="TripWripp Logo" 
+              fill
+              className="object-contain"
+              priority
+              onError={(e) => {
+                // Fallback if image fails to load
+                const target = e.target as HTMLImageElement;
+                target.src = '/images/logo-fallback.png';
+              }}
+            />
+          </div>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex space-x-8">
@@ -59,6 +92,7 @@ const Navigation = () => {
             <button
               onClick={toggleMenu}
               className="p-2 rounded-md text-gray-300 hover:text-white"
+              aria-label={isOpen ? "Close menu" : "Open menu"}
             >
               {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </button>

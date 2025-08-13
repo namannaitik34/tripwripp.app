@@ -1,22 +1,28 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  // Allow the build to continue even with TypeScript errors
+  // Prevent issues with missing images
+  images: {
+    domains: [],
+    unoptimized: process.env.NODE_ENV === 'production',
+    dangerouslyAllowSVG: true,
+    contentDispositionType: 'attachment',
+    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
+  },
+  // Make the build more permissive for deployment
   typescript: {
-    // !! WARN !!
-    // Dangerously allow production builds to successfully complete even if
-    // your project has type errors.
+    // Allow production builds to complete even with type errors
     ignoreBuildErrors: true,
   },
   eslint: {
-    // Allow the build to continue even with ESLint errors
+    // Allow production builds to complete even with linting errors
     ignoreDuringBuilds: true,
   },
-  // Other existing config...
-  headers: async () => {
+  // Add proper CORS headers
+  async headers() {
     return [
       {
-        source: '/api/(.*)',
+        source: '/api/:path*',
         headers: [
           { key: 'Access-Control-Allow-Credentials', value: 'true' },
           { key: 'Access-Control-Allow-Origin', value: '*' },
@@ -25,7 +31,19 @@ const nextConfig = {
         ]
       }
     ];
-  }
+  },
+  // Optimize build output
+  poweredByHeader: false,
+  compress: true,
+  // Add runtime configuration
+  publicRuntimeConfig: {
+    // Will be available on both server and client
+    apiUrl: process.env.API_URL || '',
+  },
+  // Handle potential issues with Webpack
+  webpack(config) {
+    return config;
+  },
 };
 
 module.exports = nextConfig;
