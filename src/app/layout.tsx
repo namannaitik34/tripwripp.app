@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Navigation from "@/components/Navigation";
 import Layout from "@/components/Layout";
+import ErrorBoundary from '@/components/ui/ErrorBoundary';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -39,10 +40,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Navigation />
-        <Layout>
-          {children}
-        </Layout>
+        <ErrorBoundary>
+          <Navigation />
+          <Layout>
+            {children}
+          </Layout>
+        </ErrorBoundary>
       </body>
     </html>
   );
