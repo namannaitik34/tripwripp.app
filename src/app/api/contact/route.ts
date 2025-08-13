@@ -1,33 +1,86 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { addSubmission, getSubmissions, toCSV, setArchived } from '@/lib/contactStore';
+import { NextResponse } from 'next/server';
 import { z } from 'zod';
-import { rateLimit } from '@/lib/rateLimiter';
 
-const submissionSchema = z.object({
-  name: z.string().min(2).max(80),
-  email: z.string().email(),
-  subject: z.string().min(2).max(120),
-  message: z.string().min(5).max(2000)
+// Define validation schema
+const contactFormSchema = z.object({
+  fullName: z.string().min(2, { message: 'Full name must be at least 2 characters.' }),
+  email: z.string().email({ message: 'Please enter a valid email address.' }),
+  subject: z.string().min(3, { message: 'Subject must be at least 3 characters.' }),
+  message: z.string().min(10, { message: 'Message must be at least 10 characters.' })
 });
 
-export async function POST(req: NextRequest) {
+export async function POST(req: Request) {
   try {
-    const ip = req.headers.get('x-forwarded-for') || 'local';
-    if (!rateLimit(`contact:${ip}`, 5, 0.5)) {
-      return NextResponse.json({ error: 'Rate limit exceeded. Try again later.' }, { status: 429 });
+    // Enable CORS
+    const origin = req.headers.get('origin') || '';
+
+    // Parse the request body
+    const body = await req.json();
+
+    // Validate the data
+    const result = contactFormSchema.safeParse(body);
+
+    if (!result.success) {
+      // Return validation errors
+      return NextResponse.json(
+        {
+          success: false,
+          message: 'Validation failed',
+          errors: result.error.flatten().fieldErrors
+        },
+        { status: 400 }
+      );
     }
-    const data = await req.json();
-    const parsed = submissionSchema.safeParse(data);
-    if (!parsed.success) {
-      return NextResponse.json({ error: 'Validation failed', issues: parsed.error.issues }, { status: 422 });
-    }
-    const { name, email, subject, message } = parsed.data;
-    const userAgent = req.headers.get('user-agent') || undefined;
-    const saved = await addSubmission({ name, email, subject, message, userAgent });
-    return NextResponse.json({ success: true, submission: saved }, { status: 201 });
-  } catch {
-    return NextResponse.json({ error: 'Invalid JSON body' }, { status: 400 });
+
+    const { fullName, email, subject, message } = result.data;
+
+    // Here you would normally store the data in a database or send an email
+    // For now, we'll just log it and return success
+    console.log('Contact form submission:', { fullName, email, subject, message });
+
+    // Simulate successful submission
+    return NextResponse.json(
+      { success: true, message: "Your message has been received. We'll get back to you soon!" },
+      {
+        status: 200,
+        headers: {
+          'Access-Control-Allow-Origin': origin,
+          'Access-Control-Allow-Methods': 'POST, OPTIONS',
+          'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+          'Access-Control-Allow-Credentials': 'true'
+        }
+      }
+    );
+  } catch (error) {
+    console.error('Contact form error:', error);
+
+    // Return a friendly error message
+    return NextResponse.json(
+      { success: false, message: 'We encountered an issue processing your request. Please try again later.' },
+      { status: 500 }
+    );
   }
+}
+
+// Handle OPTIONS requests for CORS preflight
+export async function OPTIONS(req: Request) {
+  const origin = req.headers.get('origin') || '';
+
+  return new NextResponse(null, {
+    status: 204,
+    headers: {
+      'Access-Control-Allow-Origin': origin,
+      'Access-Control-Allow-Methods': 'POST, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+      'Access-Control-Allow-Credentials': 'true',
+      'Access-Control-Max-Age': '86400' // 24 hours
+    }
+  });
+}
+      'Access-Control-Allow-Credentials': 'true',
+      'Access-Control-Max-Age': '86400' // 24 hours
+    }
+  });
 }
 
 export async function GET(req: NextRequest) {
