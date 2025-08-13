@@ -27,10 +27,7 @@ const Navigation = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <Link href="/" className="flex items-center space-x-2">
-            <MapPin className="h-8 w-8" style={{ color: '#FF8F00' }} />
-            <span className="text-2xl font-bold text-white">TripWripp</span>
-          </Link>
+          <img src="/images/logo-white.svg" alt="TripWripp Logo" className="h-40"  />
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex space-x-8">

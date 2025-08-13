@@ -14,7 +14,7 @@ interface BookingsResponse { bookings?: BookingRecord[]; count?: number; error?:
 
 type TabKey = 'contact' | 'bookings';
 
-export default function AdminDataDashboard() {
+export default function AdminSubmissionsPage() {
   const [token, setToken] = useState('');
   const [activeTab, setActiveTab] = useState<TabKey>('contact');
   const [search, setSearch] = useState('');
@@ -81,7 +81,7 @@ export default function AdminDataDashboard() {
   useEffect(()=>{ setPage(1); }, [search, fromDate, toDate, destinationFilter, includeArchived, activeTab]);
 
   return (
-    <div className="min-h-screen" style={{ backgroundColor: '#ECEFF1' }}>
+    <div className="admin-submissions min-h-screen">
       <section className="py-14" style={{ backgroundColor: '#0d1d30' }}>
         <div className="max-w-6xl mx-auto px-4 text-white">
           <h1 className="text-4xl font-bold mb-2">Admin Data Dashboard</h1>
@@ -161,7 +161,7 @@ export default function AdminDataDashboard() {
             {error && <p className="p-4 text-red-600">Failed to load.</p>}
             {!loading && !unauthorized && activeTab==='contact' && filteredContacts.map(c => (
               <motion.div key={c.id} initial={{opacity:0}} animate={{opacity:1}} className={`p-4 space-y-1 ${c.archived ? 'opacity-60' : ''}`}>
-                <div className="flex flex-wrap gap-x-6 gap-y-1">
+                <div className="flex flex-wrap gap-x-6 gap-y-1 text-gray-800">
                   <span><strong>Name:</strong> {c.name}</span>
                   <span><strong>Email:</strong> {c.email}</span>
                   <span><strong>Subject:</strong> {c.subject}</span>
@@ -175,7 +175,7 @@ export default function AdminDataDashboard() {
             ))}
             {!loading && !unauthorized && activeTab==='bookings' && filteredBookings.map(b => (
               <motion.div key={b.id} initial={{opacity:0}} animate={{opacity:1}} className={`p-4 space-y-1 ${b.archived ? 'opacity-60' : ''}`}>
-                <div className="flex flex-wrap gap-x-6 gap-y-1">
+                <div className="flex flex-wrap gap-x-6 gap-y-1 text-gray-800">
                   <span><strong>Name:</strong> {b.name}</span>
                   <span><strong>Email:</strong> {b.email}</span>
                   <span><strong>Destination:</strong> {destinationNameMap[b.destinationId] || b.destinationId}</span>
@@ -201,6 +201,56 @@ export default function AdminDataDashboard() {
             </div>
           )}
         </div>
+
+        {/* Contacts panel */}
+        <section className="mt-6">
+          <h3 className="text-xl font-semibold text-[#0d1d30]">Contact Submissions</h3>
+          <div className="mt-2 rounded-xl bg-white shadow-sm ring-1 ring-black/5">
+            <div className="p-4 submissions-list">
+              {token && !loading && !unauthorized && activeTab==='contact' && filteredContacts.map(c => (
+                <motion.div key={c.id} initial={{opacity:0}} animate={{opacity:1}} className={`p-4 space-y-1 ${c.archived ? 'opacity-60' : ''}`}>
+                  <div className="flex flex-wrap gap-x-6 gap-y-1">
+                    <span><strong>Name:</strong> {c.name}</span>
+                    <span><strong>Email:</strong> {c.email}</span>
+                    <span><strong>Subject:</strong> {c.subject}</span>
+                    <span><strong>Date:</strong> {new Date(c.createdAt).toLocaleString()}</span>
+                  </div>
+                  <p className="text-gray-600 whitespace-pre-wrap">{c.message}</p>
+                  <div className="pt-1">
+                    <button onClick={()=>toggleArchive('contact', c.id, !c.archived)} className="text-xs underline text-orange-600 hover:text-orange-700">{c.archived ? 'Unarchive' : 'Archive'}</button>
+                  </div>
+                </motion.div>
+              ))}
+              {!loading && !unauthorized && activeTab==='contact' && filteredContacts.length === 0 && <p className="p-4 text-gray-500">No submissions on this page.</p>}
+            </div>
+          </div>
+        </section>
+
+        {/* Bookings panel */}
+        <section className="mt-8">
+          <h3 className="text-xl font-semibold text-[#0d1d30]">Booking Submissions</h3>
+          <div className="mt-2 rounded-xl bg-white shadow-sm ring-1 ring-black/5">
+            <div className="p-4 submissions-list">
+              {token && !loading && !unauthorized && activeTab==='bookings' && filteredBookings.map(b => (
+                <motion.div key={b.id} initial={{opacity:0}} animate={{opacity:1}} className={`p-4 space-y-1 ${b.archived ? 'opacity-60' : ''}`}>
+                  <div className="flex flex-wrap gap-x-6 gap-y-1">
+                    <span><strong>Name:</strong> {b.name}</span>
+                    <span><strong>Email:</strong> {b.email}</span>
+                    <span><strong>Destination:</strong> {destinationNameMap[b.destinationId] || b.destinationId}</span>
+                    <span><strong>Gender:</strong> {b.gender}</span>
+                    <span><strong>Age:</strong> {b.ageRange}</span>
+                    <span><strong>Date:</strong> {new Date(b.createdAt).toLocaleString()}</span>
+                  </div>
+                  {b.phone && <p className="text-gray-600"><strong>Phone:</strong> {b.phone}</p>}
+                  <div className="pt-1">
+                    <button onClick={()=>toggleArchive('bookings', b.id, !b.archived)} className="text-xs underline text-orange-600 hover:text-orange-700">{b.archived ? 'Unarchive' : 'Archive'}</button>
+                  </div>
+                </motion.div>
+              ))}
+              {!loading && !unauthorized && activeTab==='bookings' && filteredBookings.length === 0 && <p className="p-4 text-gray-500">No bookings on this page.</p>}
+            </div>
+          </div>
+        </section>
       </div>
     </div>
   );
