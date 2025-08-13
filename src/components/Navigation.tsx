@@ -33,7 +33,7 @@ const Navigation = () => {
             alt="TripWripp Logo" 
             width={100} 
             height={32} 
-            className="h-8 w-auto" 
+            className="h-40 w-auto" 
           />
 
           {/* Desktop Navigation */}

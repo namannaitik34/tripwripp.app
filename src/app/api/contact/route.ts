@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { NextRequest } from 'next/server';
 import { z } from 'zod';
 
 // Define validation schema
@@ -77,10 +78,49 @@ export async function OPTIONS(req: Request) {
     }
   });
 }
-      'Access-Control-Allow-Credentials': 'true',
-      'Access-Control-Max-Age': '86400' // 24 hours
-    }
-  });
+
+// Helper functions for contact form submissions
+interface Submission {
+  id: string;
+  name: string;
+  email: string;
+  subject: string;
+  message: string;
+  createdAt: string;
+  archived: boolean;
+}
+
+// Mock function to get submissions
+async function getSubmissions(includeArchived: boolean = false): Promise<Submission[]> {
+  // In a real app, this would fetch from a database
+  // For now, return mock data
+  return []; // Return empty array for demo purposes
+}
+
+// Mock function to set archived status
+async function setArchived(id: string, archived: boolean): Promise<boolean> {
+  // In a real app, this would update a database record
+  // For now, just return success
+  return true;
+}
+
+// Helper function to convert submissions to CSV
+function toCSV(submissions: Submission[]): string {
+  const headers = ['ID', 'Name', 'Email', 'Subject', 'Message', 'Created At', 'Archived'];
+  const rows = submissions.map(s => [
+    s.id,
+    `"${s.name.replace(/"/g, '""')}"`,
+    `"${s.email.replace(/"/g, '""')}"`,
+    `"${s.subject.replace(/"/g, '""')}"`,
+    `"${s.message.replace(/"/g, '""')}"`,
+    s.createdAt,
+    s.archived ? 'Yes' : 'No'
+  ]);
+  
+  return [
+    headers.join(','),
+    ...rows.map(r => r.join(','))
+  ].join('\n');
 }
 
 export async function GET(req: NextRequest) {
@@ -113,7 +153,13 @@ export async function GET(req: NextRequest) {
   if (url.searchParams.get('format') === 'csv') {
     if (!isAuthed) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     const csv = toCSV(filtered); // export filtered set
-    return new NextResponse(csv, { status: 200, headers: { 'Content-Type': 'text/csv; charset=utf-8', 'Content-Disposition': 'attachment; filename="contact_submissions.csv"' } });
+    return new NextResponse(csv, { 
+      status: 200, 
+      headers: { 
+        'Content-Type': 'text/csv; charset=utf-8', 
+        'Content-Disposition': 'attachment; filename="contact_submissions.csv"' 
+      } 
+    });
   }
   if (!isAuthed) return NextResponse.json({ count: total });
   return NextResponse.json({ submissions: pageItems, page, pageSize, total });
@@ -129,12 +175,15 @@ export async function PATCH(req: NextRequest) {
   const token = bearer || tokenQuery;
   const isAuthed = !authToken || (token && token === authToken);
   if (!isAuthed) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  
   const id = url.searchParams.get('id');
   const archivedParam = url.searchParams.get('archived');
   if (!id || archivedParam == null) return NextResponse.json({ error: 'Missing id or archived param' }, { status: 400 });
+  
   const archived = archivedParam === 'true';
   const ok = await setArchived(id, archived);
   if (!ok) return NextResponse.json({ error: 'Not found' }, { status: 404 });
+  
   return NextResponse.json({ success: true });
 }
 
