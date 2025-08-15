@@ -33,9 +33,8 @@ const nextConfig = {
       },
     ];
   },
-}
-
-module.exports = nextConfig
+  poweredByHeader: false,
+  compress: true,
   publicRuntimeConfig: {
     // Will be available on both server and client
     apiUrl: process.env.API_URL || '',
@@ -46,4 +45,5 @@ module.exports = nextConfig
   },
 };
 
+module.exports = nextConfig;
 module.exports = nextConfig;
