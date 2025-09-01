@@ -84,14 +84,12 @@ const LiveNow: React.FC = () => {
             />
           ))}
         </div>
-        
         {/* Background Pattern */}
         <div className="absolute inset-0 opacity-20">
           <div className="absolute top-0 left-0 w-full h-full" style={{
-            backgroundImage: 'url("data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%2300B8D4" fill-opacity="0.3"%3E%3Ccircle cx="30" cy="30" r="4"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")'
+            backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\"60\" height=\"60\" viewBox=\"0 0 60 60" xmlns=\"http://www.w3.org/2000/svg\"%3E%3Cg fill=\"none\" fill-rule=\"evenodd\"%3E%3Cg fill=\"%2300B8D4\" fill-opacity=\"0.3\"%3E%3Ccircle cx=\"30" cy="30" r="4"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")'
           }}></div>
         </div>
-
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -112,7 +110,6 @@ const LiveNow: React.FC = () => {
               Book now for exclusive departures - Limited slots available!
             </p>
           </motion.div>
-
           <div className="grid grid-cols-1 lg:grid-cols-1 gap-8">
             {currentLiveDestinations.map((destination, index) => (
               <motion.div
@@ -138,11 +135,9 @@ const LiveNow: React.FC = () => {
                         filter: 'brightness(0.9) contrast(1.1)'
                       }}
                     ></div>
-                    
                     {/* Modern Gradient Overlays */}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
                     <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-black/30"></div>
-                    
                     {/* Glassmorphism Elements */}
                     <div className="absolute inset-0">
                       {/* Floating Glass Particles */}
@@ -168,7 +163,6 @@ const LiveNow: React.FC = () => {
                         />
                       ))}
                     </div>
-                    
                     {/* Live Badge with Modern Design */}
                     <div className="absolute top-4 left-4">
                       <motion.div 
@@ -179,7 +173,6 @@ const LiveNow: React.FC = () => {
                         LIVE
                       </motion.div>
                     </div>
-
                     {/* Availability with Glassmorphism */}
                     <div className="absolute top-4 right-4 bg-white/10 backdrop-blur-md border border-white/20 rounded-xl px-4 py-2 shadow-lg">
                       <div className="flex items-center text-sm">
@@ -189,17 +182,14 @@ const LiveNow: React.FC = () => {
                         </span>
                       </div>
                     </div>
-
                     {/* Rating with Modern Style */}
                     <div className="absolute bottom-4 left-4 bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-4 py-2 flex items-center shadow-lg">
                       <Star className="h-4 w-4 text-yellow-400 fill-current" />
                       <span className="ml-2 text-sm font-medium text-white">{destination.rating}</span>
                     </div>
-
                     {/* Modern Image Overlay Effect */}
                     <div className="absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                   </div>
-
                   {/* Content Section */}
                   <div className="p-8">
                     <div className="mb-4">
@@ -217,11 +207,9 @@ const LiveNow: React.FC = () => {
                         </div>
                       )}
                     </div>
-
                     <p className="text-gray-600 mb-4 leading-relaxed">
                       {destination.description}
                     </p>
-
                     {/* Trip Details */}
                     <div className="grid grid-cols-2 gap-4 mb-4">
                       <div className="flex items-center">
@@ -247,7 +235,6 @@ const LiveNow: React.FC = () => {
                         </div>
                       )}
                     </div>
-
                     {/* Highlights */}
                     <div className="mb-6">
                       <h4 className="font-semibold mb-2" style={{ color: '#0d1d30' }}>Highlights:</h4>
@@ -260,13 +247,8 @@ const LiveNow: React.FC = () => {
                         ))}
                       </div>
                     </div>
-
                     {/* Price and Action Buttons */}
-<<<<<<< HEAD
                     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-=======
-                    <div className="flex items-center justify-between">
->>>>>>> 31693e4ef090dc8e362ecb69ed020a857344effd
                       <div>
                         <span className="text-sm text-gray-500">Starting from</span>
                         <div className="flex items-baseline">
@@ -276,17 +258,10 @@ const LiveNow: React.FC = () => {
                           <span className="text-gray-500 text-sm ml-1"> per person</span>
                         </div>
                       </div>
-<<<<<<< HEAD
                       <div className="flex flex-col gap-2 w-full sm:flex-row sm:gap-4 sm:w-auto">
                         <Link
                           href={`/live/${destination.id}`}
                           className="group relative overflow-hidden text-white px-6 py-3 rounded-xl font-semibold transition-all duration-300 ease-out hover:shadow-2xl hover:-translate-y-1 active:scale-95 flex items-center w-full sm:w-auto"
-=======
-                      <div className="flex gap-4">
-                        <Link
-                          href={`/live/${destination.id}`}
-                          className="group relative overflow-hidden text-white px-6 py-3 rounded-xl font-semibold transition-all duration-300 ease-out hover:shadow-2xl hover:-translate-y-1 active:scale-95 flex items-center"
->>>>>>> 31693e4ef090dc8e362ecb69ed020a857344effd
                           style={{ backgroundColor: '#FF8F00' }}
                         >
                           <div className="absolute inset-0 bg-gradient-to-r from-orange-600 to-orange-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
@@ -295,19 +270,11 @@ const LiveNow: React.FC = () => {
                         </Link>
                         <button
                           onClick={() => handleBookNow(destination)}
-<<<<<<< HEAD
                           className="group relative overflow-hidden text-white px-8 py-3 rounded-xl font-semibold transition-all duration-300 ease-out hover:shadow-2xl hover:-translate-y-1 active:scale-95 w-full sm:w-auto"
                           style={{ backgroundColor: '#0d1d30' }}
                         >
                           <div className="absolute inset-0 bg-gradient-to-r from-gray-800 to-gray-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                          <span className="relative z-10 ">Book Now</span>
-=======
-                          className="group relative overflow-hidden text-white px-8 py-3 rounded-xl font-semibold transition-all duration-300 ease-out hover:shadow-2xl hover:-translate-y-1 active:scale-95"
-                          style={{ backgroundColor: '#0d1d30' }}
-                        >
-                          <div className="absolute inset-0 bg-gradient-to-r from-gray-800 to-gray-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                           <span className="relative z-10">Book Now</span>
->>>>>>> 31693e4ef090dc8e362ecb69ed020a857344effd
                         </button>
                       </div>
                     </div>
@@ -318,7 +285,6 @@ const LiveNow: React.FC = () => {
           </div>
         </div>
       </section>
-
       {/* Booking Modal */}
       <AnimatePresence>
         {showBookingModal && (
@@ -349,7 +315,6 @@ const LiveNow: React.FC = () => {
                     <X className="h-5 w-5" />
                   </button>
                 </div>
-
                 <div className="mb-4 p-4 rounded-lg" style={{ backgroundColor: '#F5F5DC' }}>
                   <div className="flex items-center justify-between text-sm">
                     <span>Available Slots:</span>
@@ -364,7 +329,6 @@ const LiveNow: React.FC = () => {
                     </span>
                   </div>
                 </div>
-
                 <form onSubmit={handleSubmit} className="space-y-4">
                   <div>
                     <label className="block text-sm font-medium mb-2" style={{ color: '#0d1d30' }}>
@@ -383,7 +347,6 @@ const LiveNow: React.FC = () => {
                       />
                     </div>
                   </div>
-
                   <div>
                     <label className="block text-sm font-medium mb-2" style={{ color: '#0d1d30' }}>
                       Email Address *
@@ -401,7 +364,6 @@ const LiveNow: React.FC = () => {
                       />
                     </div>
                   </div>
-
                   <div>
                     <label className="block text-sm font-medium mb-2" style={{ color: '#0d1d30' }}>
                       Phone Number (Optional)
@@ -418,7 +380,6 @@ const LiveNow: React.FC = () => {
                       />
                     </div>
                   </div>
-
                   <div>
                     <label className="block text-sm font-medium mb-2" style={{ color: '#0d1d30' }}>
                       Gender *
@@ -430,50 +391,19 @@ const LiveNow: React.FC = () => {
                       required
                       className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-800"
                     >
-                      <option value="">Select Gender</option>
+                      <option value="">Select gender</option>
                       <option value="male">Male</option>
                       <option value="female">Female</option>
                       <option value="other">Other</option>
-                      <option value="prefer-not-to-say">Prefer not to say</option>
                     </select>
                   </div>
-
-                  <div>
-                    <label className="block text-sm font-medium mb-2" style={{ color: '#0d1d30' }}>
-                      Age Range *
-                    </label>
-                    <select
-                      name="ageRange"
-                      value={formData.ageRange}
-                      onChange={handleInputChange}
-                      required
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-800"
-                    >
-                      <option value="">Select Age Range</option>
-                      <option value="18-25">18-25 years</option>
-                      <option value="26-35">26-35 years</option>
-                      <option value="36-45">36-45 years</option>
-                      <option value="46-55">46-55 years</option>
-                      <option value="55+">55+ years</option>
-                    </select>
-                  </div>
-
-                  <div className="flex gap-3 pt-4">
-                    <button
-                      type="button"
-                      onClick={() => setShowBookingModal(false)}
-                      className="flex-1 px-4 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors font-medium"
-                    >
-                      Cancel
-                    </button>
-                    <button
-                      type="submit"
-                      className="flex-1 px-4 py-3 text-white rounded-lg font-semibold transition-all duration-300 hover:opacity-90"
-                      style={{ backgroundColor: '#FF8F00' }}
-                    >
-                      Submit Booking
-                    </button>
-                  </div>
+                  <button
+                    type="submit"
+                    className="flex-1 px-4 py-3 text-white rounded-lg font-semibold transition-all duration-300 hover:opacity-90"
+                    style={{ backgroundColor: '#FF8F00' }}
+                  >
+                    Submit Booking
+                  </button>
                 </form>
               </div>
             </motion.div>

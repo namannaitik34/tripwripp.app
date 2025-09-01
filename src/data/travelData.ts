@@ -41,10 +41,7 @@ export interface Package {
   rating: number;
   reviews: number;
   type: 'luxury' | 'budget' | 'adventure' | 'family' | 'romantic' | 'nature' | 'cultural';
-<<<<<<< HEAD
   requirements?: string[];
-=======
->>>>>>> 31693e4ef090dc8e362ecb69ed020a857344effd
 }
 
 export interface GalleryImage {
@@ -53,6 +50,14 @@ export interface GalleryImage {
   alt: string;
   destination: string;
   category: 'landscape' | 'culture' | 'adventure' | 'food' | 'people';
+}
+
+export interface LiveDestinationItineraryItem {
+  day: number;
+  title: string;
+  activities: string[];
+  accommodation?: string;
+  meals?: string[];
 }
 
 export interface LiveDestination {
@@ -77,14 +82,7 @@ export interface LiveDestination {
   isLive: boolean;
   detailedDescription?: string;
   gallery?: string[];
-  itinerary?: {
-    day: number;
-    title: string;
-    description: string;
-    activities: string[];
-    accommodation?: string;
-    meals?: string[];
-  }[];
+  itinerary?: LiveDestinationItineraryItem[];
   included?: string[];
   excluded?: string[];
   meetingPoint?: string;
@@ -646,8 +644,6 @@ export const packages: Package[] = [
     itinerary: [
       {
         day: 1,
-<<<<<<< HEAD
-=======
         title: 'Caves and Waterfalls Exploration',
         activities: [
           'Visit Pandav Caves',
@@ -703,7 +699,6 @@ export const packages: Package[] = [
     itinerary: [
       {
         day: 1,
->>>>>>> 31693e4ef090dc8e362ecb69ed020a857344effd
         title: 'Prayagraj Exploration',
         activities: [
           'Visit Triveni Sangam',
@@ -1086,8 +1081,7 @@ export const liveDestinations: LiveDestination[] = [
     itinerary: [
       {
         day: 1,
-        title: '6th October – Journey Begins',
-        description: 'Evening assembly at Raxaul, cross into Nepal and begin the overnight road journey toward Pokhara.',
+        title: 'Evening assembly at Raxaul, cross into Nepal and begin the overnight road journey toward Pokhara.',
         activities: [
           'Evening meet-up at Raxaul (briefing & introductions)',
           'Cross border & transfer: Raxaul → Birgunj (≈1 hr)',
@@ -1099,8 +1093,7 @@ export const liveDestinations: LiveDestination[] = [
       },
       {
         day: 2,
-        title: '7th October – Arrival & First Trek',
-        description: 'Arrive in Pokhara at dawn, transfer toward the trailhead and begin the acclimatising approach toward Saripakha.',
+        title: 'Arrive in Pokhara at dawn, transfer toward the trailhead and begin the acclimatising approach toward Saripakha.',
         activities: [
           'Early arrival in Pokhara (stretch & freshen up)',
           'Half‑hour drive to Harichowk trailhead',
@@ -1116,8 +1109,7 @@ export const liveDestinations: LiveDestination[] = [
       },
       {
         day: 3,
-        title: '8th October – Trek to Chichimle',
-        description: 'Gradual ascent through forested sections toward the midway settlement of Chichimle with active recovery and group bonding.',
+        title: 'Gradual ascent through forested sections toward the midway settlement of Chichimle with active recovery and group bonding.',
         activities: [
           'Morning warm‑up exercise & breakfast',
           'Begin trek ~9:00 AM – paced ascent',
@@ -1131,8 +1123,7 @@ export const liveDestinations: LiveDestination[] = [
       },
       {
         day: 4,
-        title: '9th October – Himalayan Views',
-        description: 'Final push to Khumai for sweeping Annapurna Range panoramas and a golden sunset over the high peaks.',
+        title: 'Final push to Khumai for sweeping Annapurna Range panoramas and a golden sunset over the high peaks.',
         activities: [
           'Early morning Annapurna range viewpoint session',
           'Trek Chichimle → Khumai (start 10:00 AM, arrive ~2:00 PM)',
@@ -1146,8 +1137,7 @@ export const liveDestinations: LiveDestination[] = [
       },
       {
         day: 5,
-        title: '10th October – Return Journey',
-        description: 'Dawn summit ambiance, long downhill descent, evening departure toward Birgunj for the overnight transfer.',
+        title: 'Dawn summit ambiance, long downhill descent, evening departure toward Birgunj for the overnight transfer.',
         activities: [
           '5:30 AM prime sunrise & peak panorama (most important view)',
           'Breakfast at Khumai',
@@ -1161,8 +1151,7 @@ export const liveDestinations: LiveDestination[] = [
       },
       {
         day: 6,
-        title: '11th October – Trip Ends',
-        description: 'Border return and farewell after a rewarding Khumai Danda immersion.',
+        title: 'Border return and farewell after a rewarding Khumai Danda immersion.',
         activities: [
           'Early arrival Birgunj (~5:00 AM)',
           'Birgunj → Raxaul (depart ~7:00 AM, ≈30 mins)',

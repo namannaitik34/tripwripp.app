@@ -110,7 +110,6 @@ export default function PackageDetailPage({ params }: PackageDetailPageProps) {
           transition={{ delay: 0.3, duration: 0.5 }}
           className="md:col-span-1"
         >
-<<<<<<< HEAD
           <div className="sticky top-24 bg-white rounded-xl shadow-lg p-6 flex flex-col gap-4 overflow-hidden">
             <div className="w-full flex flex-col items-stretch">
               <div className="mb-2">
@@ -148,22 +147,6 @@ export default function PackageDetailPage({ params }: PackageDetailPageProps) {
               <div className="mt-2 text-gray-500 text-xs">
                 <span>Need help? <Link href="/contact" className="text-blue-600 underline hover:text-blue-800">Contact us</Link></span>
               </div>
-=======
-          <div className="sticky top-24 bg-white rounded-xl shadow-lg p-6 flex flex-col gap-4">
-            <div>
-              <span className="text-gray-500 text-sm">Starting from</span>
-              <div className="text-3xl font-bold text-blue-700 mb-2">₹{pkg.price?.toLocaleString() || 'Contact for pricing'}</div>
-            </div>
-            <Link
-              href={`/book?package=${pkg.id}`}
-              className="w-full py-3 px-4 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 transition-colors text-center"
-              aria-label={`Book ${pkg.title} travel package`}
-            >
-              Book This Package
-            </Link>
-            <div className="mt-2 text-gray-500 text-xs">
-              <span>Need help? <Link href="/contact" className="text-blue-600 underline hover:text-blue-800">Contact us</Link></span>
->>>>>>> 31693e4ef090dc8e362ecb69ed020a857344effd
             </div>
           </div>
         </motion.aside>
