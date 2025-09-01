@@ -1,0 +1,22 @@
+[
+  {
+    "id": "bcae3128-bb6b-40c0-9f32-c5a22b612631",
+    "createdAt": "2025-08-11T14:42:16.582Z",
+    "name": "Naitik",
+    "email": "kumarnaitik7970@gmail.com",
+    "subject": "test mail",
+    "message": "test mail",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36",
+    "archived": false
+  },
+  {
+    "id": "63aa43d4-9bc7-40b6-9abc-6907a4b49950",
+    "createdAt": "2025-08-12T03:06:17.907Z",
+    "name": "Naitik Kumar Shrivastawa",
+    "email": "kumarnaitik7970@gmail.com",
+    "subject": "test mail 1",
+    "message": "this is a test mail ",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36",
+    "archived": false
+  }
+]

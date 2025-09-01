@@ -1,0 +1,84 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+  --primary-blue: #0d1d30;
+  --accent-orange: #FF8F00;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Essential responsive fixes */
+@media (max-width: 768px) {
+  html, body {
+    overflow-x: hidden;
+  }
+}
+
+/* Fix image responsiveness */
+img { max-width: 100%; }
+
+/* Prevent text overflow */
+* {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+/* Admin submissions: force readable dark-blue text */
+.admin-submissions .submissions-list,
+.admin-submissions .submissions-list * {
+  color: var(--primary-blue) !important;
+  opacity: 1 !important;
+}
+
+/* Dark blue form theme */
+.form-dark-blue input,
+.form-dark-blue textarea,
+.form-dark-blue select {
+  background-color: #10263e;
+  color: #e6f0ff;
+  border: 1px solid #1e3854;
+  transition: all 0.2s ease-in-out;
+}
+
+.form-dark-blue input::placeholder,
+.form-dark-blue textarea::placeholder,
+.form-dark-blue select::placeholder {
+  color: rgba(230, 240, 255, 0.65);
+}
+
+.form-dark-blue input:focus,
+.form-dark-blue textarea:focus,
+.form-dark-blue select:focus {
+  outline: none;
+  border-color: var(--accent-orange);
+  box-shadow: 0 0 0 2px rgba(255, 143, 0, 0.25);
+}
+
+/* Ensure consistent button styles */
+.btn-primary {
+  background-color: var(--accent-orange);
+  color: white;
+  transition: all 0.2s ease;
+}
+
+.btn-primary:hover {
+  background-color: #e67e00;
+  transform: translateY(-1px);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
