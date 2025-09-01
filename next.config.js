@@ -14,11 +14,6 @@ const nextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
-  // Allow larger server components
-  experimental: {
-    serverComponentsExternalPackages: [],
-    appDir: true,
-  },
   // Add proper CORS headers
   async headers() {
     return [
@@ -45,5 +40,4 @@ const nextConfig = {
   },
 };
 
-module.exports = nextConfig;
 module.exports = nextConfig;
