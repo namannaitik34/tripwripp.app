@@ -262,7 +262,11 @@ const LiveNow: React.FC = () => {
                     </div>
 
                     {/* Price and Action Buttons */}
+<<<<<<< HEAD
                     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+=======
+                    <div className="flex items-center justify-between">
+>>>>>>> 31693e4ef090dc8e362ecb69ed020a857344effd
                       <div>
                         <span className="text-sm text-gray-500">Starting from</span>
                         <div className="flex items-baseline">
@@ -272,10 +276,17 @@ const LiveNow: React.FC = () => {
                           <span className="text-gray-500 text-sm ml-1"> per person</span>
                         </div>
                       </div>
+<<<<<<< HEAD
                       <div className="flex flex-col gap-2 w-full sm:flex-row sm:gap-4 sm:w-auto">
                         <Link
                           href={`/live/${destination.id}`}
                           className="group relative overflow-hidden text-white px-6 py-3 rounded-xl font-semibold transition-all duration-300 ease-out hover:shadow-2xl hover:-translate-y-1 active:scale-95 flex items-center w-full sm:w-auto"
+=======
+                      <div className="flex gap-4">
+                        <Link
+                          href={`/live/${destination.id}`}
+                          className="group relative overflow-hidden text-white px-6 py-3 rounded-xl font-semibold transition-all duration-300 ease-out hover:shadow-2xl hover:-translate-y-1 active:scale-95 flex items-center"
+>>>>>>> 31693e4ef090dc8e362ecb69ed020a857344effd
                           style={{ backgroundColor: '#FF8F00' }}
                         >
                           <div className="absolute inset-0 bg-gradient-to-r from-orange-600 to-orange-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
@@ -284,11 +295,19 @@ const LiveNow: React.FC = () => {
                         </Link>
                         <button
                           onClick={() => handleBookNow(destination)}
+<<<<<<< HEAD
                           className="group relative overflow-hidden text-white px-8 py-3 rounded-xl font-semibold transition-all duration-300 ease-out hover:shadow-2xl hover:-translate-y-1 active:scale-95 w-full sm:w-auto"
                           style={{ backgroundColor: '#0d1d30' }}
                         >
                           <div className="absolute inset-0 bg-gradient-to-r from-gray-800 to-gray-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                           <span className="relative z-10 ">Book Now</span>
+=======
+                          className="group relative overflow-hidden text-white px-8 py-3 rounded-xl font-semibold transition-all duration-300 ease-out hover:shadow-2xl hover:-translate-y-1 active:scale-95"
+                          style={{ backgroundColor: '#0d1d30' }}
+                        >
+                          <div className="absolute inset-0 bg-gradient-to-r from-gray-800 to-gray-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                          <span className="relative z-10">Book Now</span>
+>>>>>>> 31693e4ef090dc8e362ecb69ed020a857344effd
                         </button>
                       </div>
                     </div>

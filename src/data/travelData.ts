@@ -41,7 +41,10 @@ export interface Package {
   rating: number;
   reviews: number;
   type: 'luxury' | 'budget' | 'adventure' | 'family' | 'romantic' | 'nature' | 'cultural';
+<<<<<<< HEAD
   requirements?: string[];
+=======
+>>>>>>> 31693e4ef090dc8e362ecb69ed020a857344effd
 }
 
 export interface GalleryImage {
@@ -643,6 +646,64 @@ export const packages: Package[] = [
     itinerary: [
       {
         day: 1,
+<<<<<<< HEAD
+=======
+        title: 'Caves and Waterfalls Exploration',
+        activities: [
+          'Visit Pandav Caves',
+          'Explore Apsara Vihar (Fairy Pool)',
+          'Experience Bee Falls',
+          'Watch sunset at Reechgarh'
+        ]
+      },
+      {
+        day: 2,
+        title: 'Sacred Sites and Temple Trek',
+        activities: [
+          'Explore Jata Shankar Caves',
+          'Visit Mahadeo Temple',
+          'Discover Gupt Mahadev Cave',
+          'Trek to Chauragarh Temple'
+        ]
+      },
+      {
+        day: 3,
+        title: 'Scenic Viewpoints and Departure',
+        activities: [
+          'Visit Priyadarshini Point',
+          'Explore Handi Khoh',
+          'Watch sunset at Dhoopgarh',
+          'Departure'
+        ]
+      }
+    ]
+  },
+  {
+    id: 'banaras-cultural-spiritual',
+    title: 'Banaras Cultural & Spiritual Journey',
+    destination: 'Prayagraj • Vindhyachal • Varanasi',
+    duration: '4 Days / 3 Nights',
+    price: 4500,
+    image: '/images/banaras.jpg',
+    description: 'Embark on a soulful journey through India\'s cultural heartland, exploring sacred ghats, ancient temples, majestic forts, and vibrant streets filled with history and devotion.',
+    type: 'cultural',
+    rating: 4.8,
+    reviews: 156,
+    inclusions: [
+      'Accommodation (AC dormitories for boys, AC rooms for girls)',
+      'City sightseeing & local transportation',
+      'Special entry passes where required',
+      'Merchandise & memorable gift',
+      'Guided activities (outdoor cooking, music, photography, boating, games)'
+    ],
+    exclusions: [
+      'Travel from hometown to Prayagraj & return from Varanasi',
+      'Personal expenses'
+    ],
+    itinerary: [
+      {
+        day: 1,
+>>>>>>> 31693e4ef090dc8e362ecb69ed020a857344effd
         title: 'Prayagraj Exploration',
         activities: [
           'Visit Triveni Sangam',

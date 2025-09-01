@@ -61,6 +61,10 @@ const HomePage = () => {
         <div 
           className="absolute inset-0 bg-cover bg-center"
           style={{
+<<<<<<< HEAD
+=======
+            backgroundImage: "url(/images/landing_page.svg)"
+>>>>>>> 31693e4ef090dc8e362ecb69ed020a857344effd
           }}
         ></div>
         
@@ -221,6 +225,7 @@ const HomePage = () => {
                   </div>
                   <p className="text-gray-600 text-xs sm:text-sm mb-4 line-clamp-2">{destination.description}</p>
                   <div className="flex items-center justify-between">
+<<<<<<< HEAD
                     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 w-full">
                       <div>
                         <span className="text-xs sm:text-sm text-gray-500">Starting from</span>
@@ -243,6 +248,19 @@ const HomePage = () => {
                         </button>
                       </div>
                     </div>
+=======
+                    <div>
+                      <span className="text-xs sm:text-sm text-gray-500">Starting from</span>
+                      <div className="text-xl sm:text-2xl font-bold" style={{ color: '#FF8F00' }}>₹{destination.price}</div>
+                    </div>
+                    <Link 
+                      href={`/destinations/${destination.id}`}
+                      className="text-white px-3 sm:px-4 py-2 rounded-lg transition-all duration-200 ease-out hover:opacity-90 hover:shadow-lg hover:-translate-y-1 hover:scale-105 active:scale-95 text-sm sm:text-base min-h-[44px] flex items-center"
+                      style={{ backgroundColor: '#0d1d30' }}
+                    >
+                      Explore
+                    </Link>
+>>>>>>> 31693e4ef090dc8e362ecb69ed020a857344effd
                   </div>
                 </div>
               </motion.div>

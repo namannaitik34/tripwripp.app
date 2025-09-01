@@ -360,6 +360,7 @@ const LiveDestinationPage = () => {
               {/* Tab Navigation */}
               <div className="bg-white rounded-xl shadow-lg mb-6">
                 <div className="border-b border-gray-200">
+<<<<<<< HEAD
                   <nav className="grid grid-cols-2 gap-4 px-4 py-4 md:flex md:space-x-6 md:px-8 md:py-6">
                     {[
                       { id: 'overview', label: 'Overview' },
@@ -376,6 +377,23 @@ const LiveDestinationPage = () => {
                             : 'bg-white text-orange-500 border-orange-200 hover:bg-orange-50 hover:border-orange-400'}
                         `}
                         aria-current={activeTab === tab.id ? 'page' : undefined}
+=======
+                  <nav className="flex space-x-8 px-6">
+                    {[
+                      { id: 'overview', label: 'Overview' },
+                      { id: 'itinerary', label: 'Itinerary' },
+                      { id: 'included', label: 'What\'s Included' },
+                      { id: 'requirements', label: 'Requirements' }
+                    ].map((tab) => (
+                      <button
+                        key={tab.id}
+                        onClick={() => setActiveTab(tab.id)}
+                        className={`py-4 px-2 border-b-2 font-medium text-sm transition-colors ${
+                          activeTab === tab.id
+                            ? 'border-orange-500 text-orange-600'
+                            : 'border-transparent text-gray-500 hover:text-gray-700'
+                        }`}
+>>>>>>> 31693e4ef090dc8e362ecb69ed020a857344effd
                       >
                         {tab.label}
                       </button>
