@@ -54,6 +54,10 @@ export interface GalleryImage {
 
 export interface LiveDestinationItineraryItem {
   day: number;
+<<<<<<< HEAD
+=======
+  date?: string;
+>>>>>>> 9a7a39d (update latest changes)
   title: string;
   activities: string[];
   accommodation?: string;
@@ -1075,12 +1079,20 @@ export const liveDestinations: LiveDestination[] = [
     bestTime: 'March-May, September-November',
     availableSlots: 8,
     totalSlots: 15,
+<<<<<<< HEAD
     startDate: '2025-10-06',
+=======
+    startDate: '2025-10-06', 
+>>>>>>> 9a7a39d (update latest changes)
     endDate: '2025-10-11',
     isLive: true,
     itinerary: [
       {
         day: 1,
+<<<<<<< HEAD
+=======
+        date: '6th October 2025',
+>>>>>>> 9a7a39d (update latest changes)
         title: 'Evening assembly at Raxaul, cross into Nepal and begin the overnight road journey toward Pokhara.',
         activities: [
           'Evening meet-up at Raxaul (briefing & introductions)',
@@ -1093,6 +1105,10 @@ export const liveDestinations: LiveDestination[] = [
       },
       {
         day: 2,
+<<<<<<< HEAD
+=======
+        date: '7th October 2025',
+>>>>>>> 9a7a39d (update latest changes)
         title: 'Arrive in Pokhara at dawn, transfer toward the trailhead and begin the acclimatising approach toward Saripakha.',
         activities: [
           'Early arrival in Pokhara (stretch & freshen up)',
@@ -1109,6 +1125,10 @@ export const liveDestinations: LiveDestination[] = [
       },
       {
         day: 3,
+<<<<<<< HEAD
+=======
+        date: '8th October 2025',
+>>>>>>> 9a7a39d (update latest changes)
         title: 'Gradual ascent through forested sections toward the midway settlement of Chichimle with active recovery and group bonding.',
         activities: [
           'Morning warm‑up exercise & breakfast',
@@ -1123,6 +1143,10 @@ export const liveDestinations: LiveDestination[] = [
       },
       {
         day: 4,
+<<<<<<< HEAD
+=======
+        date: '9th October 2025',
+>>>>>>> 9a7a39d (update latest changes)
         title: 'Final push to Khumai for sweeping Annapurna Range panoramas and a golden sunset over the high peaks.',
         activities: [
           'Early morning Annapurna range viewpoint session',
@@ -1137,6 +1161,10 @@ export const liveDestinations: LiveDestination[] = [
       },
       {
         day: 5,
+<<<<<<< HEAD
+=======
+        date: '10th October 2025',
+>>>>>>> 9a7a39d (update latest changes)
         title: 'Dawn summit ambiance, long downhill descent, evening departure toward Birgunj for the overnight transfer.',
         activities: [
           '5:30 AM prime sunrise & peak panorama (most important view)',
@@ -1151,6 +1179,10 @@ export const liveDestinations: LiveDestination[] = [
       },
       {
         day: 6,
+<<<<<<< HEAD
+=======
+        date: '11th October 2025',
+>>>>>>> 9a7a39d (update latest changes)
         title: 'Border return and farewell after a rewarding Khumai Danda immersion.',
         activities: [
           'Early arrival Birgunj (~5:00 AM)',

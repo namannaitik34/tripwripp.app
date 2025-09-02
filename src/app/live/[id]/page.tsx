@@ -360,22 +360,41 @@ const LiveDestinationPage = () => {
               {/* Tab Navigation */}
               <div className="bg-white rounded-xl shadow-lg mb-6">
                 <div className="border-b border-gray-200">
+<<<<<<< HEAD
                   <nav className="grid grid-cols-2 gap-4 px-4 py-4 md:flex md:space-x-6 md:px-8 md:py-6">
                     {[{ id: 'overview', label: 'Overview' },
                       { id: 'itinerary', label: 'Itinerary' },
                       { id: 'included', label: "What's Included" },
                       { id: 'requirements', label: 'Requirements' }
+=======
+                  <nav className="grid grid-cols-2 gap-2 md:flex md:justify-between md:items-center px-2 py-2 md:gap-4">
+                    {[
+                      { id: 'overview', label: 'Overview', icon: <MapPin className="w-4 h-4 mr-1 inline text-orange-500" /> },
+                      { id: 'itinerary', label: 'Itinerary', icon: <Mountain className="w-4 h-4 mr-1 inline text-orange-500" /> },
+                      { id: 'included', label: "What's Included", icon: <Bed className="w-4 h-4 mr-1 inline text-orange-500" /> },
+                      { id: 'requirements', label: 'Requirements', icon: <Shield className="w-4 h-4 mr-1 inline text-orange-500" /> }
+>>>>>>> 9a7a39d (update latest changes)
                     ].map(tab => (
                       <button
                         key={tab.id}
                         onClick={() => setActiveTab(tab.id)}
+<<<<<<< HEAD
                         className={`py-3 px-6 rounded-full font-semibold text-base shadow-sm transition-all duration-200 focus:outline-none border-2
                           ${activeTab === tab.id
                             ? 'bg-orange-500 text-white border-orange-500 shadow-md'
+=======
+                        className={`flex items-center px-3 py-1 rounded-full font-medium text-xs md:text-sm transition-all duration-200 focus:outline-none border
+                          ${activeTab === tab.id
+                            ? 'bg-orange-500 text-white border-orange-500 shadow'
+>>>>>>> 9a7a39d (update latest changes)
                             : 'bg-white text-orange-500 border-orange-200 hover:bg-orange-50 hover:border-orange-400'}
                         `}
                         aria-current={activeTab === tab.id ? 'page' : undefined}
                       >
+<<<<<<< HEAD
+=======
+                        {tab.icon}
+>>>>>>> 9a7a39d (update latest changes)
                         {tab.label}
                       </button>
                     ))}
@@ -415,6 +434,7 @@ const LiveDestinationPage = () => {
                       <h3 className="text-2xl font-bold mb-6" style={{ color: '#0d1d30' }}>Day by Day Itinerary</h3>
                       <div className="space-y-6">
                         {destination.itinerary?.map((day, index) => (
+<<<<<<< HEAD
                           <div key={index} className="border-l-4 border-orange-500 pl-6 pb-6">
                             <div className="flex items-center mb-3">
                               <div className="bg-orange-500 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold text-sm mr-4">
@@ -423,6 +443,20 @@ const LiveDestinationPage = () => {
                               <h4 className="text-lg font-semibold" style={{ color: '#0d1d30' }}>{day.title}</h4>
                             </div>
                             
+=======
+                          <div key={index} className="border-l-4 border-orange-500 pl-4 pb-6 sm:pl-6">
+                            <div className="flex flex-col sm:flex-row items-center mb-3 gap-2 sm:gap-0">
+                              <div className="bg-orange-500 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold text-base mb-2 sm:mb-0 sm:mr-4 shadow">
+                                {day.day}
+                              </div>
+                              <div className="sm:text-left">
+                                <h4 className="text-base sm:text-lg font-semibold" style={{ color: '#0d1d30' }}>{day.title}</h4>
+                                {day.date && (
+                                  <div className="text-xs sm:text-sm text-gray-500 font-medium mt-1">{day.date}</div>
+                                )}
+                              </div>
+                            </div>
+>>>>>>> 9a7a39d (update latest changes)
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                               <div>
                                 <h5 className="font-medium text-gray-800 mb-2">Activities:</h5>
