@@ -125,7 +125,16 @@ const LiveDestinationPage = () => {
       const res = await fetch('/api/bookings', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ destinationId: destination.id, ...formData })
+        body: JSON.stringify({
+          fullName: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          destination: destination.name,
+          travelDate: destination.startDate,
+          adults: 1,
+          children: 0,
+          specialRequests: `${formData.gender ? 'Gender: ' + formData.gender + '; ' : ''}${formData.ageRange ? 'Age Range: ' + formData.ageRange : ''}`
+        })
       });
       if (!res.ok) throw new Error('Failed');
       alert('Booking request submitted successfully!');

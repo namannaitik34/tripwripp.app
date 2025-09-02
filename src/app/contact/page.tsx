@@ -6,19 +6,19 @@ import { Mail, Phone, MapPin, Send, Loader2, CheckCircle2, AlertCircle, Instagra
 import CTASection from '@/components/CTASection';
 
 interface FormState {
-  name: string;
+  fullName: string;
   email: string;
   subject: string;
   message: string;
 }
 
 export default function ContactPage() {
-  const [form, setForm] = useState<FormState>({ name: '', email: '', subject: '', message: '' });
+  const [form, setForm] = useState<FormState>({ fullName: '', email: '', subject: '', message: '' });
   const [submitting, setSubmitting] = useState(false);
   const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setForm(prev => ({ ...prev, [e.target.name]: e.target.value }));
+  setForm(prev => ({ ...prev, [e.target.name === 'name' ? 'fullName' : e.target.name]: e.target.value }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -32,8 +32,8 @@ export default function ContactPage() {
       });
       if (!res.ok) throw new Error('Failed');
       setStatus('success');
-      setForm({ name: '', email: '', subject: '', message: '' });
-  } catch {
+      setForm({ fullName: '', email: '', subject: '', message: '' });
+    } catch {
       setStatus('error');
     } finally {
       setSubmitting(false);
@@ -111,8 +111,8 @@ export default function ContactPage() {
           <motion.form onSubmit={handleSubmit} initial={{ opacity: 0, x: 40 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="lg:col-span-2 bg-white rounded-2xl shadow-xl p-8 space-y-6 border border-gray-300">
             <div className="grid md:grid-cols-2 gap-6">
               <div>
-                <label className="block text-sm font-medium mb-2 text-gray-700" htmlFor="name">Full Name</label>
-                <input id="name" name="name" required value={form.name} onChange={handleChange} className="w-full rounded-xl border border-gray-400 bg-white px-4 py-3 focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none transition shadow-sm text-gray-800 placeholder-gray-500" placeholder="Your name" />
+                <label className="block text-sm font-medium mb-2 text-gray-700" htmlFor="fullName">Full Name</label>
+                <input id="fullName" name="fullName" required value={form.fullName} onChange={handleChange} className="w-full rounded-xl border border-gray-400 bg-white px-4 py-3 focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none transition shadow-sm text-gray-800 placeholder-gray-500" placeholder="Your name" />
               </div>
               <div>
                 <label className="block text-sm font-medium mb-2 text-gray-700" htmlFor="email">Email</label>

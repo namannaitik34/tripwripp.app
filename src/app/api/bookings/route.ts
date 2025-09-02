@@ -60,6 +60,11 @@ function toCSV(rows: BookingRecord[]) {
 
 export async function POST(req: Request) {
   try {
+    // Get API key from environment
+    const apiKey = process.env.CONTACT_BOOKING_API_KEY;
+    if (!apiKey) {
+      return NextResponse.json({ success: false, message: 'API key not configured.' }, { status: 500 });
+    }
     console.log('Booking request received');
     
     // Enable CORS
@@ -95,6 +100,30 @@ export async function POST(req: Request) {
 
     const { fullName, email, phone, destination, travelDate, adults, children, specialRequests } = result.data;
 
+    // Send booking email via Web3Forms
+    const web3Payload = {
+      access_key: apiKey,
+      subject: "New Booking Request",
+      from_name: fullName,
+      from_email: email,
+      destination,
+      travelDate,
+      phone,
+      adults,
+      children,
+      specialRequests
+    };
+
+    const web3Res = await fetch("https://api.web3forms.com/submit", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(web3Payload)
+    });
+    const web3Result = await web3Res.json();
+    if (!web3Result.success) {
+      return NextResponse.json({ success: false, message: "Failed to send booking email." }, { status: 500 });
+    }
+
     // Log the booking request (in a real app, you'd save to a database)
     console.log('Booking request:', { 
       fullName, 
@@ -107,7 +136,7 @@ export async function POST(req: Request) {
       specialRequests 
     });
 
-    // Simulate successful booking
+    // Successful booking response
     return NextResponse.json(
       { 
         success: true, 
