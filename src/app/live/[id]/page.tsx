@@ -1,4 +1,6 @@
+
 'use client';
+import React from 'react';
 
 import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -360,7 +362,7 @@ const LiveDestinationPage = () => {
               {/* Tab Navigation */}
               <div className="bg-white rounded-xl shadow-lg mb-6">
                 <div className="border-b border-gray-200">
-                  <nav className="grid grid-cols-2 gap-2 md:flex md:justify-between md:items-center px-2 py-2 md:gap-4">
+                  <nav className="grid grid-cols-2 gap-2 md:flex md:justify-start md:items-center px-2 py-2 md:gap-2 mx-2 my-2">
                     {[
                       { id: 'overview', label: 'Overview', icon: <MapPin className="w-4 h-4 mr-1 inline text-orange-500" /> },
                       { id: 'itinerary', label: 'Itinerary', icon: <Mountain className="w-4 h-4 mr-1 inline text-orange-500" /> },
@@ -370,14 +372,14 @@ const LiveDestinationPage = () => {
                       <button
                         key={tab.id}
                         onClick={() => setActiveTab(tab.id)}
-                        className={`flex items-center px-3 py-1 rounded-full font-medium text-xs md:text-sm transition-all duration-200 focus:outline-none border
+                        className={`flex items-center px-3 py-1 rounded-full font-medium text-xs md:text-sm transition-all duration-200 focus:outline-none border cursor-pointer
                           ${activeTab === tab.id
                             ? 'bg-orange-500 text-white border-orange-500 shadow'
                             : 'bg-white text-orange-500 border-orange-200 hover:bg-orange-50 hover:border-orange-400'}
                         `}
                         aria-current={activeTab === tab.id ? 'page' : undefined}
                       >
-                        {tab.icon}
+                        {React.cloneElement(tab.icon, { className: `w-4 h-4 mr-1 inline ${activeTab === tab.id ? 'text-white' : 'text-orange-500'}` })}
                         {tab.label}
                       </button>
                     ))}
