@@ -107,8 +107,7 @@ const Navigation = () => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden border-t"
-            style={{ backgroundColor: '#0d1d30', borderColor: '#FF8F00' }}
+            className="md:hidden border-t bg-[#0d1d30] border-[#FF8F00]"
           >
             <div className="px-2 pt-2 pb-3 space-y-1">
               {navItems.map((item) => (
@@ -116,7 +115,7 @@ const Navigation = () => {
                   key={item.href}
                   href={item.href}
                   onClick={() => setIsOpen(false)}
-                  className={`block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200 ${
+                  className={`flex items-center justify-center px-2 py-2 rounded-md text-base font-medium transition-colors duration-200 w-full ${
                     pathname === item.href
                       ? 'text-white'
                       : 'text-gray-300 hover:text-white'

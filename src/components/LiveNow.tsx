@@ -78,8 +78,8 @@ const LiveNow: React.FC = () => {
                 ease: "easeInOut"
               }}
               style={{
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
+                translateX: `${Math.random() * window.innerWidth}px`,
+                translateY: `${Math.random() * window.innerHeight}px`,
               }}
             />
           ))}
@@ -157,9 +157,12 @@ const LiveNow: React.FC = () => {
                             ease: "easeInOut"
                           }}
                           style={{
-                            left: `${20 + Math.random() * 60}%`,
-                            top: `${20 + Math.random() * 60}%`,
                           }}
+                          // Set left and top as regular style attributes
+                          // @ts-ignore
+                          left={`${20 + Math.random() * 60}%`}
+                          // @ts-ignore
+                          top={`${20 + Math.random() * 60}%`}
                         />
                       ))}
                     </div>
@@ -268,14 +271,6 @@ const LiveNow: React.FC = () => {
                           <Eye className="w-4 h-4 mr-2 relative z-10" />
                           <span className="relative z-10">Explore</span>
                         </Link>
-                        <button
-                          onClick={() => handleBookNow(destination)}
-                          className="group relative overflow-hidden text-white px-8 py-3 rounded-xl font-semibold transition-all duration-300 ease-out hover:shadow-2xl hover:-translate-y-1 active:scale-95 w-full sm:w-auto"
-                          style={{ backgroundColor: '#0d1d30' }}
-                        >
-                          <div className="absolute inset-0 bg-gradient-to-r from-gray-800 to-gray-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                          <span className="relative z-10">Book Now</span>
-                        </button>
                       </div>
                     </div>
                   </div>
