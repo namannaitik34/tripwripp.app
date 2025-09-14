@@ -621,7 +621,7 @@ const LiveDestinationPage = () => {
             className="text-center mb-12"
           >
             <h2 className="text-3xl md:text-4xl font-bold mb-4" style={{ color: '#0d1d30' }}>
-              Meet Your Expert Guide
+              Meet Your Guide & Leader
             </h2>
             <p className="text-gray-600 max-w-2xl mx-auto">
               Led by experienced local guides who know every trail, every story, and every hidden gem of the region.
