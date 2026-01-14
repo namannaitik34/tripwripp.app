@@ -1,13 +1,13 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { useParams } from 'next/navigation';
 import { 
   MapPin, Clock, Users, Mountain, Star, 
   Check, X, Phone, Mail, User, ChevronLeft, ChevronRight,
-  Camera, Shield, Utensils, Bed
+  Camera, Shield, Utensils, Bed, Trophy
 } from 'lucide-react';
 import { liveDestinations, LiveDestination } from '@/data/travelData';
 
@@ -19,10 +19,12 @@ interface BookingFormData {
   ageRange: string;
 }
 
+// Use the provided API key for live trek submissions (same as Khumai)
+const LIVE_BOOKING_API_KEY = '484bf319-a4e3-49eb-ae7c-eec4c4865ca2';
+
 const LiveDestinationPage = () => {
   const params = useParams();
   const [destination, setDestination] = useState<LiveDestination | null>(null);
-  const [showBookingModal, setShowBookingModal] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [activeTab, setActiveTab] = useState('overview');
   const [isAutoScrollPaused, setIsAutoScrollPaused] = useState(false);
@@ -122,12 +124,14 @@ const LiveDestinationPage = () => {
     try {
       const res = await fetch('/api/bookings', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+          'Content-Type': 'application/json',
+          'x-api-key': LIVE_BOOKING_API_KEY,
+        },
         body: JSON.stringify({ destinationId: destination.id, ...formData })
       });
       if (!res.ok) throw new Error('Failed');
       alert('Booking request submitted successfully!');
-      setShowBookingModal(false);
       setFormData({ name: '', email: '', phone: '', gender: '', ageRange: '' });
     } catch {
       alert('Submission failed. Please retry.');
@@ -164,6 +168,33 @@ const LiveDestinationPage = () => {
                 {/* Modern Gradient Overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
                 <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-transparent to-black/40"></div>
+
+                {/* Completion Overlay */}
+                {destination.isCompleted && (
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.8 }}
+                    className="absolute inset-0 bg-gradient-to-br from-green-500/40 via-emerald-500/30 to-teal-500/40 flex items-center justify-center"
+                  >
+                    <motion.div
+                      initial={{ scale: 0.8, opacity: 0 }}
+                      animate={{ scale: 1, opacity: 1 }}
+                      transition={{ delay: 0.3, duration: 0.6 }}
+                      className="text-center"
+                    >
+                      <motion.div
+                        animate={{ rotate: 360 }}
+                        transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+                        className="w-24 h-24 mx-auto mb-4 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm border-2 border-white/30"
+                      >
+                        <Trophy className="w-12 h-12 text-white drop-shadow-lg" />
+                      </motion.div>
+                      <h2 className="text-3xl md:text-4xl font-bold text-white mb-2 drop-shadow-lg">Trek Completed! 🎉</h2>
+                      <p className="text-white/90 text-lg drop-shadow-lg">This incredible journey has been completed successfully</p>
+                    </motion.div>
+                  </motion.div>
+                )}
               </div>
               
               {/* Sleek Navigation Buttons */}
@@ -282,17 +313,31 @@ const LiveDestinationPage = () => {
               transition={{ duration: 0.6 }}
               className="text-white"
             >
-              <div className="flex items-center mb-4">
-                <div className="bg-red-500 text-white rounded-full px-3 py-1 text-sm font-semibold flex items-center mr-4">
-                  <div className="w-2 h-2 bg-white rounded-full animate-pulse mr-2"></div>
-                  LIVE
-                </div>
-                <div className="bg-white/90 backdrop-blur-sm rounded-lg px-3 py-1 text-gray-800 flex items-center">
-                  <Users className="h-4 w-4 mr-1" style={{ color: '#FF8F00' }} />
-                  <span className="font-semibold text-sm">
-                    {destination.availableSlots}/{destination.totalSlots} slots available
-                  </span>
-                </div>
+              <div className="flex items-center mb-4 flex-wrap gap-3">
+                {!destination.isCompleted ? (
+                  <div className="bg-red-500 text-white rounded-full px-3 py-1 text-sm font-semibold flex items-center">
+                    <div className="w-2 h-2 bg-white rounded-full animate-pulse mr-2"></div>
+                    LIVE
+                  </div>
+                ) : (
+                  <motion.div
+                    initial={{ scale: 0.8 }}
+                    animate={{ scale: 1 }}
+                    transition={{ type: "spring", stiffness: 200 }}
+                    className="bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-full px-4 py-2 text-sm font-bold flex items-center shadow-lg"
+                  >
+                    <Check className="w-5 h-5 mr-1" />
+                    COMPLETED
+                  </motion.div>
+                )}
+                {!destination.isCompleted && (
+                  <div className="bg-white/90 backdrop-blur-sm rounded-lg px-3 py-1 text-gray-800 flex items-center">
+                    <Users className="h-4 w-4 mr-1" style={{ color: '#FF8F00' }} />
+                    <span className="font-semibold text-sm">
+                      {destination.availableSlots}/{destination.totalSlots} slots available
+                    </span>
+                  </div>
+                )}
               </div>
               <h1 className="text-4xl md:text-6xl font-bold mb-4">{destination.name}</h1>
               <div className="flex items-center text-xl mb-2">
@@ -573,14 +618,25 @@ const LiveDestinationPage = () => {
                 </div>
 
                 {/* Book Now Button */}
-                <button
-                  onClick={() => setShowBookingModal(true)}
-                  className="w-full text-white py-4 rounded-xl font-bold text-lg transition-all duration-200 ease-out hover:opacity-90 hover:shadow-lg hover:-translate-y-1 hover:scale-105 active:scale-95"
-                  style={{ backgroundColor: '#0d1d30' }}
-                  disabled={destination.availableSlots === 0}
-                >
-                  {destination.availableSlots === 0 ? 'Fully Booked' : 'Book Now'}
-                </button>
+                {!destination.isCompleted ? (
+                  <a
+                    href="#book"
+                    className="w-full inline-flex items-center justify-center text-white py-4 rounded-xl font-bold text-lg transition-all duration-200 ease-out hover:opacity-90 hover:shadow-lg hover:-translate-y-1 hover:scale-105 active:scale-95"
+                    style={{ backgroundColor: '#0d1d30' }}
+                    aria-label="Book now"
+                  >
+                    {destination.availableSlots === 0 ? 'Fully Booked' : 'Book Now'}
+                  </a>
+                ) : (
+                  <motion.button
+                    disabled
+                    className="w-full py-4 rounded-xl font-bold text-lg text-white cursor-not-allowed"
+                    style={{ backgroundColor: 'rgba(34, 197, 94, 0.7)' }}
+                  >
+                    <Check className="w-5 h-5 inline mr-2" />
+                    Trek Completed Successfully
+                  </motion.button>
+                )}
 
                 {destination.availableSlots <= 3 && destination.availableSlots > 0 && (
                   <p className="text-red-500 text-sm text-center mt-2 font-medium">
@@ -775,101 +831,82 @@ const LiveDestinationPage = () => {
         </div>
       </section>
 
-      {/* Booking Modal */}
-      <AnimatePresence>
-        {showBookingModal && (
+      {/* Booking Section */}
+      <section id="book" className="py-12 bg-white">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
-            onClick={() => setShowBookingModal(false)}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="bg-white rounded-2xl shadow-xl p-6 sm:p-10 border border-gray-100"
           >
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.9, y: 20 }}
-              className="bg-white rounded-2xl p-6 w-full max-w-md max-h-[90vh] overflow-y-auto"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <div className="flex items-center justify-between mb-6">
-                <h2 className="text-2xl font-bold" style={{ color: '#0d1d30' }}>Book Your Adventure</h2>
-                <button
-                  onClick={() => setShowBookingModal(false)}
-                  className="text-gray-500 hover:text-gray-700 transition-colors"
-                >
-                  <X className="h-6 w-6" />
-                </button>
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between mb-6">
+              <div>
+                <p className="text-sm font-semibold text-orange-600">Secure Your Slot</p>
+                <h2 className="text-3xl font-bold" style={{ color: '#0d1d30' }}>Book Your Adventure</h2>
+                <p className="text-gray-600 mt-2">Fill the form and we will confirm within 24 hours.</p>
               </div>
-
-              <div className="mb-6 p-4 rounded-lg" style={{ backgroundColor: '#F5F5DC' }}>
-                <h3 className="font-semibold" style={{ color: '#0d1d30' }}>{destination.name}</h3>
-                <p className="text-sm text-gray-600">{destination.duration} • ₹{destination.price} per person</p>
-                <p className="text-sm text-gray-600">
-                  {new Date(destination.startDate).toLocaleDateString('en-US', {
-                    month: 'long',
-                    day: 'numeric',
-                    year: 'numeric'
-                  })} - {new Date(destination.endDate).toLocaleDateString('en-US', {
-                    month: 'long',
-                    day: 'numeric',
-                    year: 'numeric'
-                  })}
-                </p>
-                <div className="text-[11px] text-gray-500 mt-3 flex items-center justify-between">
-                  <span>Admin export?</span>
-                  <a href="/api/bookings?format=csv" className="underline hover:text-orange-600" title="Requires admin token if set">CSV</a>
+              <div className="bg-orange-50 text-orange-700 px-4 py-3 rounded-xl text-sm shadow-sm">
+                <div className="font-semibold">{destination.name}</div>
+                <div className="text-gray-700">{destination.duration} • ₹{destination.price} per person</div>
+                <div className="text-gray-700">
+                  {new Date(destination.startDate).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+                  {' — '}
+                  {new Date(destination.endDate).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
                 </div>
               </div>
+            </div>
 
-              <form onSubmit={handleSubmit} className="space-y-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    <User className="inline h-4 w-4 mr-1" />
-                    Full Name *
-                  </label>
-                  <input
-                    type="text"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleInputChange}
-                    required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-colors text-gray-800"
-                    placeholder="Enter your full name"
-                  />
-                </div>
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <User className="inline h-4 w-4 mr-1" />
+                  Full Name *
+                </label>
+                <input
+                  type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleInputChange}
+                  required
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-colors text-gray-800"
+                  placeholder="Enter your full name"
+                />
+              </div>
 
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    <Mail className="inline h-4 w-4 mr-1" />
-                    Email Address *
-                  </label>
-                  <input
-                    type="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleInputChange}
-                    required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-colors text-gray-800"
-                    placeholder="Enter your email"
-                  />
-                </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <Mail className="inline h-4 w-4 mr-1" />
+                  Email Address *
+                </label>
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  required
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-colors text-gray-800"
+                  placeholder="Enter your email"
+                />
+              </div>
 
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    <Phone className="inline h-4 w-4 mr-1" />
-                    Phone Number (Optional)
-                  </label>
-                  <input
-                    type="tel"
-                    name="phone"
-                    value={formData.phone}
-                    onChange={handleInputChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-colors text-gray-800"
-                    placeholder="Enter your phone number"
-                  />
-                </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <Phone className="inline h-4 w-4 mr-1" />
+                  Phone Number (Optional)
+                </label>
+                <input
+                  type="tel"
+                  name="phone"
+                  value={formData.phone}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-colors text-gray-800"
+                  placeholder="Enter your phone number"
+                />
+              </div>
 
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">Gender *</label>
                   <select
@@ -905,23 +942,23 @@ const LiveDestinationPage = () => {
                     <option value="65+">65+ years</option>
                   </select>
                 </div>
+              </div>
 
-                <button
-                  type="submit"
-                  className="w-full text-white py-4 rounded-xl font-bold transition-all duration-200 ease-out hover:opacity-90 hover:shadow-lg hover:-translate-y-1 hover:scale-105 active:scale-95"
-                  style={{ backgroundColor: '#FF8F00' }}
-                >
-                  Submit Booking Request
-                </button>
-              </form>
+              <button
+                type="submit"
+                className="w-full text-white py-4 rounded-xl font-bold transition-all duration-200 ease-out hover:opacity-90 hover:shadow-lg hover:-translate-y-1 hover:scale-105 active:scale-95"
+                style={{ backgroundColor: '#FF8F00' }}
+              >
+                Submit Booking Request
+              </button>
+            </form>
 
-              <p className="text-xs text-gray-500 text-center mt-4">
-                By submitting this form, you agree to our terms and conditions. We&apos;ll contact you within 24 hours to confirm your booking.
-              </p>
-            </motion.div>
+            <p className="text-xs text-gray-500 text-center mt-4">
+              By submitting this form, you agree to our terms and conditions. We&apos;ll contact you within 24 hours to confirm your booking.
+            </p>
           </motion.div>
-        )}
-      </AnimatePresence>
+        </div>
+      </section>
     </div>
   );
 };

@@ -1,0 +1,83 @@
+<svg viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background Gradient -->
+  <defs>
+    <linearGradient id="skyGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#1e3c72;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#2a5298;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#7aa8d1;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="mountainGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:0.95" />
+      <stop offset="50%" style="stop-color:#f0f0f0;stop-opacity:0.9" />
+      <stop offset="100%" style="stop-color:#e8e8e8;stop-opacity:0.85" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Sky Background -->
+  <rect width="800" height="600" fill="url(#skyGradient)"/>
+  
+  <!-- Clouds -->
+  <ellipse cx="100" cy="100" rx="80" ry="40" fill="rgba(255,255,255,0.4)"/>
+  <ellipse cx="150" cy="120" rx="60" ry="35" fill="rgba(255,255,255,0.35)"/>
+  <ellipse cx="700" cy="150" rx="90" ry="45" fill="rgba(255,255,255,0.4)"/>
+  <ellipse cx="750" cy="170" rx="70" ry="40" fill="rgba(255,255,255,0.35)"/>
+  
+  <!-- Mountain Peaks -->
+  <polygon points="150,450 50,250 250,450" fill="url(#mountainGradient)" stroke="#ddd" stroke-width="2"/>
+  <polygon points="550,450 350,180 750,450" fill="url(#mountainGradient)" stroke="#ddd" stroke-width="2"/>
+  <polygon points="800,450 650,280 1000,450" fill="#e0e0e0" stroke="#ccc" stroke-width="2"/>
+  
+  <!-- Snow on Peaks -->
+  <polygon points="150,280 130,240 170,240" fill="white" opacity="0.9"/>
+  <polygon points="550,220 480,140 620,140" fill="white" opacity="0.95"/>
+  
+  <!-- Sun/Sunrise -->
+  <circle cx="650" cy="100" r="60" fill="#FFD700" opacity="0.8"/>
+  <circle cx="650" cy="100" r="55" fill="#FFA500" opacity="0.6"/>
+  
+  <!-- Trekker Silhouette -->
+  <g id="trekker" opacity="0.9">
+    <!-- Head -->
+    <circle cx="350" cy="280" r="12" fill="#2c3e50"/>
+    <!-- Body -->
+    <rect x="343" y="295" width="14" height="35" fill="#2c3e50"/>
+    <!-- Arms -->
+    <line x1="343" y1="305" x2="320" y2="290" stroke="#2c3e50" stroke-width="4" stroke-linecap="round"/>
+    <line x1="357" y1="305" x2="380" y2="290" stroke="#2c3e50" stroke-width="4" stroke-linecap="round"/>
+    <!-- Walking Stick -->
+    <line x1="320" y1="290" x2="310" y2="350" stroke="#8B4513" stroke-width="3" stroke-linecap="round"/>
+    <!-- Legs -->
+    <line x1="346" y1="330" x2="340" y2="375" stroke="#2c3e50" stroke-width="4" stroke-linecap="round"/>
+    <line x1="350" y1="330" x2="360" y2="375" stroke="#2c3e50" stroke-width="4" stroke-linecap="round"/>
+    <!-- Backpack -->
+    <rect x="337" y="298" width="26" height="28" fill="#c0392b" opacity="0.8" rx="3"/>
+  </g>
+  
+  <!-- Path/Trail -->
+  <path d="M 250 450 Q 300 420 350 380 T 450 320 T 550 250" stroke="rgba(139, 69, 19, 0.4)" stroke-width="6" fill="none" stroke-linecap="round"/>
+  
+  <!-- Flags/Camp markers -->
+  <circle cx="280" cy="420" r="6" fill="#FF6B6B"/>
+  <circle cx="420" cy="350" r="6" fill="#4ECDC4"/>
+  <circle cx="550" cy="250" r="6" fill="#45B7D1"/>
+  
+  <!-- Completion Badge with Check -->
+  <g id="completion-badge">
+    <!-- Badge Background Circle -->
+    <circle cx="100" cy="500" r="50" fill="#22c55e" opacity="0.95" stroke="#10b981" stroke-width="3"/>
+    <!-- Inner Circle -->
+    <circle cx="100" cy="500" r="42" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
+    <!-- Checkmark -->
+    <g stroke="white" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M 75 500 L 90 515 L 125 480"/>
+    </g>
+  </g>
+  
+  <!-- Text -->
+  <text x="400" y="520" font-size="36" font-weight="bold" fill="white" text-anchor="middle" font-family="Arial, sans-serif">
+    Trek Completed!
+  </text>
+  <text x="400" y="560" font-size="18" fill="rgba(255,255,255,0.9)" text-anchor="middle" font-family="Arial, sans-serif">
+    Glimpse of your incredible Khumai Danda journey
+  </text>
+</svg>

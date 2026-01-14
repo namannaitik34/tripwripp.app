@@ -5,11 +5,19 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown, ChevronUp, Search, X } from 'lucide-react';
 import Link from 'next/link';
 import CTASection from '@/components/CTASection';
+import { liveDestinations, LiveDestination } from '@/data/travelData';
 
 const FAQPage = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [openItems, setOpenItems] = useState<number[]>([]);
   const [showLiveNowPopup, setShowLiveNowPopup] = useState(false);
+  
+  // Choose current active live trek (prefer non-completed)
+  const activeLive: LiveDestination | null = (() => {
+    const actives = liveDestinations.filter(d => d.isLive);
+    const current = actives.find(d => !d.isCompleted) || actives[0] || null;
+    return current;
+  })();
 
   // Show popup when page loads
   useEffect(() => {
@@ -265,7 +273,7 @@ const FAQPage = () => {
 
       {/* LiveNow Popup Modal */}
       <AnimatePresence>
-        {showLiveNowPopup && (
+        {showLiveNowPopup && activeLive && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -297,21 +305,27 @@ const FAQPage = () => {
               <div className="p-8 text-center">
                 <div className="mb-6">
                   <h2 className="text-2xl font-bold mb-2" style={{ color: '#0d1d30' }}>
-                    🌟 Live Travel Deal
+                    🌟 {activeLive.isCompleted ? 'Trek Completed' : 'Live Travel Deal'}
                   </h2>
                   <p className="text-gray-600">
-                    Special live trip available now - Book today!
+                    {activeLive.isCompleted ? 'This trek has been completed successfully.' : 'Special live trip available now - Book today!'}
                   </p>
                 </div>
 
                 <div className="space-y-4 mb-6">
                   <div className="bg-orange-50 rounded-lg p-6 border-l-4" style={{ borderColor: '#FF8F00' }}>
                     <div className="text-center">
-                      <h3 className="text-xl font-bold text-gray-800 mb-2">Khumai Danda</h3>
-                      <p className="text-sm text-gray-600 mb-3">Trekking Adventure • Nepal</p>
+                      <h3 className="text-xl font-bold text-gray-800 mb-2">{activeLive.name}</h3>
+                      <p className="text-sm text-gray-600 mb-3">{activeLive.type.charAt(0).toUpperCase() + activeLive.type.slice(1)} • {activeLive.country}</p>
                       <div className="mb-4">
-                        <span className="text-2xl font-bold" style={{ color: '#FF8F00' }}>Live Now!</span>
-                        <p className="text-xs text-gray-500 mt-1">Limited spots available</p>
+                        {activeLive.isCompleted ? (
+                          <span className="text-2xl font-bold text-green-600">Completed ✓</span>
+                        ) : (
+                          <span className="text-2xl font-bold" style={{ color: '#FF8F00' }}>Live Now!</span>
+                        )}
+                        {!activeLive.isCompleted && (
+                          <p className="text-xs text-gray-500 mt-1">{activeLive.availableSlots}/{activeLive.totalSlots} slots available</p>
+                        )}
                       </div>
                       <div className="bg-white rounded-lg p-3 mb-3">
                         <p className="text-sm text-gray-700">
@@ -325,14 +339,25 @@ const FAQPage = () => {
                 </div>
 
                 <div className="space-y-3">
-                  <Link
-                    href="/live/live-1"
-                    onClick={() => setShowLiveNowPopup(false)}
-                    className="block w-full text-white py-3 px-6 rounded-lg font-semibold transition-all duration-200 hover:opacity-90 hover:transform hover:scale-105"
-                    style={{ backgroundColor: '#FF8F00' }}
-                  >
-                    Book Khumai Danda Trip
-                  </Link>
+                  {activeLive.isCompleted ? (
+                    <Link
+                      href={`/live/${activeLive.id}`}
+                      onClick={() => setShowLiveNowPopup(false)}
+                      className="block w-full text-white py-3 px-6 rounded-lg font-semibold transition-all duration-200 hover:opacity-90 hover:transform hover:scale-105"
+                      style={{ backgroundColor: '#0d1d30' }}
+                    >
+                      View Trek Details
+                    </Link>
+                  ) : (
+                    <Link
+                      href={`/live/${activeLive.id}`}
+                      onClick={() => setShowLiveNowPopup(false)}
+                      className="block w-full text-white py-3 px-6 rounded-lg font-semibold transition-all duration-200 hover:opacity-90 hover:transform hover:scale-105"
+                      style={{ backgroundColor: '#FF8F00' }}
+                    >
+                      Book {activeLive.name}
+                    </Link>
+                  )}
                   <Link
                     href="/packages"
                     onClick={() => setShowLiveNowPopup(false)}
@@ -343,7 +368,7 @@ const FAQPage = () => {
                 </div>
 
                 <div className="mt-4 text-xs text-gray-500">
-                  📍 Nepal • 🕒 Limited Time Offer
+                  📍 {activeLive.country} • 🕒 {activeLive.isCompleted ? 'Completed' : 'Limited Time Offer'}
                 </div>
               </div>
             </motion.div>

@@ -71,7 +71,7 @@ export default function AboutPage() {
       </section>
 
       {/* Team */}
-      <section className="py-16">
+      {/* <section className="py-16">
         <div className="max-w-6xl mx-auto px-4">
           <h2 className="text-3xl font-bold mb-10 text-center" style={{ color: '#0d1d30' }}>Meet the Team</h2>
           <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
@@ -86,7 +86,7 @@ export default function AboutPage() {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
   {/* Global CTA Section */}
   <CTASection />

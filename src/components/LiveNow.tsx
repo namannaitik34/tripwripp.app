@@ -1,9 +1,9 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { MapPin, Clock, Users, Mountain, Star, X, Calendar, Phone, Mail, User, Eye } from 'lucide-react';
+import { MapPin, Clock, Users, Mountain, Star, Calendar, Phone, Mail, User, Eye, Check } from 'lucide-react';
 import { liveDestinations, LiveDestination } from '@/data/travelData';
 
 interface BookingFormData {
@@ -15,16 +15,7 @@ interface BookingFormData {
 }
 
 const LiveNow: React.FC = () => {
-  const [showBookingModal, setShowBookingModal] = useState(false);
-  const [selectedDestination, setSelectedDestination] = useState<LiveDestination | null>(null);
   const [isClient, setIsClient] = useState(false);
-  const [formData, setFormData] = useState<BookingFormData>({
-    name: '',
-    email: '',
-    phone: '',
-    gender: '',
-    ageRange: ''
-  });
 
   useEffect(() => {
     setIsClient(true);
@@ -32,26 +23,6 @@ const LiveNow: React.FC = () => {
 
   const currentLiveDestinations = liveDestinations.filter(dest => dest.isLive);
 
-  const handleBookNow = (destination: LiveDestination) => {
-    setSelectedDestination(destination);
-    setShowBookingModal(true);
-  };
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Handle form submission here
-    console.log('Booking submitted:', formData, selectedDestination);
-    alert('Booking request submitted successfully! We will contact you soon.');
-    setShowBookingModal(false);
-    setFormData({ name: '', email: '', phone: '', gender: '', ageRange: '' });
-  };
 
   if (currentLiveDestinations.length === 0 || !isClient) {
     return null;
@@ -165,23 +136,35 @@ const LiveNow: React.FC = () => {
                     </div>
                     {/* Live Badge with Modern Design */}
                     <div className="absolute top-4 left-4">
-                      <motion.div 
-                        whileHover={{ scale: 1.05 }}
-                        className="flex items-center bg-red-500/90 backdrop-blur-md border border-red-400/30 text-white rounded-full px-4 py-2 text-sm font-semibold shadow-lg"
-                      >
-                        <div className="w-2 h-2 bg-white rounded-full animate-pulse mr-2"></div>
-                        LIVE
-                      </motion.div>
+                      {!destination.isCompleted ? (
+                        <motion.div 
+                          whileHover={{ scale: 1.05 }}
+                          className="flex items-center bg-red-500/90 backdrop-blur-md border border-red-400/30 text-white rounded-full px-4 py-2 text-sm font-semibold shadow-lg"
+                        >
+                          <div className="w-2 h-2 bg-white rounded-full animate-pulse mr-2"></div>
+                          LIVE
+                        </motion.div>
+                      ) : (
+                        <motion.div 
+                          whileHover={{ scale: 1.05 }}
+                          className="flex items-center bg-gradient-to-r from-green-500 to-emerald-600 backdrop-blur-md border border-green-400/30 text-white rounded-full px-4 py-2 text-sm font-bold shadow-lg"
+                        >
+                          <Check className="w-4 h-4 mr-2" />
+                          COMPLETED
+                        </motion.div>
+                      )}
                     </div>
                     {/* Availability with Glassmorphism */}
-                    <div className="absolute top-4 right-4 bg-white/10 backdrop-blur-md border border-white/20 rounded-xl px-4 py-2 shadow-lg">
-                      <div className="flex items-center text-sm">
-                        <Users className="h-4 w-4 mr-2 text-orange-400" />
-                        <span className="font-semibold text-white">
-                          {destination.availableSlots}/{destination.totalSlots} slots
-                        </span>
+                    {!destination.isCompleted && (
+                      <div className="absolute top-4 right-4 bg-white/10 backdrop-blur-md border border-white/20 rounded-xl px-4 py-2 shadow-lg">
+                        <div className="flex items-center text-sm">
+                          <Users className="h-4 w-4 mr-2 text-orange-400" />
+                          <span className="font-semibold text-white">
+                            {destination.availableSlots}/{destination.totalSlots} slots
+                          </span>
+                        </div>
                       </div>
-                    </div>
+                    )}
                     {/* Rating with Modern Style */}
                     <div className="absolute bottom-4 left-4 bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-4 py-2 flex items-center shadow-lg">
                       <Star className="h-4 w-4 text-yellow-400 fill-current" />
@@ -268,14 +251,24 @@ const LiveNow: React.FC = () => {
                           <Eye className="w-4 h-4 mr-2 relative z-10" />
                           <span className="relative z-10">Explore</span>
                         </Link>
-                        <button
-                          onClick={() => handleBookNow(destination)}
-                          className="group relative overflow-hidden text-white px-8 py-3 rounded-xl font-semibold transition-all duration-300 ease-out hover:shadow-2xl hover:-translate-y-1 active:scale-95 w-full sm:w-auto"
-                          style={{ backgroundColor: '#0d1d30' }}
-                        >
-                          <div className="absolute inset-0 bg-gradient-to-r from-gray-800 to-gray-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                          <span className="relative z-10">Book Now</span>
-                        </button>
+                        {!destination.isCompleted ? (
+                          <Link
+                            href={`/live/${destination.id}#book`}
+                            className="group relative overflow-hidden text-white px-8 py-3 rounded-xl font-semibold transition-all duration-300 ease-out hover:shadow-2xl hover:-translate-y-1 active:scale-95 w-full sm:w-auto text-center"
+                            style={{ backgroundColor: '#0d1d30' }}
+                          >
+                            <div className="absolute inset-0 bg-gradient-to-r from-gray-800 to-gray-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                            <span className="relative z-10">Book Now</span>
+                          </Link>
+                        ) : (
+                          <button
+                            disabled
+                            className="text-white px-8 py-3 rounded-xl font-semibold w-full sm:w-auto cursor-not-allowed"
+                            style={{ backgroundColor: 'rgba(34, 197, 94, 0.7)' }}
+                          >
+                            ✓ Completed
+                          </button>
+                        )}
                       </div>
                     </div>
                   </div>
@@ -285,131 +278,7 @@ const LiveNow: React.FC = () => {
           </div>
         </div>
       </section>
-      {/* Booking Modal */}
-      <AnimatePresence>
-        {showBookingModal && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
-            onClick={() => setShowBookingModal(false)}
-          >
-            <motion.div
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              transition={{ duration: 0.3 }}
-              className="bg-white rounded-2xl max-w-md w-full max-h-[90vh] overflow-y-auto"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <div className="p-6">
-                <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-2xl font-bold" style={{ color: '#0d1d30' }}>
-                    Book {selectedDestination?.name}
-                  </h3>
-                  <button
-                    onClick={() => setShowBookingModal(false)}
-                    className="p-2 hover:bg-gray-100 rounded-full transition-colors"
-                  >
-                    <X className="h-5 w-5" />
-                  </button>
-                </div>
-                <div className="mb-4 p-4 rounded-lg" style={{ backgroundColor: '#F5F5DC' }}>
-                  <div className="flex items-center justify-between text-sm">
-                    <span>Available Slots:</span>
-                    <span className="font-semibold" style={{ color: '#FF8F00' }}>
-                      {selectedDestination?.availableSlots} left
-                    </span>
-                  </div>
-                  <div className="flex items-center justify-between text-sm mt-1">
-                    <span>Price:</span>
-                    <span className="font-semibold" style={{ color: '#FF8F00' }}>
-                      ₹{selectedDestination?.price} per person
-                    </span>
-                  </div>
-                </div>
-                <form onSubmit={handleSubmit} className="space-y-4">
-                  <div>
-                    <label className="block text-sm font-medium mb-2" style={{ color: '#0d1d30' }}>
-                      Full Name *
-                    </label>
-                    <div className="relative">
-                      <User className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
-                      <input
-                        type="text"
-                        name="name"
-                        value={formData.name}
-                        onChange={handleInputChange}
-                        required
-                        className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-800"
-                        placeholder="Enter your full name"
-                      />
-                    </div>
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium mb-2" style={{ color: '#0d1d30' }}>
-                      Email Address *
-                    </label>
-                    <div className="relative">
-                      <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
-                      <input
-                        type="email"
-                        name="email"
-                        value={formData.email}
-                        onChange={handleInputChange}
-                        required
-                        className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-800"
-                        placeholder="Enter your email"
-                      />
-                    </div>
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium mb-2" style={{ color: '#0d1d30' }}>
-                      Phone Number (Optional)
-                    </label>
-                    <div className="relative">
-                      <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
-                      <input
-                        type="tel"
-                        name="phone"
-                        value={formData.phone}
-                        onChange={handleInputChange}
-                        className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-800"
-                        placeholder="Enter your phone number"
-                      />
-                    </div>
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium mb-2" style={{ color: '#0d1d30' }}>
-                      Gender *
-                    </label>
-                    <select
-                      name="gender"
-                      value={formData.gender}
-                      onChange={handleInputChange}
-                      required
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-800"
-                    >
-                      <option value="">Select gender</option>
-                      <option value="male">Male</option>
-                      <option value="female">Female</option>
-                      <option value="other">Other</option>
-                    </select>
-                  </div>
-                  <button
-                    type="submit"
-                    className="flex-1 px-4 py-3 text-white rounded-lg font-semibold transition-all duration-300 hover:opacity-90"
-                    style={{ backgroundColor: '#FF8F00' }}
-                  >
-                    Submit Booking
-                  </button>
-                </form>
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+
     </>
   );
 };

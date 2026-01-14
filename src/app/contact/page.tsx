@@ -25,15 +25,26 @@ export default function ContactPage() {
     e.preventDefault();
     setSubmitting(true); setStatus('idle');
     try {
-      const res = await fetch('/api/contact', {
+      const payload = {
+        access_key: "9b6fc574-383f-41f1-8523-3368b0857eed",
+        name: form.name,
+        email: form.email,
+        subject: form.subject,
+        message: form.message
+      };
+      const res = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form)
+        body: JSON.stringify(payload)
       });
-      if (!res.ok) throw new Error('Failed');
-      setStatus('success');
-      setForm({ name: '', email: '', subject: '', message: '' });
-  } catch {
+      const data = await res.json();
+      if (data.success) {
+        setStatus('success');
+        setForm({ name: '', email: '', subject: '', message: '' });
+      } else {
+        setStatus('error');
+      }
+    } catch {
       setStatus('error');
     } finally {
       setSubmitting(false);
@@ -136,7 +147,7 @@ export default function ContactPage() {
                 <span className="flex items-center text-green-600 text-sm font-medium"><CheckCircle2 className="h-5 w-5 mr-1" /> Sent! We&apos;ll reply soon.</span>
               )}
               {status === 'error' && (
-                <span className="flex items-center text-red-600 text-sm font-medium"><AlertCircle className="h-5 w-5 mr-1" /> Something went wrong.</span>
+                <span className="flex items-center text-red-600 text-sm font-medium"><AlertCircle className="h-5 w-5 mr-1" /> Something went wrong. Please try again.</span>
               )}
             </div>
             <p className="text-xs text-gray-500">By submitting you consent to our storing your details for the purpose of responding to your inquiry. We never sell personal data.</p>

@@ -80,6 +80,7 @@ export interface LiveDestination {
   startDate: string;
   endDate: string;
   isLive: boolean;
+  isCompleted?: boolean;
   detailedDescription?: string;
   gallery?: string[];
   itinerary?: LiveDestinationItineraryItem[];
@@ -1042,6 +1043,123 @@ export const galleryImages: GalleryImage[] = [
 export const liveDestinations: LiveDestination[] = [
   {
     id: 'live-1',
+    name: 'North ABC Trek',
+    country: 'Nepal',
+    region: 'South Asia',
+    type: 'adventure',
+    description: 'An exciting 4-day adventure trek combining jeep rides and trekking to reach the pristine Pancha Kunda Lake with stunning Himalayan views and Base Camp exploration.',
+    detailedDescription: 'The North ABC Trek is a perfect blend of jeep travel and trekking, taking you through remote villages and pristine mountain landscapes. Starting from Pokhara, you\'ll journey through Beni and Humkhola before reaching the beautiful Pancha Kunda Lake. This trek offers unobstructed views of the Himalayan peaks, a visit to the strategic Base Camp, and authentic homestay experiences in mountain villages. The trek is ideal for adventure enthusiasts seeking a less crowded alternative with maximum scenic beauty.',
+    image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
+    gallery: [
+      '/images/abc/northabc.jpg',
+      '/images/abc/northabc2.jpg',
+      '/images/abc/northabc3.jpg',
+      '/images/abc/northabc4.jpg',
+    ],
+    rating: 4.7,
+    price: 15000 ,
+    duration: '4 Days 3 Nights',
+    highlights: [
+      'Pancha Kunda Lake views',
+      'Base Camp exploration',
+      'Mountain village homestays',
+      'Himalayan panorama',
+      'Jeep + Trek combination',
+      'Authentic cultural experience'
+    ],
+    altitude: '4,150m (13,615ft)',
+    difficulty: 'Moderate',
+    bestTime: 'March-May, September-November',
+    availableSlots: 12,
+    totalSlots: 20,
+    startDate: '2026-04-03',
+    endDate: '2026-04-06',
+    isLive: true,
+    itinerary: [
+      {
+        day: 1,
+        title: 'Pokhara → Beni → Humkhola → Sadi Kharka',
+        activities: [
+          '9:00–10:00 AM: Depart from Pokhara by jeep',
+          '2:00–3:00 PM: Reach Beni – Lunch at Beni',
+          '3:00–6:30 PM: Jeep journey from Beni to Humkhola (rough mountain road)',
+          '6:30–8:30 PM: Start 2-hour trek from Humkhola to Sadi Kharka',
+          '8:30–9:00 PM: Reach Sadi Kharka'
+        ],
+        accommodation: 'Homestay / Tent at Sadi Kharka',
+        meals: ['Lunch', 'Dinner']
+      },
+      {
+        day: 2,
+        title: 'Sadi Kharka → Busket Mela → Pancha Kunda Lake',
+        activities: [
+          '8:00 AM: Breakfast at Sadi Kharka',
+          '8:30–10:30 AM: Trek (~2 hrs) to Busket Mela',
+          '10:30–11:30 AM: Lunch at Busket Mela',
+          '12:00–4:30 PM: Trek (3–4 hrs) to Pancha Kunda Lake',
+          'Evening: Explore lake surroundings and relax'
+        ],
+        accommodation: 'Camping near Pancha Kunda Lake',
+        meals: ['Breakfast', 'Lunch', 'Dinner']
+      },
+      {
+        day: 3,
+        title: 'Pancha Kunda Lake → Base Camp → Sadi Kharka',
+        activities: [
+          '7:00 AM: Breakfast at Pancha Kunda Lake',
+          '7:30–8:15 AM: Trek (~40 min) to Base Camp',
+          '8:15–9:30 AM: Explore Base Camp, photography, rest',
+          '9:30–10:15 AM: Return to Pancha Kunda Lake',
+          '10:30 AM–12:30 PM: Trek down to Busket Mela',
+          '12:30–1:30 PM: Lunch at Busket Mela',
+          '1:30–5:30 PM: Trek (~4 hrs) down to Sadi Kharka'
+        ],
+        accommodation: 'Homestay / Tent at Sadi Kharka',
+        meals: ['Breakfast', 'Lunch', 'Dinner']
+      },
+      {
+        day: 4,
+        title: 'Sadi Kharka → Humkhola → Beni → Pokhara',
+        activities: [
+          '7:30 AM: Breakfast at Sadi Kharka',
+          '8:00–10:00 AM: Trek (~2 hrs) down to Humkhola',
+          '10:00 AM–2:00 PM: Jeep ride from Humkhola to Beni',
+          '2:00–3:00 PM: Lunch at Beni',
+          '3:00–8:00 PM: Drive back to Pokhara',
+          'Night: Arrive in Pokhara – trek completes'
+        ],
+        accommodation: 'End of trek',
+        meals: ['Breakfast', 'Lunch']
+      }
+    ],
+    included: [
+      'All accommodation during trek',
+      'All meals (breakfast, lunch, dinner)',
+      'Jeep transportation from Pokhara',
+      'Professional trekking guide',
+      'Trek permits and fees',
+      'First aid kit and safety equipment',
+      'Trekking poles (if needed)'
+    ],
+    excluded: [
+      'Travel to Pokhara',
+      'Personal trekking equipment',
+      'Tips for guides and porters',
+      'Personal drinks and snacks',
+      'Travel insurance'
+    ],
+    meetingPoint: 'Hotel in Pokhara – 8:00 AM',
+    requirements: [
+      'Moderate to good fitness level',
+      'Comfortable with 3-4 hours of trekking daily',
+      'Waterproof jacket and rain gear',
+      'Warm layers for early mornings',
+      'Trekking boots and comfortable shoes',
+      'Headlamp/flashlight mandatory for Day 1'
+    ]
+  },
+  {
+    id: 'live-2',
     name: 'Khumai Danda',
     country: 'Nepal',
     region: 'South Asia',
@@ -1050,6 +1168,7 @@ export const liveDestinations: LiveDestination[] = [
     detailedDescription: 'Khumai Danda, situated at an altitude of 3,245 meters, is one of Nepal\'s best-kept secrets for mountain enthusiasts. This spectacular viewpoint offers unobstructed views of eight of the world\'s highest peaks, including Mount Everest, Lhotse, Makalu, and Cho Oyu. The trek combines moderate hiking through pristine rhododendron forests with authentic cultural experiences in traditional Sherpa villages. Unlike the crowded trails to Everest Base Camp, Khumai Danda offers solitude and tranquility while providing equally stunning mountain vistas.',
     image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
     gallery: [
+      '/images/khumai/completion-journey.svg',
       '/images/khumai/Khumai_1.svg',
       '/images/khumai/Khumai_2.svg',
       '/images/khumai/Khumai_3.svg',
@@ -1078,6 +1197,7 @@ export const liveDestinations: LiveDestination[] = [
     startDate: '2025-10-06',
     endDate: '2025-10-11',
     isLive: true,
+    isCompleted: true,
     itinerary: [
       {
         day: 1,
@@ -1185,3 +1305,4 @@ export const liveDestinations: LiveDestination[] = [
     ]
   }
 ];
+

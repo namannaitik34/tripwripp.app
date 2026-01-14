@@ -4,7 +4,7 @@ import { rateLimit } from '@/lib/rateLimiter';
 import fs from 'fs/promises';
 import path from 'path';
 
-// Define validation schema for booking
+// Web booking form (regular packages/destinations)
 const bookingFormSchema = z.object({
   fullName: z.string().min(2, { message: 'Full name must be at least 2 characters.' }),
   email: z.string().email({ message: 'Please enter a valid email address.' }),
@@ -18,13 +18,14 @@ const bookingFormSchema = z.object({
   specialRequests: z.string().optional(),
 });
 
-const bookingSchema = z.object({
-  destinationId: z.string().min(1),
-  name: z.string().min(2).max(80),
-  email: z.string().email(),
+// Live trek booking form (North ABC, Khumai, etc.)
+const liveBookingSchema = z.object({
+  destinationId: z.string().min(1, { message: 'Destination is required.' }),
+  name: z.string().min(2, { message: 'Name must be at least 2 characters.' }).max(80),
+  email: z.string().email({ message: 'Please enter a valid email address.' }),
   phone: z.string().optional(),
-  gender: z.string().min(1),
-  ageRange: z.string().min(1)
+  gender: z.string().min(1, { message: 'Gender is required.' }),
+  ageRange: z.string().min(1, { message: 'Age range is required.' })
 });
 
 const dataDir = path.join(process.cwd(), '.data');
@@ -69,17 +70,20 @@ export async function POST(req: Request) {
     const body = await req.json();
     console.log('Request body:', body);
 
-    // Validate the data
-    const result = bookingFormSchema.safeParse(body);
+    // Try regular booking schema first
+    const regularResult = bookingFormSchema.safeParse(body);
+    const liveResult = !regularResult.success ? liveBookingSchema.safeParse(body) : null;
 
-    if (!result.success) {
-      console.log('Validation errors:', result.error.flatten().fieldErrors);
-      // Return validation errors
+    if (!regularResult.success && (!liveResult || !liveResult.success)) {
+      const errors = regularResult.success ? {} : regularResult.error.flatten().fieldErrors;
+      const liveErrors = liveResult && !liveResult.success ? liveResult.error.flatten().fieldErrors : {};
+      const mergedErrors = { ...errors, ...liveErrors };
+      console.log('Validation errors:', mergedErrors);
       return NextResponse.json(
         {
           success: false,
           message: 'Validation failed',
-          errors: result.error.flatten().fieldErrors
+          errors: mergedErrors
         },
         { 
           status: 400,
@@ -93,37 +97,51 @@ export async function POST(req: Request) {
       );
     }
 
-    const { fullName, email, phone, destination, travelDate, adults, children, specialRequests } = result.data;
+    // Regular web booking flow
+    if (regularResult.success) {
+      const { fullName, email, phone, destination, travelDate, adults, children, specialRequests } = regularResult.data;
+      console.log('Booking request (regular):', { fullName, email, phone, destination, travelDate, adults, children, specialRequests });
 
-    // Log the booking request (in a real app, you'd save to a database)
-    console.log('Booking request:', { 
-      fullName, 
-      email, 
-      phone, 
-      destination, 
-      travelDate, 
-      adults, 
-      children, 
-      specialRequests 
-    });
-
-    // Simulate successful booking
-    return NextResponse.json(
-      { 
-        success: true, 
-        message: "Your booking request has been received! We'll contact you soon to confirm details.",
-        bookingId: `BK-${Date.now().toString().slice(-8)}`
-      },
-      {
-        status: 200,
-        headers: {
-          'Access-Control-Allow-Origin': origin,
-          'Access-Control-Allow-Methods': 'POST, OPTIONS',
-          'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-          'Access-Control-Allow-Credentials': 'true'
+      return NextResponse.json(
+        { 
+          success: true, 
+          message: "Your booking request has been received! We'll contact you soon to confirm details.",
+          bookingId: `BK-${Date.now().toString().slice(-8)}`
+        },
+        {
+          status: 200,
+          headers: {
+            'Access-Control-Allow-Origin': origin,
+            'Access-Control-Allow-Methods': 'POST, OPTIONS',
+            'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+            'Access-Control-Allow-Credentials': 'true'
+          }
         }
-      }
-    );
+      );
+    }
+
+    // Live trek booking flow (North ABC, Khumai, etc.)
+    if (liveResult && liveResult.success) {
+      const { destinationId, name, email, phone, gender, ageRange } = liveResult.data;
+      console.log('Booking request (live):', { destinationId, name, email, phone, gender, ageRange });
+
+      return NextResponse.json(
+        {
+          success: true,
+          message: "Your booking request has been received! We'll contact you soon to confirm details.",
+          bookingId: `BK-${Date.now().toString().slice(-8)}`
+        },
+        {
+          status: 200,
+          headers: {
+            'Access-Control-Allow-Origin': origin,
+            'Access-Control-Allow-Methods': 'POST, OPTIONS',
+            'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+            'Access-Control-Allow-Credentials': 'true'
+          }
+        }
+      );
+    }
   } catch (error) {
     console.error('Booking form error:', error);
 
