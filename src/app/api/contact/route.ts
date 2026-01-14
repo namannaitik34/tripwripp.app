@@ -12,6 +12,11 @@ const contactFormSchema = z.object({
 
 export async function POST(req: Request) {
   try {
+    // Get API key from environment
+    const apiKey = process.env.CONTACT_BOOKING_API_KEY;
+    if (!apiKey) {
+      return NextResponse.json({ success: false, message: 'API key not configured.' }, { status: 500 });
+    }
     // Enable CORS
     const origin = req.headers.get('origin') || '';
 
@@ -35,23 +40,42 @@ export async function POST(req: Request) {
 
     const { fullName, email, subject, message } = result.data;
 
-    // Here you would normally store the data in a database or send an email
-    // For now, we'll just log it and return success
-    console.log('Contact form submission:', { fullName, email, subject, message });
+    // Send contact details to Web3Forms
+    const web3formsRes = await fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        access_key: apiKey,
+        name: fullName,
+        email,
+        subject,
+        message
+      })
+    });
 
-    // Simulate successful submission
-    return NextResponse.json(
-      { success: true, message: "Your message has been received. We'll get back to you soon!" },
-      {
-        status: 200,
-        headers: {
-          'Access-Control-Allow-Origin': origin,
-          'Access-Control-Allow-Methods': 'POST, OPTIONS',
-          'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-          'Access-Control-Allow-Credentials': 'true'
+    const web3formsData = await web3formsRes.json();
+
+    if (web3formsRes.ok && web3formsData.success) {
+      return NextResponse.json(
+        { success: true, message: "Your message has been received. We'll get back to you soon!" },
+        {
+          status: 200,
+          headers: {
+            'Access-Control-Allow-Origin': origin,
+            'Access-Control-Allow-Methods': 'POST, OPTIONS',
+            'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+            'Access-Control-Allow-Credentials': 'true'
+          }
         }
-      }
-    );
+      );
+    } else {
+      return NextResponse.json(
+        { success: false, message: 'Failed to send message. Please try again later.' },
+        { status: 500 }
+      );
+    }
   } catch (error) {
     console.error('Contact form error:', error);
 
