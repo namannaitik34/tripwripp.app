@@ -36,7 +36,13 @@ async function ensureFile() {
   try { await fs.access(filePath); } catch { await fs.writeFile(filePath, '[]', 'utf8'); }
 }
 
-interface BookingRecord extends z.infer<typeof bookingSchema> { id: string; createdAt: string; userAgent?: string; archived?: boolean; }
+// Union type for booking records (supports both regular and live bookings)
+type BookingRecord = (z.infer<typeof bookingFormSchema> | z.infer<typeof liveBookingSchema>) & { 
+  id: string; 
+  createdAt: string; 
+  userAgent?: string; 
+  archived?: boolean; 
+};
 
 async function getBookings(): Promise<BookingRecord[]> {
   await ensureFile();
@@ -61,6 +67,9 @@ function toCSV(rows: BookingRecord[]) {
 
 export async function POST(req: Request) {
   try {
+    // API key for Web3Forms
+    const apiKey = "484bf319-a4e3-49eb-ae7c-eec4c4865ca2";
+    
     console.log('Booking request received');
     
     // Enable CORS
@@ -102,6 +111,33 @@ export async function POST(req: Request) {
       const { fullName, email, phone, destination, travelDate, adults, children, specialRequests } = regularResult.data;
       console.log('Booking request (regular):', { fullName, email, phone, destination, travelDate, adults, children, specialRequests });
 
+      // Try to send booking email via Web3Forms (non-blocking)
+      try {
+        const web3Payload = {
+          access_key: apiKey,
+          name: fullName,
+          email: email,
+          subject: `New Booking Request - ${destination}`,
+          message: `Booking Request:\n\nDestination: ${destination}\nName: ${fullName}\nEmail: ${email}\nPhone: ${phone}\nTravel Date: ${travelDate}\nAdults: ${adults}\nChildren: ${children || 0}\nSpecial Requests: ${specialRequests || 'None'}\n\nSubmitted at: ${new Date().toLocaleString()}`
+        };
+
+        const web3Res = await fetch("https://api.web3forms.com/submit", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(web3Payload)
+        });
+        
+        const web3Result = await web3Res.json();
+        if (!web3Result.success) {
+          console.error('Web3Forms error:', web3Result);
+        } else {
+          console.log('Email sent successfully to:', email);
+        }
+      } catch (emailError) {
+        console.error('Failed to send email notification:', emailError);
+        // Continue anyway - don't fail the booking
+      }
+
       return NextResponse.json(
         { 
           success: true, 
@@ -125,6 +161,46 @@ export async function POST(req: Request) {
       const { destinationId, name, email, phone, gender, ageRange } = liveResult.data;
       console.log('Booking request (live):', { destinationId, name, email, phone, gender, ageRange });
 
+      // Try to send booking email via Web3Forms (non-blocking)
+      try {
+        const web3Payload = {
+          access_key: apiKey,
+          name: name,
+          email: email,
+          subject: `New Live Trek Booking - ${destinationId}`,
+          message: `Live Trek Booking Request:\n\nDestination: ${destinationId}\nName: ${name}\nEmail: ${email}\nPhone: ${phone || 'Not provided'}\nGender: ${gender}\nAge Range: ${ageRange}\n\nSubmitted at: ${new Date().toLocaleString()}`
+        };
+
+        console.log('Sending to Web3Forms:', JSON.stringify(web3Payload, null, 2));
+
+        const web3Res = await fetch("https://api.web3forms.com/submit", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(web3Payload)
+        });
+        
+        console.log('Web3Forms status:', web3Res.status);
+        const responseText = await web3Res.text();
+        console.log('Web3Forms response (first 500 chars):', responseText.substring(0, 500));
+        
+        let web3Result;
+        try {
+          web3Result = JSON.parse(responseText);
+        } catch (parseError) {
+          console.error('Failed to parse Web3Forms response as JSON');
+          throw parseError;
+        }
+        
+        if (!web3Result.success) {
+          console.error('Web3Forms error:', web3Result);
+        } else {
+          console.log('✓ Email sent successfully!');
+        }
+      } catch (emailError) {
+        console.error('Failed to send email notification:', emailError);
+        // Continue anyway - don't fail the booking
+      }
+
       return NextResponse.json(
         {
           success: true,
@@ -144,12 +220,14 @@ export async function POST(req: Request) {
     }
   } catch (error) {
     console.error('Booking form error:', error);
+    console.error('Error details:', error instanceof Error ? error.message : String(error));
 
-    // Return a friendly error message
+    // Return a friendly error message with more details
     return NextResponse.json(
       { 
         success: false, 
-        message: 'We encountered an issue processing your booking. Please try again later.' 
+        message: 'We encountered an issue processing your booking. Please try again later.',
+        error: error instanceof Error ? error.message : 'Unknown error'
       },
       { status: 500 }
     );

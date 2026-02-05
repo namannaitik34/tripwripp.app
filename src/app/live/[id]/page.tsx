@@ -121,6 +121,9 @@ const LiveDestinationPage = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!destination) return;
+    
+    console.log('Submitting form data:', { destinationId: destination.id, ...formData });
+    
     try {
       const res = await fetch('/api/bookings', {
         method: 'POST',
@@ -130,11 +133,20 @@ const LiveDestinationPage = () => {
         },
         body: JSON.stringify({ destinationId: destination.id, ...formData })
       });
-      if (!res.ok) throw new Error('Failed');
-      alert('Booking request submitted successfully!');
+      
+      const data = await res.json();
+      console.log('API response:', data);
+      
+      if (!res.ok) {
+        alert(data.message || 'Failed to submit booking. Please try again.');
+        return;
+      }
+      
+      alert('Booking request submitted successfully! We will contact you soon.');
       setFormData({ name: '', email: '', phone: '', gender: '', ageRange: '' });
-    } catch {
-      alert('Submission failed. Please retry.');
+    } catch (error) {
+      console.error('Submission error:', error);
+      alert('Submission failed. Please check your internet connection and try again.');
     }
   };
 
